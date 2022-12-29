@@ -49,7 +49,6 @@
 		$addr_assignments = get_pubkeys_of_servers($servers, $pubkeys);
 		$addr_assignments = reduce_addresses_of_pubkeys($addr_assignments);
 		$room_assignments = assign_rooms_to_address_assignments($addr_assignments, $rooms);
-//		print_r($room_assignments);
 
 		$final_join_links = generate_join_links($room_assignments);
 
@@ -65,7 +64,7 @@
 
 		$table_html = get_table_html($room_assignments);
 		$final_html = create_html_page_from_table($table_html, "Session Communities");
-		echo($final_html);
+		//echo($final_html);
 	}
 
 	/*
@@ -539,8 +538,8 @@
 		}
 
 		// sorting that keeps index association, sort by index
-		ksort($ordered_table_elements); //TODO: own sort that is case insensitive
-//		print_r($ordered_table_elements);
+		ksort($ordered_table_elements, SORT_STRING | SORT_FLAG_CASE); //TODO: own sort that is case insensitive
+		print_r($ordered_table_elements);
 
 		$table_lines = array();
 		foreach($ordered_table_elements as $id => $content) {
