@@ -586,6 +586,7 @@
 			"<!DOCTYPE html>" . PHP_EOL .
 			"<html lang=\"en\">" . PHP_EOL .
 			"	<head>" . PHP_EOL .
+			"		<link rel=\"stylesheet\" href=\"styles.css\">" . PHP_EOL .
 			"		<title>" . $title . "</title>" . PHP_EOL .
 			"	</head>" . PHP_EOL .
 			"	<body>" . PHP_EOL;
