@@ -30,6 +30,9 @@
 		"open.getsession.org" => "a03c383cf63c3c4efe67acc52112a6dd734b3a946b9545f488aaa93da7991238"
 	);
 
+	// path for HTML output
+	$output = "output/index.php";
+
 
 	// run main function
 	main();
@@ -64,7 +67,10 @@
 
 		$table_html = get_table_html($room_assignments);
 		$final_html = create_html_page_from_table($table_html, "Session Communities");
-		//echo($final_html);
+
+		// write output to disk
+		global $output;
+		file_put_contents($output, $final_html); // overwrites existing file
 	}
 
 	/*
@@ -539,7 +545,7 @@
 
 		// sorting that keeps index association, sort by index
 		ksort($ordered_table_elements, SORT_STRING | SORT_FLAG_CASE);
-		print_r($ordered_table_elements);
+//		print_r($ordered_table_elements);
 
 		$table_lines = array();
 		foreach($ordered_table_elements as $id => $content) {
