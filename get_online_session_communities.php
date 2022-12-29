@@ -11,10 +11,10 @@
 	error_reporting(E_ALL & ~E_WARNING);
 
 	// regex that matches room join links like http://1.2.3.4:56789/token?public_key=0123456789abcdef
-	$room_join_regex = "/https?:\/\/.+\?public_key=[0-9a-f]+/" ; //TODO: How long can a public key be?
+	$room_join_regex = "/https?:\/\/.+\?public_key=[0-9a-f]+/" ; //TODO: How long can a public key be? Most likely exactly 64 chars long
 
 	// room token regex part
-	$room_token_regex_part = "[0-9A-Za-z]+"; //TODO: actually correct? Most likely exactly 64 chars long
+	$room_token_regex_part = "[0-9A-Za-z]+"; //TODO: actually correct?
 
 	/*
 	 * Some servers don't appear in the wild yet, but can be queried
