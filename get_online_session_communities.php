@@ -577,7 +577,7 @@
 				"		<td>" . $content["description"] . "</td>" . PHP_EOL .
 				"		<td>" . $content["active_users"] . "</td>" . PHP_EOL .
 				"		<td><a href=\"" . $preview_link . "\">" . $preview_link . "</a></td>" . PHP_EOL .
-				"		<td>" . $join_link . "</td>" . PHP_EOL .
+				"		<td>" . substr($join_link, 0, 32) . "...<button>Copy</button></td>" . PHP_EOL .
 				"	</tr>" . PHP_EOL;
 			$table_lines[] = $line;
 		}

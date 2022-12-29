@@ -2,4 +2,7 @@
 /output/index.php
 
 # Kate
-.*.kate-swp
+*.kate-swp
+
+# Debug HTML
+*.html
