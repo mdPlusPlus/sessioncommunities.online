@@ -66,7 +66,7 @@
 		//TODO: What about room view links?
 
 		$table_html = get_table_html($room_assignments);
-		$final_html = create_html_page_from_table($table_html, "Session Communities");
+		$final_html = create_html_page_from_table($table_html, "Self-updating list of active Session Communities");
 
 		// write output to disk
 		global $output;
@@ -227,6 +227,7 @@
 			return true;
 		}
 		else {
+//			echo($url . " is " . $retcode . PHP_EOL);
 			return false;
 		}
 	}
@@ -549,13 +550,34 @@
 
 		$table_lines = array();
 		foreach($ordered_table_elements as $id => $content) {
+			// https://1.2.3.4:56789/token?public_key=0123456789abcdef
+			$join_link = $content["join_link"];
+
+			// get preview links
+			$exploded = explode("/", $join_link); // https: + "" + 1.2.3.4:56789 + token?public_key=0123456789abcdef
+			$server = $exploded[0] . "//" . $exploded[2];
+			$token  = explode("?", $exploded[3])[0];
+			$preview_link     = $server . "/r/" . $token . "/";
+			$preview_link_alt = $server . "/view/room/" . $token;
+
+			// test if preview_links are 404
+			if(!url_is_reachable($preview_link)) {
+				if(!url_is_reachable($preview_link_alt)) {
+					$preview_link = null; // $preview_link and $preview_link_alt not reachable
+				}
+				else {
+					$preview_link = $preview_link_alt; // $preview_link_alt reachable
+				}
+			}
+
 			$line =
 				"	<tr>" . PHP_EOL .
 				"		<td>" . $id . "</td>" . PHP_EOL .
 				"		<td>" . $content["name"] . "</td>" . PHP_EOL .
 				"		<td>" . $content["description"] . "</td>" . PHP_EOL .
 				"		<td>" . $content["active_users"] . "</td>" . PHP_EOL .
-				"		<td><a href=\"" . $content["join_link"] . "\">" . $content["join_link"] . "</a></td>" . PHP_EOL .
+				"		<td><a href=\"" . $preview_link . "\">" . $preview_link . "</a></td>" . PHP_EOL .
+				"		<td>" . $join_link . "</td>" . PHP_EOL .
 				"	</tr>" . PHP_EOL;
 			$table_lines[] = $line;
 		}
@@ -568,14 +590,15 @@
 			"		<th>Name</th>" . PHP_EOL .
 			"		<th>Description</th>" . PHP_EOL .
 			"		<th>Users</th>" . PHP_EOL .
+			"		<th>Preview</th>" . PHP_EOL .
 			"		<th>Join URL</th>" . PHP_EOL .
 			"	</tr>" . PHP_EOL;
 
 		// suffix
-		// span over 5 columns (id, name, description, users, link)
+		// span over 5 columns (id, name, description, users, preview, join link)
 		$suffix =
 			"	<tr>" . PHP_EOL .
-			"		<td colspan=\"5\">" . count($table_lines) . " unique Session Communities have been found.</td>" . PHP_EOL .
+			"		<td colspan=\"6\">" . count($table_lines) . " unique Session Communities have been found.</td>" . PHP_EOL .
 			"	</tr>" . PHP_EOL .
 			"</table>" . PHP_EOL;
 
@@ -597,7 +620,8 @@
 			"<!DOCTYPE html>" . PHP_EOL .
 			"<html lang=\"en\">" . PHP_EOL .
 			"	<head>" . PHP_EOL .
-			"		<link rel=\"stylesheet\" href=\"styles.css\">" . PHP_EOL .
+			"		<link rel=\"stylesheet\" href=\"styles.css\" />" . PHP_EOL .
+			"		<script src=\"script.js\" defer></script>" . PHP_EOL .
 			"		<title>" . $title . "</title>" . PHP_EOL .
 			"	</head>" . PHP_EOL .
 			"	<body>" . PHP_EOL;
