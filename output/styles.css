@@ -1,0 +1,9 @@
+#tbl_communities { width:100%; }
+
+#th_identifier   { width:11%; }
+#th_name         { width:11%; }
+#th_description  {  }
+#th_users        {  }
+.td_users        { text-align: right; }
+#th_preview      { width:20%; }
+#th_join_url     { width:19%; }

@@ -575,7 +575,7 @@
 				"		<td>" . $id . "</td>" . PHP_EOL .
 				"		<td>" . $content["name"] . "</td>" . PHP_EOL .
 				"		<td>" . $content["description"] . "</td>" . PHP_EOL .
-				"		<td>" . $content["active_users"] . "</td>" . PHP_EOL .
+				"		<td class=\"td_users\">" . $content["active_users"] . "</td>" . PHP_EOL .
 				"		<td><a href=\"" . $preview_link . "\">" . $preview_link . "</a></td>" . PHP_EOL .
 				"		<td>" . substr($join_link, 0, 32) . "...<button>Copy</button></td>" . PHP_EOL .
 				"	</tr>" . PHP_EOL;
@@ -584,14 +584,14 @@
 
 		// prefix
 		$prefix =
-			"<table>" . PHP_EOL .
+			"<table id=\"tbl_communities\">" . PHP_EOL .
 			"	<tr>" . PHP_EOL .
-			"		<th>Identifier</th>" . PHP_EOL .
-			"		<th>Name</th>" . PHP_EOL .
-			"		<th>Description</th>" . PHP_EOL .
-			"		<th>Users</th>" . PHP_EOL .
-			"		<th>Preview</th>" . PHP_EOL .
-			"		<th>Join URL</th>" . PHP_EOL .
+			"		<th id=\"th_identifier\">Identifier</th>" . PHP_EOL .
+			"		<th id=\"th_name\">Name</th>" . PHP_EOL .
+			"		<th id=\"th_description\">Description</th>" . PHP_EOL .
+			"		<th id=\"th_users\">Users</th>" . PHP_EOL .
+			"		<th id=\"th_preview\">Preview</th>" . PHP_EOL .
+			"		<th id=\"th_join_url\">Join URL</th>" . PHP_EOL .
 			"	</tr>" . PHP_EOL;
 
 		// suffix
@@ -620,7 +620,8 @@
 			"<!DOCTYPE html>" . PHP_EOL .
 			"<html lang=\"en\">" . PHP_EOL .
 			"	<head>" . PHP_EOL .
-			"		<link rel=\"stylesheet\" href=\"styles.css\" />" . PHP_EOL .
+			"		<link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\" sizes=\"any\">" . PHP_EOL .
+			"		<link rel=\"stylesheet\" href=\"styles.css\">" . PHP_EOL .
 			"		<script src=\"script.js\" defer></script>" . PHP_EOL .
 			"		<title>" . $title . "</title>" . PHP_EOL .
 			"	</head>" . PHP_EOL .
