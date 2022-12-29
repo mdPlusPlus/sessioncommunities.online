@@ -61,7 +61,7 @@
 //		print_r($room_assignments); //TODO: We also assigned empty room arrays. Should probably be fixed
 
 //		print_r($final_join_links);
-		echo(count($final_join_links) . " unique Session Communities have been found." . PHP_EOL);
+//		echo(count($final_join_links) . " unique Session Communities have been found." . PHP_EOL);
 
 		//TODO: What about room view links?
 
@@ -572,7 +572,12 @@
 			"	</tr>" . PHP_EOL;
 
 		// suffix
-		$suffix = "</table>" . PHP_EOL;
+		// span over 5 columns (id, name, description, users, link)
+		$suffix =
+			"	<tr>" . PHP_EOL .
+			"		<td colspan=\"5\">" . count($table_lines) . " unique Session Communities have been found.</td>" . PHP_EOL .
+			"	</tr>" . PHP_EOL .
+			"</table>" . PHP_EOL;
 
 		// concatenate html
 		$html = $prefix;
