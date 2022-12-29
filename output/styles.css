@@ -1,9 +1,16 @@
+#headline        { text-align: center; }
+
 #tbl_communities { width:100%; }
 
-#th_identifier   { width:11%; }
-#th_name         { width:11%; }
+#th_identifier   { width:8%; }
+.td_identifier   { font-family: monospace; }
+#th_name         { width:14%; }
 #th_description  {  }
 #th_users        {  }
 .td_users        { text-align: right; }
 #th_preview      { width:20%; }
-#th_join_url     { width:19%; }
+#th_join_url     { width:18%; }
+.td_join_url     { font-family: monospace; }
+
+#td_summary      { text-align: center; }
+#td_last_checked { text-align: center; }

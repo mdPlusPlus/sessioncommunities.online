@@ -570,20 +570,27 @@
 				}
 			}
 
+			// test if active_users is valid
+			$active_users = $content["active_users"];
+			if($active_users == -1) {
+				$active_users = "N/A";
+			}
+
 			$line =
 				"	<tr>" . PHP_EOL .
-				"		<td>" . $id . "</td>" . PHP_EOL .
+				"		<td class=\"td_identifier\">" . $id . "</td>" . PHP_EOL .
 				"		<td>" . $content["name"] . "</td>" . PHP_EOL .
 				"		<td>" . $content["description"] . "</td>" . PHP_EOL .
-				"		<td class=\"td_users\">" . $content["active_users"] . "</td>" . PHP_EOL .
+				"		<td class=\"td_users\">" . $active_users . "</td>" . PHP_EOL .
 				"		<td><a href=\"" . $preview_link . "\">" . $preview_link . "</a></td>" . PHP_EOL .
-				"		<td>" . substr($join_link, 0, 32) . "...<button>Copy</button></td>" . PHP_EOL .
+				"		<td class=\"td_join_url\">" . substr($join_link, 0, 32) . "...<button>Copy</button></td>" . PHP_EOL .
 				"	</tr>" . PHP_EOL;
 			$table_lines[] = $line;
 		}
 
 		// prefix
 		$prefix =
+			"<h1 id=\"headline\">Session Communities</h1>" . PHP_EOL .
 			"<table id=\"tbl_communities\">" . PHP_EOL .
 			"	<tr>" . PHP_EOL .
 			"		<th id=\"th_identifier\">Identifier</th>" . PHP_EOL .
@@ -595,10 +602,14 @@
 			"	</tr>" . PHP_EOL;
 
 		// suffix
-		// span over 5 columns (id, name, description, users, preview, join link)
+		// span over 6 columns (id, name, description, users, preview, join link)
+		$span_count = 6;
 		$suffix =
 			"	<tr>" . PHP_EOL .
-			"		<td colspan=\"6\">" . count($table_lines) . " unique Session Communities have been found.</td>" . PHP_EOL .
+			"		<td id=\"td_summary\" colspan=\"" . $span_count . "\">" . count($table_lines) . " unique Session Communities have been found.</td>" . PHP_EOL .
+			"	</tr>" . PHP_EOL .
+			"	<tr>" . PHP_EOL .
+			"		<td id=\"td_last_checked\" colspan=\"" . $span_count . "\">Last checked X minutes ago.</td>" . PHP_EOL .
 			"	</tr>" . PHP_EOL .
 			"</table>" . PHP_EOL;
 
