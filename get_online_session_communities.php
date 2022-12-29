@@ -14,7 +14,7 @@
 	$room_join_regex = "/https?:\/\/.+\?public_key=[0-9a-f]+/" ; //TODO: How long can a public key be?
 
 	// room token regex part
-	$room_token_regex_part = "[0-9A-Za-z]+"; //TODO: actually correct?
+	$room_token_regex_part = "[0-9A-Za-z]+"; //TODO: actually correct? Most likely exactly 64 chars long
 
 	/*
 	 * Some servers don't appear in the wild yet, but can be queried
@@ -213,7 +213,7 @@
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_NOBODY, true);
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-		curl_setopt($ch, CURLOPT_TIMEOUT_MS, 1500);
+		curl_setopt($ch, CURLOPT_TIMEOUT_MS, 1500); // 1500ms or 1.5s
 		curl_exec($ch);
 		$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		curl_close($ch);
@@ -538,7 +538,7 @@
 		}
 
 		// sorting that keeps index association, sort by index
-		ksort($ordered_table_elements, SORT_STRING | SORT_FLAG_CASE); //TODO: own sort that is case insensitive
+		ksort($ordered_table_elements, SORT_STRING | SORT_FLAG_CASE);
 		print_r($ordered_table_elements);
 
 		$table_lines = array();
