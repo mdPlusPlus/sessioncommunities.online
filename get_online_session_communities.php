@@ -572,9 +572,9 @@
 
 			// test if active_users is valid
 			$active_users = $content["active_users"];
-			if($active_users == -1) {
-				$active_users = "N/A";
-			}
+			/*if($active_users == -1) {
+				$active_users = "N/A"; // this breaks sortTable()
+			}*/
 
 			$line =
 				"	<tr>" . PHP_EOL .
