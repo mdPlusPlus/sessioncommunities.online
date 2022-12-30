@@ -5,10 +5,10 @@
 	// some global stuff
 
 	// set timeout for file_get_contents()
-	ini_set('default_socket_timeout', 7); // 7 seconds, default is 60
+	ini_set('default_socket_timeout', 20); // in seconds, default is 60
 
 	// curl timeout is millisecons
-	$curl_timeout_ms = 7000;
+	$curl_timeout_ms = 20000;
 
 	// do not report warnings (timeouts, SSL/TLS errors)
 	error_reporting(E_ALL & ~E_WARNING);
@@ -44,7 +44,7 @@
 		$timestamp = time(); // unix timestamp in seconds
 
 		echo("Running, please wait..." . PHP_EOL);
-		echo("This script will take approximately 3 minutes to run." . PHP_EOL);
+		echo("This script will take approximately 6 minutes to run." . PHP_EOL);
 
 		$html = get_html_from_known_sources();
 		$wild_join_links = extract_join_links_from_html($html);
