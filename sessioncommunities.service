@@ -1,0 +1,7 @@
+# /etc/systemd/system/sessioncommunities.service
+[Unit]
+Description=Scrape every known source for Session Communities and put the data to a NGINX accessible folder
+
+[Service]
+User=session
+ExecStart=/usr/bin/php get_online_session_communities.php

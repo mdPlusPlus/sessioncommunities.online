@@ -1,0 +1,13 @@
+# /etc/systemd/system/sessioncommunities.timer
+[Unit]
+Description=Run get_online_session_communitites.php periodically
+
+[Timer]
+OnBootSec=10min
+OnUnitInactiveSec=45min
+Persistent=true
+User=session
+Unit=sessioncommunities.service
+
+[Install]
+WantedBy=timers.target
