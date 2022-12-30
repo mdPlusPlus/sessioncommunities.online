@@ -5,10 +5,10 @@
 	// some global stuff
 
 	// set timeout for file_get_contents()
-	ini_set('default_socket_timeout', 4); // 4 seconds, default is 60
+	ini_set('default_socket_timeout', 5); // 5 seconds, default is 60
 
 	// curl timeout is millisecons
-	$curl_timeout_ms = 2000;
+	$curl_timeout_ms = 5000;
 
 	// do not report warnings (timeouts, SSL/TLS errors)
 	error_reporting(E_ALL & ~E_WARNING);
@@ -66,7 +66,6 @@
 //		print_r($room_assignments); //TODO: We also assigned empty room arrays. Should probably be fixed
 
 //		print_r($final_join_links);
-//		echo(count($final_join_links) . " unique Session Communities have been found." . PHP_EOL);
 
 		//TODO: What about room view links?
 
@@ -77,7 +76,7 @@
 		// write output to disk
 		global $output;
 		file_put_contents($output, $final_html); // overwrites existing file
-		echo("Done." . PHP_EOL);
+		echo("Done. " .  count($final_join_links) . " unique Session Communities have been found." . PHP_EOL);
 	}
 
 	/*
