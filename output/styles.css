@@ -14,5 +14,7 @@
 
 .copy_button     {  }
 
+#tbl_footer      { width:100%; }
+
 #td_summary      { text-align: center; }
 #td_last_checked { text-align: center; }

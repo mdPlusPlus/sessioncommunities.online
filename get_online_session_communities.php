@@ -595,18 +595,20 @@
 			"<h1 id=\"headline\">Session Communities</h1>" . PHP_EOL .
 			"<table id=\"tbl_communities\">" . PHP_EOL .
 			"	<tr>" . PHP_EOL .
-			"		<th id=\"th_identifier\">Identifier</th>" . PHP_EOL .
-			"		<th id=\"th_name\">Name</th>" . PHP_EOL .
-			"		<th id=\"th_description\">Description</th>" . PHP_EOL .
-			"		<th id=\"th_users\">Users</th>" . PHP_EOL .
-			"		<th id=\"th_preview\">Preview</th>" . PHP_EOL .
-			"		<th id=\"th_join_url\">Join URL</th>" . PHP_EOL .
+			"		<th onclick=\"sortTable(0)\" id=\"th_identifier\">Identifier</th>" . PHP_EOL .
+			"		<th onclick=\"sortTable(1)\" id=\"th_name\">Name</th>" . PHP_EOL .
+			"		<th onclick=\"sortTable(2)\" id=\"th_description\">Description</th>" . PHP_EOL .
+			"		<th onclick=\"sortTable(3)\" id=\"th_users\">Users</th>" . PHP_EOL .
+			"		<th onclick=\"sortTable(4)\" id=\"th_preview\">Preview</th>" . PHP_EOL .
+			"		<th onclick=\"sortTable(5)\" id=\"th_join_url\">Join URL</th>" . PHP_EOL .
 			"	</tr>" . PHP_EOL;
 
 		// suffix
 		// span over 6 columns (id, name, description, users, preview, join link)
 		$span_count = 6;
 		$suffix =
+			"</table>" . PHP_EOL .
+			"<table id=\"tbl_footer\">" . PHP_EOL .
 			"	<tr>" . PHP_EOL .
 			"		<td id=\"td_summary\" colspan=\"" . $span_count . "\">" . count($table_lines) . " unique Session Communities have been found.</td>" . PHP_EOL .
 			"	</tr>" . PHP_EOL .
