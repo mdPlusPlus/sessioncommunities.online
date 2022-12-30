@@ -60,7 +60,7 @@
 
 		$final_join_links = generate_join_links($room_assignments);
 
-		print_r($servers);
+//		print_r($servers);
 //		print_r($rooms);
 //		print_r($addr_assignments);
 //		print_r($room_assignments); //TODO: We also assigned empty room arrays. Should probably be fixed
@@ -77,6 +77,7 @@
 		// write output to disk
 		global $output;
 		file_put_contents($output, $final_html); // overwrites existing file
+		echo("Done." . PHP_EOL);
 	}
 
 	/*
@@ -134,7 +135,8 @@
 		//[106] => http://sog.caliban.org/im?public_key=118df8c6c471ac0468c7c77e1cdc12f24a139ee8a07c6e3bf4e7855640dad821" rel="nofollow">http://sog.caliban.org/im?public_key=118df8c6c471ac0468c7c77e1cdc12f24a139ee8a07c6e3bf4e7855640dad821
 		//TODO: Figure out why the regex does match those
 		foreach($result as &$entry) {
-			if(str_contains($entry, "\"")) {
+//			if(str_contains($entry, "\"")) { // str_contains() requires PHP 8
+			if(strpos($entry, "\"")) {
 				$entry = explode("\"", $entry)[0]; // split on " and take first part
 			}
 		}
