@@ -5,10 +5,10 @@
 	// some global stuff
 
 	// set timeout for file_get_contents()
-	ini_set('default_socket_timeout', 3); // 3 seconds, default is 60
+	ini_set('default_socket_timeout', 4); // 4 seconds, default is 60
 
 	// curl timeout is millisecons
-	$curl_timeout_ms = 1750;
+	$curl_timeout_ms = 2000;
 
 	// do not report warnings (timeouts, SSL/TLS errors)
 	error_reporting(E_ALL & ~E_WARNING);
