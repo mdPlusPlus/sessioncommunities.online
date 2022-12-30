@@ -1,0 +1,26 @@
+# This isn't used anywhere, it's only for historical context
+Array
+(
+    [0] => http://116.203.217.101
+    [1] => http://116.203.70.33
+    [2] => http://117.186.115.186:8888
+    [3] => http://170.64.140.202
+    [4] => http://173.249.51.184
+    [5] => http://185.130.45.173
+    [6] => http://20.168.47.58
+    [7] => http://45.33.57.83
+    [8] => http://45.77.102.159
+    [9] => http://95.179.250.131
+    [10] => http://95.217.236.112
+    [11] => http://open.session.codes
+    [12] => http://remote.noff.co:8700
+    [13] => http://sog.caliban.org
+    [14] => http://sogs.horse.xxx
+    [15] => http://sogs.massivebox.eu.org
+    [16] => http://sogs.peter.mu
+    [17] => https://2hu-ch.org
+    [18] => https://3399981.xyz
+    [19] => https://open.getsession.org
+    [20] => https://reccacon.com
+    [21] => https://sog.zcyph.cc
+)

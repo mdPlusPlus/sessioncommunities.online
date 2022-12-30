@@ -60,7 +60,7 @@
 
 		$final_join_links = generate_join_links($room_assignments);
 
-//		print_r($servers);
+		print_r($servers);
 //		print_r($rooms);
 //		print_r($addr_assignments);
 //		print_r($room_assignments); //TODO: We also assigned empty room arrays. Should probably be fixed
