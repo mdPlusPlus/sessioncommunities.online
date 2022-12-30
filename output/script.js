@@ -2,6 +2,14 @@ function copyToClipboard(text) {
 	navigator.clipboard.writeText(text);
 }
 
+function setLastChecked(timestamp) {
+	now = Math.floor(Date.now() / 1000); // timestamp in seconds
+	time_passed_in_seconds = now - timestamp;
+	time_passed_in_minutes = Math.floor(time_passed_in_seconds / 60); // time in minutes, rounded down
+	td_element = document.getElementById("td_last_checked");
+	td_element.innerHTML = "Last checked " + time_passed_in_minutes + " minutes ago.";
+}
+
 function sortTable(n) {
 	var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
 	table = document.getElementById("tbl_communities");

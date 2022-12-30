@@ -2,14 +2,14 @@
 
 #tbl_communities { width:100%; }
 
-#th_identifier   { width:8%; }
+#th_identifier   { width:9%; }
 .td_identifier   { font-family: monospace; }
-#th_name         { width:14%; }
+#th_name         { width:13%; }
 #th_description  {  }
 #th_users        {  }
 .td_users        { text-align: right; }
-#th_preview      { width:20%; }
-#th_join_url     { width:18%; }
+#th_preview      { width:19%; }
+#th_join_url     { width:17%; }
 .td_join_url     { font-family: monospace; }
 
 .copy_button     {  }

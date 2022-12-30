@@ -7,6 +7,9 @@
 	// set timeout for file_get_contents()
 	ini_set('default_socket_timeout', 3); // 3 seconds, default is 60
 
+	// curl timeout is millisecons
+	$curl_timeout_ms = 1750;
+
 	// do not report warnings (timeouts, SSL/TLS errors)
 	error_reporting(E_ALL & ~E_WARNING);
 
@@ -38,6 +41,8 @@
 	main();
 
 	function main() {
+		$timestamp = time(); // unix timestamp in seconds
+
 		echo("Running, please wait..." . PHP_EOL);
 		echo("This script will take approximately 2 minutes to run." . PHP_EOL);
 
@@ -66,7 +71,8 @@
 		//TODO: What about room view links?
 
 		$table_html = get_table_html($room_assignments);
-		$final_html = create_html_page_from_table($table_html, "Self-updating list of active Session Communities");
+		$title = "Self-updating list of active Session Communities";
+		$final_html = create_html_page_from_table($table_html, $title, $timestamp);
 
 		// write output to disk
 		global $output;
@@ -216,10 +222,11 @@
 	 * Helper function for reduce_servers
 	 */
 	function url_is_reachable($url) {
+		global $curl_timeout_ms;
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_NOBODY, true);
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-		curl_setopt($ch, CURLOPT_TIMEOUT_MS, 1500); // 1500ms or 1.5s
+		curl_setopt($ch, CURLOPT_TIMEOUT_MS, $curl_timeout_ms);
 		curl_exec($ch);
 		$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		curl_close($ch);
@@ -605,15 +612,17 @@
 
 		// suffix
 		// span over 6 columns (id, name, description, users, preview, join link)
-		$span_count = 6;
+		//$span_count = 6;
 		$suffix =
 			"</table>" . PHP_EOL .
 			"<table id=\"tbl_footer\">" . PHP_EOL .
 			"	<tr>" . PHP_EOL .
-			"		<td id=\"td_summary\" colspan=\"" . $span_count . "\">" . count($table_lines) . " unique Session Communities have been found.</td>" . PHP_EOL .
+			//"		<td id=\"td_summary\" colspan=\"" . $span_count . "\">" . count($table_lines) . " unique Session Communities have been found.</td>" . PHP_EOL .
+			"		<td id=\"td_summary\">" . count($table_lines) . " unique Session Communities have been found.</td>" . PHP_EOL .
 			"	</tr>" . PHP_EOL .
 			"	<tr>" . PHP_EOL .
-			"		<td id=\"td_last_checked\" colspan=\"" . $span_count . "\">Last checked X minutes ago.</td>" . PHP_EOL .
+			//"		<td id=\"td_last_checked\" colspan=\"" . $span_count . "\">Last checked X minutes ago.</td>" . PHP_EOL .
+			"		<td id=\"td_last_checked\">Last checked X minutes ago.</td>" . PHP_EOL .
 			"	</tr>" . PHP_EOL .
 			"</table>" . PHP_EOL;
 
@@ -630,7 +639,7 @@
 	/*
 	 * Build valid HTML5 page from provided table html
 	 */
-	function create_html_page_from_table($table_html, $title) {
+	function create_html_page_from_table($table_html, $title, $timestamp) {
 		$pre =
 			"<!DOCTYPE html>" . PHP_EOL .
 			"<html lang=\"en\">" . PHP_EOL .
@@ -640,7 +649,7 @@
 			"		<script src=\"script.js\" defer></script>" . PHP_EOL .
 			"		<title>" . $title . "</title>" . PHP_EOL .
 			"	</head>" . PHP_EOL .
-			"	<body>" . PHP_EOL;
+			"	<body onload=\"setLastChecked(" . $timestamp . ")\">" . PHP_EOL;
 		$post =
 			"	</body>" . PHP_EOL .
 			"</html>" . PHP_EOL;
