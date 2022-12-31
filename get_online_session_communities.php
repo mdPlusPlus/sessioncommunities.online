@@ -5,10 +5,10 @@
 	// some global stuff
 
 	// set timeout for file_get_contents()
-	ini_set('default_socket_timeout', 20); // in seconds, default is 60
+	ini_set('default_socket_timeout', 10); // in seconds, default is 60
 
 	// curl timeout is millisecons
-	$curl_timeout_ms = 20000;
+	$curl_timeout_ms = 10000;
 
 	// do not report warnings (timeouts, SSL/TLS errors)
 	error_reporting(E_ALL & ~E_WARNING);
@@ -289,7 +289,7 @@
 				$failed[] = $url;
 				$legacy_rooms = query_homepage_for_rooms($url);
 				if($legacy_rooms) {
-						$rooms[$url] = $legacy_rooms;
+					$rooms[$url] = $legacy_rooms;
 				}
 			}
 		}
