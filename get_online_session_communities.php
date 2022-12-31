@@ -8,7 +8,8 @@
 	ini_set('default_socket_timeout', 10); // in seconds, default is 60
 
 	// curl timeout is millisecons
-	$curl_timeout_ms = 10000;
+	$curl_connecttimeout_ms = 2000; // time for initiation of the connection
+	$curl_timeout_ms = 10000;		// max time for whole connection (incl. transfer)
 
 	// do not report warnings (timeouts, SSL/TLS errors)
 	error_reporting(E_ALL & ~E_WARNING);
@@ -221,10 +222,12 @@
 	 * Helper function for reduce_servers
 	 */
 	function url_is_reachable($url) {
+		global $curl_connecttimeout_ms;
 		global $curl_timeout_ms;
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_NOBODY, true);
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT_MS , $curl_connecttimeout_ms);
 		curl_setopt($ch, CURLOPT_TIMEOUT_MS, $curl_timeout_ms);
 		curl_exec($ch);
 		$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
