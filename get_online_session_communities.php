@@ -5,11 +5,11 @@
 	// some global stuff
 
 	// set timeout for file_get_contents()
-	ini_set('default_socket_timeout', 10); // in seconds, default is 60
+	ini_set('default_socket_timeout', 300); // in seconds, default is 60
 
 	// curl timeout is millisecons
 	$curl_connecttimeout_ms = 2000; // time for initiation of the connection
-	$curl_timeout_ms = 10000;		// max time for whole connection (incl. transfer)
+	$curl_timeout_ms = 300000;		// max time for whole connection (incl. transfer)
 
 	// do not report warnings (timeouts, SSL/TLS errors)
 	error_reporting(E_ALL & ~E_WARNING);
@@ -45,13 +45,14 @@
 		$timestamp = time(); // unix timestamp in seconds
 
 		echo("Running, please wait..." . PHP_EOL);
-		echo("This script will take approximately 6 minutes to run." . PHP_EOL);
+		echo("This script will usually take approximately 2 minutes to run." . PHP_EOL);
+		echo("It will take longer if the Chinese servers are spasming out." . PHP_EOL);
 
 		$html = get_html_from_known_sources();
 		$wild_join_links = extract_join_links_from_html($html);
 		$servers = get_servers_from_join_links($wild_join_links);
 		$servers = reduce_servers($servers);
-		$servers = merge_servers_with_known_good_servers($servers);
+		$servers = merge_servers_with_known_good_servers($servers); //TODO: Switch merge and reduce?
 		$rooms = query_servers_for_rooms($servers);
 		$pubkeys = acquire_pubkeys_from_join_links($wild_join_links);
 		$pubkeys = merge_pubkeys_with_known_pubkeys($pubkeys);
@@ -232,11 +233,11 @@
 		curl_exec($ch);
 		$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		curl_close($ch);
+//		echo($url . " is " . $retcode . PHP_EOL);
 		if ($retcode == 200) {
 			return true;
 		}
 		else {
-//			echo($url . " is " . $retcode . PHP_EOL);
 			return false;
 		}
 	}
