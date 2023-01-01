@@ -5,11 +5,11 @@
 	// some global stuff
 
 	// set timeout for file_get_contents()
-	ini_set('default_socket_timeout', 300); // in seconds, default is 60
+	ini_set('default_socket_timeout', 5); // in seconds, default is 60
 
 	// curl timeout is millisecons
 	$curl_connecttimeout_ms = 2000; // time for initiation of the connection
-	$curl_timeout_ms = 300000;		// max time for whole connection (incl. transfer)
+	$curl_timeout_ms = 5000;		// max time for whole connection (incl. transfer)
 
 	// do not report warnings (timeouts, SSL/TLS errors)
 	error_reporting(E_ALL & ~E_WARNING);
@@ -45,7 +45,7 @@
 		$timestamp = time(); // unix timestamp in seconds
 
 		echo("Running, please wait..." . PHP_EOL);
-		echo("This script will usually take approximately 2 minutes to run." . PHP_EOL);
+		echo("This script will usually take approximately 3 minutes to run." . PHP_EOL);
 		echo("It will take longer if the Chinese servers are spasming out." . PHP_EOL);
 
 		$html = get_html_from_known_sources();
@@ -266,7 +266,8 @@
 
 		foreach($url_arr as $url) {
 			$json_url = $url . $endpoint;
-			$json = file_get_contents($json_url);
+			//$json = file_get_contents($json_url);
+			$json = curl_get_contents($json_url); // circumvents flaky routing
 			if($json) {
 				$json_obj = json_decode($json);
 				$server_rooms = array();
@@ -662,4 +663,40 @@
 		return $html5;
 	}
 
+	/*
+	 * file_get_contents alternative that circumvents flaky routing to Chinese servers
+	 */
+	function curl_get_contents($url) {
+	$connecttimeout = 2; // wait at most X seconds to connect
+	$timeout = 3; // can't take longer than X seconds for the whole curl process
+	$sleep = 2;	// sleep between tries in seconds
+	$retries = 120;
+	// takes at most ($timeout + $sleep) * retries seceonds
+	// 3 + 2 * 150 = 5 * 120 = 600s = 10m
+
+	$contents = false;
+	$counter = 1;
+
+	while(!$contents && $counter <= $retries) {
+//		echo("Trial #" . $counter . PHP_EOL);
+		$curl = curl_init($url);
+//		curl_setopt($curl, CURLOPT_VERBOSE, true);
+
+		curl_setopt($curl, CURLOPT_AUTOREFERER, true);
+		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+		curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, $connecttimeout);
+		curl_setopt($curl, CURLOPT_TIMEOUT, $timeout);
+
+		$contents = curl_exec($curl);
+
+		curl_close($curl);
+
+		$counter++;
+		sleep($sleep);
+	}
+
+	return $contents;
+	}
 ?>
