@@ -257,7 +257,7 @@
 	function query_servers_for_rooms($url_arr){
 		$rooms = array();
 		$endpoint = "/rooms";
-		$failed = array(); // debug
+		$failed_arr = array(); // debug
 
 		// we can't use array_unique later so we make sure the input is unique
 		$url_arr = array_unique($url_arr); // not really necessary though
@@ -266,11 +266,14 @@
 
 		foreach($url_arr as $url) {
 			$json_url = $url . $endpoint;
-			//$json = file_get_contents($json_url);
+//			$json = file_get_contents($json_url);
 			$json = curl_get_contents($json_url); // circumvents flaky routing
+//			echo("URL: " . $url . " - JSON URL: " . $json_url . PHP_EOL);
+//			echo("JSON: " . $json . PHP_EOL);
+			$failed = false;
 			if($json) {
 				$json_obj = json_decode($json);
-				$server_rooms = array();
+				$json_rooms = array();
 				// if response was not empty
 				if($json_obj) {
 					foreach($json_obj as $json_room) {
@@ -282,23 +285,39 @@
 							"description"  => $json_room->description
 						);
 
-						//$server_rooms[] = $token;
-						$server_rooms[$token] = $room_array;
+						$json_rooms[$token] = $room_array;
 					}
-					//sort($server_rooms);
-					$rooms[$url] = $server_rooms;
+
+//					print_r($json_rooms);
+					$rooms[$url] = $json_rooms;
+				}
+				else {
+					$failed = true;
+//					echo($json_url . " failed to decode" . PHP_EOL);
 				}
 			}
 			else {
+				$failed = true;
+			}
+
+			if($failed) {
 				// 404 - could mean it's a legacy server that doesn't provide /room endpoint
-				$failed[] = $url;
+				$failed_arr[] = $url;
 				$legacy_rooms = query_homepage_for_rooms($url);
 				if($legacy_rooms) {
 					$rooms[$url] = $legacy_rooms;
 				}
 			}
 		}
-//		print_r($failed);
+
+
+		/*$counter = 0;
+		foreach($rooms as $room_arr) {
+			$counter = $counter + count($room_arr);
+		}
+		echo("Found " . $counter . " rooms, but there could be duplicates." . PHP_EOL);*/
+
+//		print_r($failed_arr);
 
 		return $rooms;
 	}
@@ -667,36 +686,42 @@
 	 * file_get_contents alternative that circumvents flaky routing to Chinese servers
 	 */
 	function curl_get_contents($url) {
-	$connecttimeout = 2; // wait at most X seconds to connect
-	$timeout = 3; // can't take longer than X seconds for the whole curl process
-	$sleep = 2;	// sleep between tries in seconds
-	$retries = 120;
-	// takes at most ($timeout + $sleep) * retries seceonds
-	// 3 + 2 * 150 = 5 * 120 = 600s = 10m
+		$connecttimeout = 2; // wait at most X seconds to connect
+		$timeout = 3; // can't take longer than X seconds for the whole curl process
+		$sleep = 2;	// sleep between tries in seconds
+		$retries = 120;
+		// takes at most ($timeout + $sleep) * retries seceonds
+		// 3 + 2 * 150 = 5 * 120 = 600s = 10m
 
-	$contents = false;
-	$counter = 1;
+		$contents = false;
+		$retcode = 404;
+		$counter = 1;
 
-	while(!$contents && $counter <= $retries) {
-//		echo("Trial #" . $counter . PHP_EOL);
-		$curl = curl_init($url);
-//		curl_setopt($curl, CURLOPT_VERBOSE, true);
+		while(!$contents && $counter <= $retries) {
+//			echo("Trial #" . $counter . PHP_EOL);
+			$curl = curl_init($url);
+//			curl_setopt($curl, CURLOPT_VERBOSE, true);
 
-		curl_setopt($curl, CURLOPT_AUTOREFERER, true);
-		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($curl, CURLOPT_AUTOREFERER, true);
+			curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
-		curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, $connecttimeout);
-		curl_setopt($curl, CURLOPT_TIMEOUT, $timeout);
+			curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, $connecttimeout);
+			curl_setopt($curl, CURLOPT_TIMEOUT, $timeout);
 
-		$contents = curl_exec($curl);
+			$contents = curl_exec($curl);
+			$retcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
-		curl_close($curl);
+			curl_close($curl);
 
-		$counter++;
-		sleep($sleep);
-	}
+			$counter++;
+			sleep($sleep);
+		}
 
-	return $contents;
+		if($retcode != 200) {
+			return false;
+		} else {
+			return $contents;
+		}
 	}
 ?>

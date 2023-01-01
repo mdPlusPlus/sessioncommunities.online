@@ -6,7 +6,6 @@ Description=Run get_online_session_communitites.php periodically
 OnBootSec=10min
 OnUnitInactiveSec=45min
 Persistent=true
-User=session
 Unit=sessioncommunities.service
 
 [Install]
