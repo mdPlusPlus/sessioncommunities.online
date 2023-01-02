@@ -25,11 +25,13 @@
 	 * Ideally this shouldn't be necessary, but it is for now
 	 */
 	$known_servers = array(
+		"http://13.233.251.36:8081",
 		"http://open.session.codes",
 		"https://open.getsession.org"
 	);
 
 	$known_pubkeys = array(
+		"13.233.251.36:8081"  => "efcaecf00aebf5b75e62cf1fd550c6052842e1415a9339406e256c8b27cd2039",
 		"open.session.codes"  => "c7fbfa183b601f4d393a43644dae11e5f644db2a18c747865db1ca922e632e32",
 		"open.getsession.org" => "a03c383cf63c3c4efe67acc52112a6dd734b3a946b9545f488aaa93da7991238"
 	);
