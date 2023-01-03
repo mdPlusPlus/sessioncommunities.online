@@ -2,8 +2,6 @@
 
 #tbl_communities { width:100%; }
 
-th               { background-color: lightgray; }
-
 #th_identifier   { width:9%; }
 .td_identifier   { font-family: monospace; }
 #th_name         { width:13%; }
@@ -20,3 +18,17 @@ th               { background-color: lightgray; }
 
 #td_summary      { text-align: center; }
 #td_last_checked { text-align: center; }
+
+
+:root {
+    --session-classic-dark-green:      #31f196;
+    --session-classic-dark-gray-one:   #414141;
+    --session-classic-dark-gray-two:   #2d2d2d;
+    --session-classic-dark-gray-three: #1b1b1b;
+}
+th                                  { background-color: lightgray; }
+/*
+body                                { background-color: var(--session-classic-dark-green); }
+#tbl_communities tr:nth-child(odd)  { background-color: var(--session-classic-dark-gray-two); }
+#tbl_communities tr:nth-child(even) { background-color: var(--session-classic-dark-gray-three); }
+*/

@@ -25,7 +25,8 @@ function hideBadCommunities() {
 
 function hideElementByID(id) {
 	element = document.getElementById(id);
-	element.style.display = "none";
+	//element.style.display = "none";
+	element.remove();
 }
 
 function copyToClipboard(text) {
