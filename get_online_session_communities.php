@@ -582,14 +582,14 @@
 				}
 			}
 
-			// test if active_users is valid
 			$active_users = $content["active_users"];
+			// test if active_users is valid
 			/*if($active_users == -1) {
 				$active_users = "N/A"; // this breaks sortTable()
 			}*/
 
 			$line =
-				"	<tr>" . PHP_EOL .
+				"	<tr id=\"" . $id . "\">" . PHP_EOL .
 				"		<td class=\"td_identifier\">" . $id . "</td>" . PHP_EOL .
 				"		<td>" . $content["name"] . "</td>" . PHP_EOL .
 				"		<td>" . $content["description"] . "</td>" . PHP_EOL .
@@ -650,7 +650,7 @@
 			"		<script src=\"script.js\" defer></script>" . PHP_EOL .
 			"		<title>" . $title . "</title>" . PHP_EOL .
 			"	</head>" . PHP_EOL .
-			"	<body onload=\"setLastChecked(" . $timestamp . ")\">" . PHP_EOL;
+			"	<body onload=\"onLoad(" . $timestamp . ")\">" . PHP_EOL;
 		$post =
 			"	</body>" . PHP_EOL .
 			"</html>" . PHP_EOL;

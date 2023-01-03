@@ -1,3 +1,33 @@
+function onLoad(timestamp) {
+	setLastChecked(timestamp);
+	hideBadCommunities();
+	sortTable(1); // 1 == Name
+}
+
+function hideBadCommunities() {
+	const testCommunityIDs = [
+		"2e9345+c7fb", // TestRoom
+		"762ba9+c7fb", // TesterRoom
+		"b4d829+c7fb", // Test
+		"e5853a+c7fb", // testtest
+		"test+118d",   // Testing 1, 2, 3
+		"test+13f6",   // Testing room
+		"test+fe93"    // 测试（Test)
+	];
+
+	const badCommunityIDs = [
+		"60fa60+c7fb"  // "N-word" Community
+	];
+
+	testCommunityIDs.forEach(hideElementByID);
+	badCommunityIDs.forEach(hideElementByID);
+}
+
+function hideElementByID(id) {
+	element = document.getElementById(id);
+	element.style.display = "none";
+}
+
 function copyToClipboard(text) {
 	navigator.clipboard.writeText(text);
 }
