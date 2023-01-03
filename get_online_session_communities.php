@@ -1,6 +1,8 @@
 <?php
 	// requires php-curl
 
+	// require other php files
+	require "helper_functions.php";
 
 	// some global stuff
 
@@ -111,7 +113,7 @@
 			// add prefix "https://session.directory to the sd_links
 			$link = str_replace('view_session_group_user_lokinet.php?id=', 'https://session.directory/view_session_group_user_lokinet.php?id=', $link);
 			// add html to sd_html
-			$sd_html = $sd_html . file_get_contents($link);
+			$sd_html = $sd_html . file_get_contents($link) . PHP_EOL;
 		}
 
 		// merge all html into a single string
@@ -138,8 +140,7 @@
 		//[106] => http://sog.caliban.org/im?public_key=118df8c6c471ac0468c7c77e1cdc12f24a139ee8a07c6e3bf4e7855640dad821" rel="nofollow">http://sog.caliban.org/im?public_key=118df8c6c471ac0468c7c77e1cdc12f24a139ee8a07c6e3bf4e7855640dad821
 		//TODO: Figure out why the regex does match those
 		foreach($result as &$entry) {
-//			if(str_contains($entry, "\"")) { // str_contains() requires PHP 8
-			if(strpos($entry, "\"")) {
+			if(strpos($entry, "\"")) { // if(str_contains($entry, "\"")) { // str_contains() requires PHP 8
 				$entry = explode("\"", $entry)[0]; // split on " and take first part
 			}
 		}
@@ -221,29 +222,6 @@
 		sort($result);
 
 		return $result;
-	}
-
-	/*
-	 * Helper function for reduce_servers
-	 */
-	function url_is_reachable($url) {
-		global $curl_connecttimeout_ms;
-		global $curl_timeout_ms;
-		$ch = curl_init($url);
-		curl_setopt($ch, CURLOPT_NOBODY, true);
-		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT_MS , $curl_connecttimeout_ms);
-		curl_setopt($ch, CURLOPT_TIMEOUT_MS, $curl_timeout_ms);
-		curl_exec($ch);
-		$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-		curl_close($ch);
-//		echo($url . " is " . $retcode . PHP_EOL);
-		if ($retcode == 200) {
-			return true;
-		}
-		else {
-			return false;
-		}
 	}
 
 	/*
@@ -638,17 +616,13 @@
 			"	</tr>" . PHP_EOL;
 
 		// suffix
-		// span over 6 columns (id, name, description, users, preview, join link)
-		//$span_count = 6;
 		$suffix =
 			"</table>" . PHP_EOL .
 			"<table id=\"tbl_footer\">" . PHP_EOL .
 			"	<tr>" . PHP_EOL .
-			//"		<td id=\"td_summary\" colspan=\"" . $span_count . "\">" . count($table_lines) . " unique Session Communities have been found.</td>" . PHP_EOL .
 			"		<td id=\"td_summary\">" . count($table_lines) . " unique Session Communities have been found.</td>" . PHP_EOL .
 			"	</tr>" . PHP_EOL .
 			"	<tr>" . PHP_EOL .
-			//"		<td id=\"td_last_checked\" colspan=\"" . $span_count . "\">Last checked X minutes ago.</td>" . PHP_EOL .
 			"		<td id=\"td_last_checked\">Last checked X minutes ago.</td>" . PHP_EOL .
 			"	</tr>" . PHP_EOL .
 			"</table>" . PHP_EOL;
@@ -687,45 +661,9 @@
 	}
 
 	/*
-	 * file_get_contents alternative that circumvents flaky routing to Chinese servers
+	 * Queries the first found room for a server for its actual public key
 	 */
-	function curl_get_contents($url) {
-		$connecttimeout = 2; // wait at most X seconds to connect
-		$timeout = 3; // can't take longer than X seconds for the whole curl process
-		$sleep = 2;	// sleep between tries in seconds
-		$retries = 120;
-		// takes at most ($timeout + $sleep) * retries seceonds
-		// 3 + 2 * 150 = 5 * 120 = 600s = 10m
-
-		$contents = false;
-		$retcode = 404;
-		$counter = 1;
-
-		while(!$contents && $counter <= $retries) {
-//			echo("Trial #" . $counter . PHP_EOL);
-			$curl = curl_init($url);
-//			curl_setopt($curl, CURLOPT_VERBOSE, true);
-
-			curl_setopt($curl, CURLOPT_AUTOREFERER, true);
-			curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-
-			curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, $connecttimeout);
-			curl_setopt($curl, CURLOPT_TIMEOUT, $timeout);
-
-			$contents = curl_exec($curl);
-			$retcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-
-			curl_close($curl);
-
-			$counter++;
-			sleep($sleep);
-		}
-
-		if($retcode != 200) {
-			return false;
-		} else {
-			return $contents;
-		}
+	function get_pubkey_from_server($server_url) {
+		//TODO
 	}
 ?>
