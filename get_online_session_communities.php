@@ -90,13 +90,13 @@
 
 	/*
 	 * Queries following known sources of join links for Session Communities:
-	 * - Awesome Session Open Group List repository on GithUb
+	 * - Awesome Session Open Group List repository on GitHub
 	 * - LokiLocker.com Open Groups
 	 * - https://session.directory open groups
 	 */
 	function get_html_from_known_sources() {
 		// known open group / community lists
-		$asgl   = "https://github.com/GNU-Linux-libre/Awesome-Session-Group-List/raw/main/README.md";
+		$asgl   = "https://raw.githubusercontent.com/GNU-Linux-libre/Awesome-Session-Group-List/main/README.md";
 		$ll     = "https://lokilocker.com/Mods/Session-Groups/wiki/Session-Open-Groups";
 		$sd_pre = "https://session.directory/?all=groups" ; // this one has to be expanded first
 
@@ -111,7 +111,7 @@
 		$sd_pre_html = file_get_contents($sd_pre);
 		$sd_pattern    = "/view_session_group_user_lokinet\.php\?id=\d+/";
 		preg_match_all($sd_pattern, $sd_pre_html, $sd_links);
-		$sd_links = $sd_links[0]; // don't know why
+		$sd_links = $sd_links[0];
 		foreach ($sd_links as &$link) {
 			// add prefix "https://session.directory to the sd_links
 			$link = str_replace('view_session_group_user_lokinet.php?id=', 'https://session.directory/view_session_group_user_lokinet.php?id=', $link);
@@ -123,7 +123,7 @@
 		return(
 			$asgl_html . PHP_EOL .
 			$ll_html . PHP_EOL .
-			$sd_html
+			$sd_html . PHP_EOL
 		);
 	}
 
