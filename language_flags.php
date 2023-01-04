@@ -28,9 +28,9 @@
 
 	// http://45.77.102.159/
 	$languages_132d = array(
-		"kat67world+132d"       => "",
+		"kat67world+132d"       => "🇬🇧",
 		"origin+132d"           => "🇨🇳",
-		"scammer+132d"          => ""
+		"scammer+132d"          => "🇬🇧"
 	);
 
 	// http://116.203.217.101/
@@ -98,7 +98,7 @@
 
 	// http://remote.noff.co:8700/
 	$languages_ea8f = array(
-		"Memes+ea8f" => "🇬🇧"
+		"Memes+ea8f"            => "🇬🇧"
 	);
 
 	$languages = array_merge(
