@@ -12,6 +12,7 @@ function hideBadCommunities() {
 		"e5853a+c7fb", // testtest
 		"test+118d",   // Testing 1, 2, 3
 		"test+13f6",   // Testing room
+		"test+c01b",   // Testing room
 		"test+fe93"    // 测试（Test)
 	];
 

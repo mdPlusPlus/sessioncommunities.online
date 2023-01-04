@@ -115,6 +115,21 @@
 		"webdev+b79f"           => "🇬🇧"
 	);
 
+	//
+	$languages_c01b = array(
+		"ares-races+c01b"       => "🇬🇧",
+		"cfm+c01b"              => "🇬🇧",
+		"contesting+c01b"       => "🇬🇧",
+		"cw+c01b"               => "🇬🇧",
+		"dmr+c01b"              => "🇬🇧",
+		"dstar+c01b"            => "🇬🇧",
+		"hamradio+c01b"         => "🇬🇧",
+		"hf+c01b"               => "🇬🇧",
+		"ka7vee-w7sj+c01b"      => "🇬🇧",
+		"ralph_june+c01b"       => "🇬🇧",
+		"repeaters+c01b"        => "🇬🇧"
+	);
+
 	// http://open.session.codes/
 	$languages_c7fb = array(
 		"4c2ba1+c7fb"           => "🇪🇸",
@@ -183,6 +198,7 @@
 		$languages_8e2e,
 		$languages_a03c,
 		$languages_b79f,
+		$languages_c01b,
 		$languages_c7fb,
 		$languages_e5e0,
 		$languages_e56f,

@@ -54,7 +54,7 @@
 		$timestamp = time(); // unix timestamp in seconds
 
 		echo("Running, please wait..." . PHP_EOL);
-		echo("This script will usually take approximately 3 minutes to run." . PHP_EOL);
+		echo("This script will usually take approximately 4 minutes to run." . PHP_EOL);
 		echo("It will take longer if the Chinese servers are spasming out." . PHP_EOL);
 
 		$html = get_html_from_known_sources();
