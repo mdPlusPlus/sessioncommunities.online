@@ -71,10 +71,10 @@
 
 	// http://185.130.45.173/
 	$languages_b79f = array(
-		"cryptography+b79f"     => "",
-		"philosophy+b79f"       => "",
-		"trading+b79f"          => "",
-		"uncensored+b79f"       => "",
+		"cryptography+b79f"     => "🇬🇧",
+		"philosophy+b79f"       => "🇬🇧",
+		"trading+b79f"          => "🇬🇧",
+		"uncensored+b79f"       => "🇬🇧",
 		"webdev+b79f"           => "🇬🇧"
 	);
 
