@@ -33,6 +33,14 @@
 		"scammer+132d"          => ""
 	);
 
+	// http://116.203.217.101/
+	$languages_2054 = array(
+		"feels+2054"            => "🇬🇧",
+		"pol+2054"              => "🇬🇧",
+		"tech+2054"             => "🇬🇧",
+		"tools+2054"            => "🇬🇧"
+	);
+
 	// http://173.249.51.184/
 	$languages_2812 = array(
 		"fi+2812"               => "🇫🇮",
@@ -91,6 +99,7 @@
 	$languages = array_merge(
 		$languages_118d,
 		$languages_132d,
+		$languages_2054,
 		$languages_2812,
 		$languages_8e2e,
 		$languages_a03c,
