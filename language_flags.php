@@ -40,7 +40,7 @@
 		"india+13f6"            => "",
 		"indonesia+13f6"        => "",
 		"korea+13f6"            => "",
-		"poland+13f6"           => "",
+		"poland+13f6"           => "🇵🇱",
 		"programming+13f6"      => "",
 		"womanbodybeauty+13f6"  => "🇬🇧"
 	);
@@ -153,7 +153,7 @@
 
 	// http://117.186.115.186:8888/
 	$languages_fe93 = array(
-		"android+fe93"          => "",
+		"android+fe93"          => "🇨🇳",
 		"cantonese+fe93"        => "",
 		"education+fe93"        => "",
 		"foss+fe93"             => "",
