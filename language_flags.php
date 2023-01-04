@@ -91,8 +91,8 @@
 
 	// http://95.179.250.131/
 	$languages_e5e0 = array(
-		"generalchat+e5e0"      => "",
-		"nsfw+e5e0"             => "",
+		"generalchat+e5e0"      => "🇬🇧",
+		"nsfw+e5e0"             => "🇬🇧",
 		"public+e5e0"           => "🇬🇧"
 	);
 
