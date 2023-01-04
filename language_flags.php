@@ -42,7 +42,7 @@
 		"korea+13f6"            => "",
 		"poland+13f6"           => "",
 		"programming+13f6"      => "",
-		"womanbodybeauty+13f6"  => ""
+		"womanbodybeauty+13f6"  => "🇬🇧"
 	);
 
 	// http://116.203.217.101/
@@ -75,8 +75,8 @@
 
 	// http://20.168.47.58/
 	$languages_52bc = array(
-		"australia+52bc"        => "",
-		"Bipolar+52bc"          => "",
+		"australia+52bc"        => "🇬🇧",
+		"Bipolar+52bc"          => "🇬🇧",
 		"General+52bc"          => "🇬🇧"
 	);
 
@@ -120,7 +120,7 @@
 		"4c2ba1+c7fb"           => "🇪🇸",
 		"6e7b5f+c7fb"           => "",
 		"90ca71+c7fb"           => "🇷🇺",
-		"a80d69+c7fb"           => "",
+		"a80d69+c7fb"           => "🇬🇧",
 		"d8dc40+c7fb"           => "🇪🇸",
 		"edb497+c7fb"           => "🇨🇳",
 		"sc+c7fb"               => ""
@@ -145,10 +145,10 @@
 
 	// http://45.33.57.83/
 	$languages_efe1 = array (
-		"palmos+efe1"           => "",
-		"radcom+efe1"           => "",
-		"ticalc+efe1"           => "",
-		"winmo+efe1"            => ""
+		"palmos+efe1"           => "🇬🇧",
+		"radcom+efe1"           => "🇬🇧",
+		"ticalc+efe1"           => "🇬🇧",
+		"winmo+efe1"            => "🇬🇧"
 	);
 
 	// http://117.186.115.186:8888/
