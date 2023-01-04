@@ -1,27 +1,29 @@
 <?php
 	// http://sog.caliban.org/
     $languages_118d = array(
-		"android+118d"          => "",
+		"android+118d"          => "🇬🇧",
 		"brasil+118d"           => "🇵🇹",
 		"deutsch+118d"          => "🇩🇪",
 		"espanol+118d"          => "🇪🇸",
 		"francais+118d"         => "🇫🇷",
-		"gaming+118d"           => "",
-		"health+118d"           => "",
+		"gaming+118d"           => "🇬🇧",
+		"health+118d"           => "🇬🇧",
 		"im+118d"               => "🇬🇧",
 		"italiano+118d"         => "🇮🇹",
-		"linux+118d"            => "",
-		"modernsurvival+118d"   => "",
-		"music+118d"            => "",
+		"linux+118d"            => "🇬🇧",
+		"modernsurvival+118d"   => "🇬🇧",
+		"music+118d"            => "🇬🇧",
 		"nl+118d"               => "🇳🇱",
 		"persian+118d"          => "🇮🇷",
 		"portugues+118d"        => "🇵🇹",
-		"privacy+118d"          => "",
+		"privacy+118d"          => "🇬🇧",
 		"russian+118d"          => "🇷🇺",
+		"security+118d"         => "🇬🇧",
 		"snops+118d"            => "🇬🇧",
 		"sogops+118d"           => "🇬🇧",
-		"travel+118d"           => "",
-		"unix+118d"             => ""
+		"travel+118d"           => "🇬🇧",
+		"uk+118d"               => "🇬🇧",
+		"unix+118d"             => "🇬🇧"
     );
 
 	// http://45.77.102.159/
