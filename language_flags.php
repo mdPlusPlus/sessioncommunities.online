@@ -33,6 +33,18 @@
 		"scammer+132d"          => "🇬🇧"
 	);
 
+	// https://3399981.xyz/
+	$languages_13f6 = array(
+		"bangladesh+13f6"       => "",
+		"czsk+13f6"             => "",
+		"india+13f6"            => "",
+		"indonesia+13f6"        => "",
+		"korea+13f6"            => "",
+		"poland+13f6"           => "",
+		"programming+13f6"      => "",
+		"womanbodybeauty+13f6"  => ""
+	);
+
 	// http://116.203.217.101/
 	$languages_2054 = array(
 		"feels+2054"            => "🇬🇧",
@@ -46,6 +58,31 @@
 		"fi+2812"               => "🇫🇮",
 		"main+2812"             => "",
 		"scandinavia+2812"      => ""
+	);
+
+	// http://sogs.horse.xxx/
+	$languages_2b92 = array(
+		"biz+2b92"              => "🇬🇧",
+		"gee+2b92"              => "🇬🇧",
+		"guns+2b92"             => "🇬🇧"
+	);
+
+	// https://2hu-ch.org/
+	$languages_49ac = array(
+		"animu+49ac"            => "🇬🇧",
+		"cryptography+49ac"     => "🇬🇧"
+	);
+
+	// http://20.168.47.58/
+	$languages_52bc = array(
+		"australia+52bc"        => "",
+		"Bipolar+52bc"          => "",
+		"General+52bc"          => "🇬🇧"
+	);
+
+	// https://movistar.ht-rewrite.com/
+	$languages_70d0 = array(
+		"internet+70d0"         => "🇬🇧"
 	);
 
 	// http://95.217.236.112/
@@ -96,21 +133,61 @@
 		"public+e5e0"           => "🇬🇧"
 	);
 
+	// https://sog.zcyph.cc/
+	$languages_e56f = array(
+		"offtopic+e56f"         => "🇬🇧"
+	);
+
 	// http://remote.noff.co:8700/
 	$languages_ea8f = array(
 		"Memes+ea8f"            => "🇬🇧"
 	);
 
+	// http://45.33.57.83/
+	$languages_efe1 = array (
+		"palmos+efe1"           => "",
+		"radcom+efe1"           => "",
+		"ticalc+efe1"           => "",
+		"winmo+efe1"            => ""
+	);
+
+	// http://117.186.115.186:8888/
+	$languages_fe93 = array(
+		"android+fe93"          => "",
+		"cantonese+fe93"        => "",
+		"education+fe93"        => "",
+		"foss+fe93"             => "",
+		"health+fe93"           => "",
+		"im+fe93"               => "",
+		"linux+fe93"            => "",
+		"literature+fe93"       => "",
+		"mandarin+fe93"         => "🇨🇳",
+		"music+fe93"            => "",
+		"philosophy+fe93"       => "",
+		"privacy+fe93"          => "",
+		"sci-tech+fe93"         => "",
+		"security+fe93"         => "",
+		"session+fe93"          => ""
+	);
+
 	$languages = array_merge(
 		$languages_118d,
 		$languages_132d,
+		$languages_13f6,
 		$languages_2054,
 		$languages_2812,
+		$languages_2b92,
+		$languages_49ac,
+		$languages_52bc,
+		$languages_70d0,
 		$languages_8e2e,
 		$languages_a03c,
 		$languages_b79f,
 		$languages_c7fb,
 		$languages_e5e0,
-		$languages_ea8f
+		$languages_e56f,
+		$languages_ea8f,
+		$languages_efe1,
+		$languages_fe93
 	);
 ?>
