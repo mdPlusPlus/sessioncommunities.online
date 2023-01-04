@@ -38,7 +38,7 @@
 		"bangladesh+13f6"       => "",
 		"czsk+13f6"             => "",
 		"india+13f6"            => "",
-		"indonesia+13f6"        => "",
+		"indonesia+13f6"        => "🇮🇩",
 		"korea+13f6"            => "",
 		"poland+13f6"           => "🇵🇱",
 		"programming+13f6"      => "",
