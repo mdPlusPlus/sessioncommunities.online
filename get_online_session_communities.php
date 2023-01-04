@@ -29,16 +29,16 @@
 	 */
 	$known_servers = array(
 		"http://13.233.251.36:8081",
-		"http://open.session.codes",
-		"https://movistar.ht-rewrite.com",
+//		"http://open.session.codes",
+//		"https://movistar.ht-rewrite.com",
 		"https://open.getsession.org",
-		"https://sog.zcyph.cc"
+//		"https://sog.zcyph.cc"
 	);
 
 	$known_pubkeys = array(
 		"13.233.251.36:8081"      => "efcaecf00aebf5b75e62cf1fd550c6052842e1415a9339406e256c8b27cd2039",
-		"movistar.ht-rewrite.com" => "70d0a83cee9fe81bc2746eca379fbc4fca02a625cbe95b60a9bddbcf3f50045a",
-		"open.session.codes"      => "c7fbfa183b601f4d393a43644dae11e5f644db2a18c747865db1ca922e632e32",
+//		"movistar.ht-rewrite.com" => "70d0a83cee9fe81bc2746eca379fbc4fca02a625cbe95b60a9bddbcf3f50045a",
+//		"open.session.codes"      => "c7fbfa183b601f4d393a43644dae11e5f644db2a18c747865db1ca922e632e32",
 		"open.getsession.org"     => "a03c383cf63c3c4efe67acc52112a6dd734b3a946b9545f488aaa93da7991238",
 		"sog.zcyph.cc"            => "e56fa54f9da6df91928f97023e8651e2df10fb6cf743a1ec96d0543acb8f2e7a"
 	);
@@ -73,6 +73,7 @@
 
 //		print_r($servers);
 //		print_r($rooms);
+//		print_r($pubkeys);
 //		print_r($addr_assignments);
 //		print_r($room_assignments); //TODO: We also assigned empty room arrays. Should probably be fixed
 
@@ -207,6 +208,8 @@
 		}
 		$reduced_servers = array_unique($reduced_servers);
 		sort($reduced_servers);
+
+//		print_r($offline_servers);
 
 		return $reduced_servers;
 	}
@@ -578,8 +581,8 @@
 			$preview_link_alt = $server . "/view/room/" . $token;
 
 			// test if preview_links are 404
-			if(!url_is_reachable($preview_link)) {
-				if(!url_is_reachable($preview_link_alt)) {
+			if(!url_is_200($preview_link)) {
+				if(!url_is_200($preview_link_alt)) {
 					$preview_link = null; // $preview_link and $preview_link_alt not reachable
 				}
 				else {

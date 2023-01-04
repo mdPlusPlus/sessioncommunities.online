@@ -14,6 +14,29 @@
 		$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		curl_close($ch);
 //		echo($url . " is " . $retcode . PHP_EOL);
+		if ($retcode != 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	/*
+	 * Helper function for to decide room preview link
+	 */
+	function url_is_200($url) {
+		global $curl_connecttimeout_ms;
+		global $curl_timeout_ms;
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_NOBODY, true);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT_MS , $curl_connecttimeout_ms);
+		curl_setopt($ch, CURLOPT_TIMEOUT_MS, $curl_timeout_ms);
+		curl_exec($ch);
+		$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		curl_close($ch);
+//		echo($url . " is " . $retcode . PHP_EOL);
 		if ($retcode == 200) {
 			return true;
 		}
@@ -26,6 +49,7 @@
 	 * file_get_contents alternative that circumvents flaky routing to Chinese servers
 	 */
 	function curl_get_contents($url) {
+		// use separate timeouts to reliably get data from Chinese server with repeated tries
 		$connecttimeout = 2; // wait at most X seconds to connect
 		$timeout = 3; // can't take longer than X seconds for the whole curl process
 		$sleep = 2;	// sleep between tries in seconds
