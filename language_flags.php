@@ -96,6 +96,11 @@
 		"public+e5e0"           => "🇬🇧"
 	);
 
+	// http://remote.noff.co:8700/
+	$languages_ea8f = array(
+		"Memes+ea8f" => "🇬🇧"
+	);
+
 	$languages = array_merge(
 		$languages_118d,
 		$languages_132d,
@@ -105,6 +110,7 @@
 		$languages_a03c,
 		$languages_b79f,
 		$languages_c7fb,
-		$languages_e5e0
+		$languages_e5e0,
+		$languages_ea8f
 	);
 ?>
