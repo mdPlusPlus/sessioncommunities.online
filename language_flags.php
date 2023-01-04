@@ -89,6 +89,7 @@
 	$languages = array_merge(
 		$languages_118d,
 		$languages_132d,
+		$languages_2812,
 		$languages_8e2e,
 		$languages_a03c,
 		$languages_b79f,
