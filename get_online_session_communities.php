@@ -3,6 +3,7 @@
 
 	// require other php files
 	require "helper_functions.php";
+	require "language_flags.php";
 
 	// some global stuff
 
@@ -526,6 +527,7 @@
 	 * Token + shortened pubkey | Name | Description | Users | View Links(?) | Join URL
 	 */
 	function get_table_html($room_assignments_arr) {
+		global $languages;
 		$shortened_pubkey_length = 4; // shorten pubkey to this length to make room token unique
 		// contains the info for each line of the table
 		$ordered_table_elements = array();
@@ -548,6 +550,7 @@
 
 				$info_array = array(
 					"name"         => $room_array["name"],
+					"language"     => $languages[$identifier],
 					"description"  => $room_array["description"],
 					"active_users" => $room_array["active_users"],
 					"join_link"    => $join_link
@@ -591,6 +594,7 @@
 			$line =
 				"	<tr id=\"" . $id . "\">" . PHP_EOL .
 				"		<td class=\"td_identifier\">" . $id . "</td>" . PHP_EOL .
+				"		<td>" . $content["language"] . "</td>" . PHP_EOL .
 				"		<td>" . $content["name"] . "</td>" . PHP_EOL .
 				"		<td>" . $content["description"] . "</td>" . PHP_EOL .
 				"		<td class=\"td_users\">" . $active_users . "</td>" . PHP_EOL .
@@ -608,11 +612,12 @@
 			"<table id=\"tbl_communities\">" . PHP_EOL .
 			"	<tr>" . PHP_EOL .
 			"		<th onclick=\"sortTable(0)\" id=\"th_identifier\">Identifier</th>" . PHP_EOL .
-			"		<th onclick=\"sortTable(1)\" id=\"th_name\">Name</th>" . PHP_EOL .
-			"		<th onclick=\"sortTable(2)\" id=\"th_description\">Description</th>" . PHP_EOL .
-			"		<th onclick=\"sortTable(3)\" id=\"th_users\">Users</th>" . PHP_EOL .
-			"		<th onclick=\"sortTable(4)\" id=\"th_preview\">Preview</th>" . PHP_EOL .
-			"		<th onclick=\"sortTable(5)\" id=\"th_join_url\">Join URL</th>" . PHP_EOL .
+			"		<th onclick=\"sortTable(1)\" id=\"th_language\">L</th>" . PHP_EOL .
+			"		<th onclick=\"sortTable(2)\" id=\"th_name\">Name</th>" . PHP_EOL .
+			"		<th onclick=\"sortTable(3)\" id=\"th_description\">Description</th>" . PHP_EOL .
+			"		<th onclick=\"sortTable(4)\" id=\"th_users\">Users</th>" . PHP_EOL .
+			"		<th onclick=\"sortTable(5)\" id=\"th_preview\">Preview</th>" . PHP_EOL .
+			"		<th onclick=\"sortTable(6)\" id=\"th_join_url\">Join URL</th>" . PHP_EOL .
 			"	</tr>" . PHP_EOL;
 
 		// suffix

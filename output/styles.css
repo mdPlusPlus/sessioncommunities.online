@@ -5,6 +5,7 @@
 #th_identifier   { width:9%; }
 .td_identifier   { font-family: monospace; }
 #th_name         { width:13%; }
+#th_language     { width:16px }
 #th_description  {  }
 #th_users        {  }
 .td_users        { text-align: right; }

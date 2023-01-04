@@ -1,7 +1,7 @@
 function onLoad(timestamp) {
 	setLastChecked(timestamp);
 	hideBadCommunities();
-	sortTable(1); // 1 == Name
+	sortTable(2); // 2 == Name
 }
 
 function hideBadCommunities() {
@@ -62,8 +62,8 @@ function sortTable(n) {
 			y = rows[i + 1].getElementsByTagName("TD")[n];
 			// Check if the two rows should switch place, based on the direction, asc or desc:
 			if (dir == "asc") {
-				// If columns is users (3), sort numerically
-				if ( n == 3 ) {
+				// If columns is users (4), sort numerically
+				if ( n == 4 ) {
 					if (Number(x.innerHTML) > Number(y.innerHTML)) {
 						shouldSwitch = true;
 						break;
@@ -75,8 +75,8 @@ function sortTable(n) {
 				}
 			}
 			else if (dir == "desc") {
-				if ( n == 3 ) {
-					// If columns is users (3), sort numerically
+				if ( n == 4 ) {
+					// If columns is users (4), sort numerically
 					if (Number(x.innerHTML) < Number(y.innerHTML)) {
 						shouldSwitch = true;
 						break;
