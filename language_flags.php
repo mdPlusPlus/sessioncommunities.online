@@ -35,13 +35,13 @@
 
 	// https://3399981.xyz/
 	$languages_13f6 = array(
-		"bangladesh+13f6"       => "",
-		"czsk+13f6"             => "",
-		"india+13f6"            => "",
+		"bangladesh+13f6"       => "🇧🇩",
+		"czsk+13f6"             => "🇨🇿",
+		"india+13f6"            => "🇮🇳",
 		"indonesia+13f6"        => "🇮🇩",
-		"korea+13f6"            => "",
+		"korea+13f6"            => "🇰🇷",
 		"poland+13f6"           => "🇵🇱",
-		"programming+13f6"      => "",
+		"programming+13f6"      => "🇬🇧",
 		"womanbodybeauty+13f6"  => "🇬🇧"
 	);
 
@@ -174,20 +174,20 @@
 	// http://117.186.115.186:8888/
 	$languages_fe93 = array(
 		"android+fe93"          => "🇨🇳",
-		"cantonese+fe93"        => "",
-		"education+fe93"        => "",
-		"foss+fe93"             => "",
-		"health+fe93"           => "",
-		"im+fe93"               => "",
-		"linux+fe93"            => "",
-		"literature+fe93"       => "",
+		"cantonese+fe93"        => "🇭🇰",
+		"education+fe93"        => "🇨🇳",
+		"foss+fe93"             => "🇨🇳",
+		"health+fe93"           => "🇨🇳",
+		"im+fe93"               => "🇨🇳",
+		"linux+fe93"            => "🇨🇳",
+		"literature+fe93"       => "🇨🇳",
 		"mandarin+fe93"         => "🇨🇳",
-		"music+fe93"            => "",
-		"philosophy+fe93"       => "",
+		"music+fe93"            => "🇨🇳",
+		"philosophy+fe93"       => "🇨🇳",
 		"privacy+fe93"          => "🇨🇳",
-		"sci-tech+fe93"         => "",
-		"security+fe93"         => "",
-		"session+fe93"          => ""
+		"sci-tech+fe93"         => "🇨🇳",
+		"security+fe93"         => "🇨🇳",
+		"session+fe93"          => "🇨🇳"
 	);
 
 	$languages = array_merge(
