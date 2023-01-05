@@ -12,13 +12,13 @@
 
 	// curl timeout is millisecons
 	$curl_connecttimeout_ms = 2000; // time for initiation of the connection
-	$curl_timeout_ms = 5000;		// max time for whole connection (incl. transfer)
+	$curl_timeout_ms = 5000;        // max time for whole connection (incl. transfer)
 
 	// do not report warnings (timeouts, SSL/TLS errors)
 	error_reporting(E_ALL & ~E_WARNING);
 
 	// regex that matches room join links like http://1.2.3.4:56789/token?public_key=0123456789abcdef
-	$room_join_regex = "/https?:\/\/.+\?public_key=[0-9a-f]+/" ; //TODO: How long can a public key be? Most likely exactly 64 chars long
+	$room_join_regex = "/https?:\/\/.+\?public_key=[0-9a-f]{64}/";
 
 	// room token regex part
 	$room_token_regex_part = "[0-9A-Za-z]+"; //TODO: actually correct?
@@ -29,18 +29,13 @@
 	 */
 	$known_servers = array(
 		"http://13.233.251.36:8081",
-//		"http://open.session.codes",
-//		"https://movistar.ht-rewrite.com",
-		"https://open.getsession.org",
-//		"https://sog.zcyph.cc"
+		"https://open.getsession.org"
 	);
 
 	$known_pubkeys = array(
-		"13.233.251.36:8081"      => "efcaecf00aebf5b75e62cf1fd550c6052842e1415a9339406e256c8b27cd2039",
-//		"movistar.ht-rewrite.com" => "70d0a83cee9fe81bc2746eca379fbc4fca02a625cbe95b60a9bddbcf3f50045a",
-//		"open.session.codes"      => "c7fbfa183b601f4d393a43644dae11e5f644db2a18c747865db1ca922e632e32",
-		"open.getsession.org"     => "a03c383cf63c3c4efe67acc52112a6dd734b3a946b9545f488aaa93da7991238",
-		"sog.zcyph.cc"            => "e56fa54f9da6df91928f97023e8651e2df10fb6cf743a1ec96d0543acb8f2e7a"
+		"13.233.251.36:8081"  => "efcaecf00aebf5b75e62cf1fd550c6052842e1415a9339406e256c8b27cd2039",
+		"open.getsession.org" => "a03c383cf63c3c4efe67acc52112a6dd734b3a946b9545f488aaa93da7991238",
+		"sog.zcyph.cc"        => "e56fa54f9da6df91928f97023e8651e2df10fb6cf743a1ec96d0543acb8f2e7a"
 	);
 
 	// path for HTML output
@@ -143,7 +138,7 @@
 		// filter $result[0] because some entries look like this:
 		//[106] => http://sog.caliban.org/im?public_key=118df8c6c471ac0468c7c77e1cdc12f24a139ee8a07c6e3bf4e7855640dad821" rel="nofollow">http://sog.caliban.org/im?public_key=118df8c6c471ac0468c7c77e1cdc12f24a139ee8a07c6e3bf4e7855640dad821
 		//TODO: Figure out why the regex does match those
-		foreach($result as &$entry) {
+		foreach($result as &$entry) { // use & here to make change on reference
 			if(strpos($entry, "\"")) { // if(str_contains($entry, "\"")) { // str_contains() requires PHP 8
 				$entry = explode("\"", $entry)[0]; // split on " and take first part
 			}
