@@ -106,6 +106,11 @@
 		"session+a03c"          => "🇬🇧"
 	);
 
+	//
+	$languages_a19a = array(
+		"china+a19a"            => "🇨🇳"
+	);
+
 	// http://185.130.45.173/
 	$languages_b79f = array(
 		"cryptography+b79f"     => "🇬🇧",
@@ -179,7 +184,7 @@
 		"mandarin+fe93"         => "🇨🇳",
 		"music+fe93"            => "",
 		"philosophy+fe93"       => "",
-		"privacy+fe93"          => "",
+		"privacy+fe93"          => "🇨🇳",
 		"sci-tech+fe93"         => "",
 		"security+fe93"         => "",
 		"session+fe93"          => ""
@@ -197,6 +202,7 @@
 		$languages_70d0,
 		$languages_8e2e,
 		$languages_a03c,
+		$languages_a19a,
 		$languages_b79f,
 		$languages_c01b,
 		$languages_c7fb,
