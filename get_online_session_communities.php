@@ -693,7 +693,13 @@
 	/*
 	 * Queries the first found room for a server for its actual public key
 	 */
-	function get_pubkey_from_server($server_url) {
+	function visit_first_room_of_server_to_acquire_public_key($server_url) {
 		//TODO
+		// 1. https or http
+		// 2. query /rooms or /
+		// 3. visit /r/token/ or /view/room/token
+		// 4. regex the join link
+		// 5. extract public key
+		// 6. return it
 	}
 ?>
