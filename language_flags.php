@@ -1,4 +1,9 @@
 <?php
+	// https://reccacon.com/Ukraine
+	$languages_02bd = array(
+		"Ukraine+02bd"                  => ""
+	);
+
 	// http://sog.caliban.org/
     $languages_118d = array(
 		"android+118d"                  => "🇬🇧",
@@ -43,6 +48,11 @@
 		"poland+13f6"                   => "🇵🇱",
 		"programming+13f6"              => "🇬🇧",
 		"womanbodybeauty+13f6"          => "🇬🇧"
+	);
+
+	// http://170.64.140.202/
+	$languages_15a0 = array(
+		"ufo+15a0"                      => ""
 	);
 
 	// http://116.203.217.101/
@@ -168,6 +178,11 @@
 		"Memes+ea8f"                    => "🇬🇧"
 	);
 
+	// http://13.233.251.36:8081/
+	$languages_efca = array(
+		"xyz+efca"                      => ""
+	);
+
 	// http://45.33.57.83/
 	$languages_efe1 = array (
 		"palmos+efe1"                   => "🇬🇧",
@@ -196,9 +211,11 @@
 	);
 
 	$languages = array_merge(
+		$languages_02bd,
 		$languages_118d,
 		$languages_132d,
 		$languages_13f6,
+		$languages_15a0,
 		$languages_2054,
 		$languages_2812,
 		$languages_2b92,
@@ -215,6 +232,7 @@
 		$languages_e5e0,
 		$languages_e56f,
 		$languages_ea8f,
+		$languages_efca,
 		$languages_efe1,
 		$languages_fe93
 	);
