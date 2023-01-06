@@ -236,4 +236,7 @@
 		$languages_efe1,
 		$languages_fe93
 	);
+
+//	$languages_json = json_encode($languages);
+//	file_put_contents("languages.json", $languages_json);
 ?>

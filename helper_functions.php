@@ -14,10 +14,12 @@
 		$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		curl_close($ch);
 //		echo($url . " is " . $retcode . PHP_EOL);
+
 		if ($retcode != 0) {
 			return true;
 		}
 		else {
+//			echo($url . " is " . $retcode . PHP_EOL);
 			return false;
 		}
 	}
@@ -37,10 +39,12 @@
 		$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		curl_close($ch);
 //		echo($url . " is " . $retcode . PHP_EOL);
+
 		if ($retcode == 200) {
 			return true;
 		}
 		else {
+//			echo($url . " is " . $retcode . PHP_EOL);
 			return false;
 		}
 	}

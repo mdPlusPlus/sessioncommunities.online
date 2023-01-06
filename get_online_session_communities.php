@@ -8,21 +8,18 @@
 	// some global stuff
 
 	// set timeout for file_get_contents()
-	ini_set('default_socket_timeout', 5); // in seconds, default is 60
+	ini_set('default_socket_timeout', 6); // in seconds, default is 60
 
 	// curl timeout is millisecons
-	$curl_connecttimeout_ms = 2000; // time for initiation of the connection
-	$curl_timeout_ms = 5000;        // max time for whole connection (incl. transfer)
+	$curl_connecttimeout_ms = 3000; // time for initiation of the connection
+	$curl_timeout_ms = 6000;        // max time for whole connection (incl. transfer)
 
 	// do not report warnings (timeouts, SSL/TLS errors)
 	error_reporting(E_ALL & ~E_WARNING);
 
-	// room token regex part
-	$room_token_regex_part = "[0-9A-Za-z-]+"; //TODO: actually correct?
+	// room token regex part, must consist of letters, numbers, underscores, or dashes: https://github.com/oxen-io/session-pysogs/blob/dev/administration.md
+	$room_token_regex_part = "[0-9A-Za-z-_]+";
 
-	// regex that matches room join links like http://1.2.3.4:56789/token?public_key=0123456789abcdef
-	//$room_join_regex = "/https?:\/\/.+\?public_key=[0-9a-f]{64}/";
-	$room_join_regex = "/https?:\/\/[^\/]+\/" . $room_token_regex_part . "\?public_key=[0-9A-Fa-f]{64}/";
 	/*
 	 * This regex uses the following components:
 	 * - https?:\/\/   - This matches "http" or "https" followed by "://"
@@ -33,6 +30,7 @@
 	 * This regex should match strings in the following format:
 	 * http(s)://[server]/[room_token]?public_key=[64_hexadecimal_digits]
 	 */
+	$room_join_regex = "/https?:\/\/[^\/]+\/" . $room_token_regex_part . "\?public_key=[0-9A-Fa-f]{64}/";
 
 
 	/*
@@ -552,7 +550,7 @@
 	 * Token + shortened pubkey | Name | Description | Users | View Links(?) | Join URL
 	 */
 	function get_table_html($room_assignments_arr) {
-		global $languages;
+		global $languages; // language_flags.php
 		$shortened_pubkey_length = 4; // shorten pubkey to this length to make room token unique
 		// contains the info for each line of the table
 		$ordered_table_elements = array();
@@ -575,7 +573,7 @@
 
 				$info_array = array(
 					"name"         => $room_array["name"],
-					"language"     => $languages[$identifier],
+					"language"     => $languages[$identifier], // example: $languages["deutsch+118d"] = "🇩🇪"
 					"description"  => $room_array["description"],
 					"active_users" => $room_array["active_users"],
 					"join_link"    => $join_link
@@ -608,6 +606,12 @@
 				else {
 					$preview_link = $preview_link_alt; // $preview_link_alt reachable
 				}
+			}
+			if(!$preview_link || $preview_link == "") {
+				echo("Preview link is empty. Dumping variables." . PHP_EOL);
+				echo("Join link: " . $join_link . PHP_EOL);
+				echo("Server: " . $server. PHP_EOL);
+				echo("Token: " . $token . PHP_EOL);
 			}
 
 			$active_users = $content["active_users"];
