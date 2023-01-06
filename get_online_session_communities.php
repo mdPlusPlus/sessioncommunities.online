@@ -17,11 +17,23 @@
 	// do not report warnings (timeouts, SSL/TLS errors)
 	error_reporting(E_ALL & ~E_WARNING);
 
-	// regex that matches room join links like http://1.2.3.4:56789/token?public_key=0123456789abcdef
-	$room_join_regex = "/https?:\/\/.+\?public_key=[0-9a-f]{64}/";
-
 	// room token regex part
-	$room_token_regex_part = "[0-9A-Za-z]+"; //TODO: actually correct?
+	$room_token_regex_part = "[0-9A-Za-z-]+"; //TODO: actually correct?
+
+	// regex that matches room join links like http://1.2.3.4:56789/token?public_key=0123456789abcdef
+	//$room_join_regex = "/https?:\/\/.+\?public_key=[0-9a-f]{64}/";
+	$room_join_regex = "/https?:\/\/[^\/]+\/" . $room_token_regex_part . "\?public_key=[0-9A-Fa-f]{64}/";
+	/*
+	 * This regex uses the following components:
+	 * - https?:\/\/   - This matches "http" or "https" followed by "://"
+	 * - [^\/]+\/      - This matches one or more characters that are not a forward slash, followed by a forward slash
+	 * - [0-9A-Za-z-]+  - This matches one or more alphanumeric characters or dash (room token)
+	 * - \?public_key= - This matches a question mark followed by the text "public_key="
+	 * - [0-9A-Fa-f]{64}  - This matches 64 hexadecimal digits (0-9, A-F and a-f)
+	 * This regex should match strings in the following format:
+	 * http(s)://[server]/[room_token]?public_key=[64_hexadecimal_digits]
+	 */
+
 
 	/*
 	 * Some servers don't appear in the wild yet, but can be queried
@@ -66,12 +78,12 @@
 
 		$final_join_links = generate_join_links($room_assignments);
 
+//		print_r($wild_join_links);
 //		print_r($servers);
 //		print_r($rooms);
 //		print_r($pubkeys);
 //		print_r($addr_assignments);
 //		print_r($room_assignments); //TODO: We also assigned empty room arrays. Should probably be fixed
-
 //		print_r($final_join_links);
 
 		$table_html = get_table_html($room_assignments);
@@ -368,8 +380,10 @@
 	 * "https://server:port" => "somehexstring"
 	 */
 	function acquire_pubkeys_from_join_links($join_links_arr) {
-		$result = array();
+		$result = array(); // will hold the final $server => $pubkey data
+		$temp = array();   // will hold temporary $server => array("pubkey1", "pubkey2", ...) data
 
+		// first pass (will collect multiple pubkeys for each server if multiple are found)
 		foreach($join_links_arr as $join_link) {
 			// example: http://1.2.3.4:56789/token?public_key=0123456789abcdef
 			// we split by / and take the index [2] as the server
@@ -377,7 +391,26 @@
 			// we assume everything behind the "=" is the public key
 			$pubkey = explode("=", $join_link)[1];
 
-			$result[$server] = $pubkey;
+			//$result[$server] = $pubkey;
+			$temp[$server][] = $pubkey;
+		}
+
+		// second pass
+		// will filter the pubkeys
+		// and if different pubkeys for the same server were found and will query server
+		foreach($temp as $server => $pubkey_arr) {
+			$uniq_arr = array_unique($pubkey_arr);
+			if(count($uniq_arr) >= 1) {
+				if(count($uniq_arr) == 1) {
+					$result[$server] = $uniq_arr[0]; // if only one unique pubkey was found use that
+				}
+				else { // multiple unique pubkeys were found
+					//TODO
+					echo("Multiple public keys found for server " . $server . "." . PHP_EOL);
+					print_r($uniq_arr);
+					$result[$server] = $uniq_arr[0]; // placeholder
+				}
+			} // else (<= 1) do nothing
 		}
 
 		return $result;
