@@ -145,16 +145,8 @@
 		global $room_join_regex;
 		$result = array();
 		preg_match_all($room_join_regex, $html, $result);
+//		print_r($result);
 		$result = $result[0]; // there's only $result[0], no $result[1] or others
-
-		// filter $result[0] because some entries look like this:
-		//[106] => http://sog.caliban.org/im?public_key=118df8c6c471ac0468c7c77e1cdc12f24a139ee8a07c6e3bf4e7855640dad821" rel="nofollow">http://sog.caliban.org/im?public_key=118df8c6c471ac0468c7c77e1cdc12f24a139ee8a07c6e3bf4e7855640dad821
-		//TODO: Figure out why the regex does match those
-		foreach($result as &$entry) { // use & here to make change on reference
-			if(strpos($entry, "\"")) { // if(str_contains($entry, "\"")) { // str_contains() requires PHP 8
-				$entry = explode("\"", $entry)[0]; // split on " and take first part
-			}
-		}
 
 		$result = array_unique($result);
 		sort($result);
@@ -405,7 +397,7 @@
 					$result[$server] = $uniq_arr[0]; // if only one unique pubkey was found use that
 				}
 				else { // multiple unique pubkeys were found
-					//TODO
+					//TODO: decide which pubkey to use
 					echo("Multiple public keys found for server " . $server . "." . PHP_EOL);
 					print_r($uniq_arr);
 					$result[$server] = $uniq_arr[0]; // placeholder
