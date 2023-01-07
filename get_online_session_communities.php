@@ -43,9 +43,10 @@
 	);
 
 	$known_pubkeys = array(
+		// "server_without_proto" => "64 char hex public key"
 		"13.233.251.36:8081"  => "efcaecf00aebf5b75e62cf1fd550c6052842e1415a9339406e256c8b27cd2039",
 		"open.getsession.org" => "a03c383cf63c3c4efe67acc52112a6dd734b3a946b9545f488aaa93da7991238",
-		"sog.zcyph.cc"        => "e56fa54f9da6df91928f97023e8651e2df10fb6cf743a1ec96d0543acb8f2e7a"
+//		"sog.zcyph.cc"        => "e56fa54f9da6df91928f97023e8651e2df10fb6cf743a1ec96d0543acb8f2e7a"
 	);
 
 	// path for HTML output
@@ -239,62 +240,22 @@
 	 * The second dimension is an array that contains $room_array array
 	 * $room_array arrays contain token, name, users and description
 	 */
-	function query_servers_for_rooms($url_arr){
+	function query_servers_for_rooms($url_arr) {
 		$rooms = array();
-		$endpoint = "/rooms";
 		$failed_arr = array(); // debug
 
 		// we can't use array_unique later so we make sure the input is unique
 		$url_arr = array_unique($url_arr); // not really necessary though
 		// we can't use sort or asort later so me do it now
 		sort($url_arr); // not really necessary though
+		// we could probably use ksort or something else that persists the keys
 
 		foreach($url_arr as $url) {
-			$json_url = $url . $endpoint;
-//			$json = file_get_contents($json_url);
-			$json = curl_get_contents($json_url); // circumvents flaky routing
-//			echo("URL: " . $url . " - JSON URL: " . $json_url . PHP_EOL);
-//			echo("JSON: " . $json . PHP_EOL);
-			$failed = false;
-			if($json) {
-				$json_obj = json_decode($json);
-				$json_rooms = array();
-				// if response was not empty
-				if($json_obj) {
-					foreach($json_obj as $json_room) {
-						$token = $json_room->token; // room "name"
-						$room_array = array(
-							"token"        => $token,
-							"name"         => $json_room->name,
-							"active_users" => $json_room->active_users,
-							"description"  => $json_room->description
-						);
-
-						$json_rooms[$token] = $room_array;
-					}
-
-//					print_r($json_rooms);
-					$rooms[$url] = $json_rooms;
-				}
-				else {
-					$failed = true;
-//					echo($json_url . " failed to decode" . PHP_EOL);
-				}
-			}
-			else {
-				$failed = true;
-			}
-
-			if($failed) {
-				// 404 - could mean it's a legacy server that doesn't provide /room endpoint
-				$failed_arr[] = $url;
-				$legacy_rooms = query_homepage_for_rooms($url);
-				if($legacy_rooms) {
-					$rooms[$url] = $legacy_rooms;
-				}
+			$query_result = query_single_servers_for_rooms($url, $failed_arr);
+			if($query_result) {
+				$rooms[$url] = $query_result;
 			}
 		}
-
 
 		/*$counter = 0;
 		foreach($rooms as $room_arr) {
@@ -305,6 +266,63 @@
 //		print_r($failed_arr);
 
 		return $rooms;
+	}
+
+	/*
+	 * TODO: Description
+	 */
+	function query_single_servers_for_rooms($server_url, $failed_arr = null) {
+		$result = array();
+		$endpoint = "/rooms";
+		$json_url = $server_url . $endpoint;
+//		$json = file_get_contents($json_url);
+		$json = curl_get_contents($json_url); // circumvents flaky routing
+//		echo("URL: " . $server_url . " - JSON URL: " . $json_url . PHP_EOL);
+//		echo("JSON: " . $json . PHP_EOL);
+		$failed = false;
+		if($json) {
+			$json_obj = json_decode($json);
+			$json_rooms = array();
+			// if response was not empty
+			if($json_obj) {
+				foreach($json_obj as $json_room) {
+					$token = $json_room->token; // room "name"
+					$room_array = array(
+						"token"        => $token,
+						"name"         => $json_room->name,
+						"active_users" => $json_room->active_users,
+						"description"  => $json_room->description
+					);
+
+					$json_rooms[$token] = $room_array;
+				}
+//				print_r($json_rooms);
+				$result = $json_rooms;
+			}
+			else {
+				$failed = true;
+//					echo($json_url . " failed to decode" . PHP_EOL);
+				}
+			}
+		else {
+			$failed = true;
+		}
+
+		if($failed) {
+			// 404 - could mean it's a legacy server that doesn't provide /room endpoint
+			if($failed_arr) {
+				// if $failed_arr has been used as parameter, add failed URL to it
+				$failed_arr[] = $server_url;
+			}
+			$legacy_rooms = query_homepage_for_rooms($server_url);
+			if($legacy_rooms) {
+				$result = $legacy_rooms;
+			} else {
+				return null;
+			}
+		}
+
+		return $result;
 	}
 
 	/*
@@ -372,17 +390,21 @@
 	function acquire_pubkeys_from_join_links($join_links_arr) {
 		$result = array(); // will hold the final $server => $pubkey data
 		$temp = array();   // will hold temporary $server => array("pubkey1", "pubkey2", ...) data
+		$server_to_server_url = array(); // "example.com" => "https://example.com" - ugly! TODO: find more elegant solution
 
 		// first pass (will collect multiple pubkeys for each server if multiple are found)
 		foreach($join_links_arr as $join_link) {
 			// example: http://1.2.3.4:56789/token?public_key=0123456789abcdef
+			$exploded = explode("/", $join_link);
 			// we split by / and take the index [2] as the server
-			$server = explode("/", $join_link)[2];
+			$server = $exploded[2];
+			// we split by / and take the index [0] and $server as the server url
+			$server_url = $exploded[0] . "//" . $server; // required for visit_first_room_of_server_to_acquire_public_key
 			// we assume everything behind the "=" is the public key
 			$pubkey = explode("=", $join_link)[1];
 
-			//$result[$server] = $pubkey;
 			$temp[$server][] = $pubkey;
+			$server_to_server_url[$server] = $server_url;
 		}
 
 		// second pass
@@ -395,10 +417,15 @@
 					$result[$server] = $uniq_arr[0]; // if only one unique pubkey was found use that
 				}
 				else { // multiple unique pubkeys were found
-					//TODO: decide which pubkey to use
 					echo("Multiple public keys found for server " . $server . "." . PHP_EOL);
 					print_r($uniq_arr);
-					$result[$server] = $uniq_arr[0]; // placeholder
+
+					//$result[$server] = $uniq_arr[0]; // placeholder
+
+					$actual_pubkey = visit_first_room_of_server_to_acquire_public_key($server_to_server_url[$server]);
+
+					echo("Server responded with " . $actual_pubkey . PHP_EOL);
+					$result[$server] = $actual_pubkey;
 				}
 			} // else (<= 1) do nothing
 		}
@@ -445,7 +472,7 @@
 //		print_r($server_to_pubkey);
 
 		// but this still has duplicates in it
-		// so we get every address for a known pubkey so the reuslt is an array:
+		// so we get every address for a known pubkey so the result is an array:
 		// result[$pubkey] = array("address1", "address2", ...);
 		foreach($unique_pubkeys as $pubkey) {
 			$addresses = array();
@@ -593,20 +620,10 @@
 
 			// get preview links
 			$exploded = explode("/", $join_link); // https: + "" + 1.2.3.4:56789 + token?public_key=0123456789abcdef
-			$server = $exploded[0] . "//" . $exploded[2];
+			$server_url = $exploded[0] . "//" . $exploded[2];
 			$token  = explode("?", $exploded[3])[0];
-			$preview_link     = $server . "/r/" . $token . "/";
-			$preview_link_alt = $server . "/view/room/" . $token;
 
-			// test if preview_links are 404
-			if(!url_is_200($preview_link)) {
-				if(!url_is_200($preview_link_alt)) {
-					$preview_link = null; // $preview_link and $preview_link_alt not reachable
-				}
-				else {
-					$preview_link = $preview_link_alt; // $preview_link_alt reachable
-				}
-			}
+			$preview_link = get_preview_link($server_url, $token);
 			if(!$preview_link || $preview_link == "") {
 				echo("Preview link is empty. Dumping variables." . PHP_EOL);
 				echo("Join link: " . $join_link . PHP_EOL);
@@ -672,6 +689,26 @@
 	}
 
 	/*
+	 * Test if preview_links are 404 and return the right one (or null)
+	 */
+	function get_preview_link($server_url, $token) {
+		$preview_link     = $server_url . "/r/" . $token . "/";
+		$preview_link_alt = $server_url . "/view/room/" . $token;
+
+		$result = $preview_link;
+		if(!url_is_200($preview_link)) {
+			if(!url_is_200($preview_link_alt)) {
+				$result = null; // $preview_link and $preview_link_alt not reachable
+			}
+			else {
+				$result = $preview_link_alt; // $preview_link_alt reachable
+			}
+		}
+
+		return $result;
+	}
+
+	/*
 	 * Build valid HTML5 page from provided table html
 	 */
 	function create_html_page_from_table($table_html, $title, $timestamp) {
@@ -698,12 +735,27 @@
 	 * Queries the first found room for a server for its actual public key
 	 */
 	function visit_first_room_of_server_to_acquire_public_key($server_url) {
-		//TODO
-		// 1. https or http
-		// 2. query /rooms or /
-		// 3. visit /r/token/ or /view/room/token
-		// 4. regex the join link
-		// 5. extract public key
-		// 6. return it
+		global $room_join_regex;
+		$result = null;
+
+		$rooms = query_single_servers_for_rooms($server_url);
+//		print_r($rooms);
+		if($rooms) {
+			$room_to_visit = $rooms[array_key_first($rooms)]; // use first room e.g. $rooms["offtopic"]
+//			print_r($room_to_visit);
+			$token  = $room_to_visit["token"];
+			$preview_link = get_preview_link($server_url, $token);
+//			var_dump($preview_link);
+			$preview_contents = file_get_contents($preview_link);
+//			print_r($preview_contents);
+			$join_links = array();
+			preg_match_all($room_join_regex, $preview_contents, $join_links);
+//			print_r($join_links);
+			$first_join_link = $join_links[0][0]; // first found join link
+			$result = explode("=", $first_join_link)[1]; // assume right of "=" is public key
+//			var_dump($result);
+		}
+
+		return $result;
 	}
 ?>

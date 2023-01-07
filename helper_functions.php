@@ -56,7 +56,7 @@
 		// use separate timeouts to reliably get data from Chinese server with repeated tries
 		$connecttimeout = 2; // wait at most X seconds to connect
 		$timeout = 3; // can't take longer than X seconds for the whole curl process
-		$sleep = 2;	// sleep between tries in seconds
+		$sleep = 2; // sleep between tries in seconds
 		$retries = 120;
 		// takes at most ($timeout + $sleep) * retries seceonds
 		// 3 + 2 * 150 = 5 * 120 = 600s = 10m
