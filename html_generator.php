@@ -80,7 +80,7 @@
 			"</table>" . PHP_EOL .
 			"<table id=\"tbl_footer\">" . PHP_EOL .
 			"	<tr>" . PHP_EOL .
-			"		<td id=\"td_summary\">" . count($table_lines) . " unique Session Communities have been found.</td>" . PHP_EOL .
+			"		<td id=\"td_summary\">" . count($table_lines) . " unique Session Communities on " . count_servers($info_arrays) . " servers have been found.</td>" . PHP_EOL .
 			"	</tr>" . PHP_EOL .
 			"	<tr>" . PHP_EOL .
 			"		<td id=\"td_last_checked\">Last checked X minutes ago.</td>" . PHP_EOL .

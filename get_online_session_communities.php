@@ -82,7 +82,7 @@
 		$final_html = create_html_page_from_html_data($table_html, $title, $timestamp);
 
 //		print_r($wild_join_links);
-		print_r($servers);
+//		print_r($servers);
 //		print_r($rooms);
 //		print_r($pubkeys);
 //		print_r($addr_assignments);
@@ -92,7 +92,7 @@
 		// write output to disk
 		global $output;
 		file_put_contents($output, $final_html); // overwrites existing file
-		echo("Done. " .  count($info_arrays) . " unique Session Communities have been found." . PHP_EOL);
+		echo("Done. " .  count($info_arrays) . " unique Session Communities on " . count_servers($info_arrays) . " servers have been found." . PHP_EOL);
 	}
 
 	/*
@@ -671,6 +671,24 @@
 		ksort($info_arrays, SORT_STRING | SORT_FLAG_CASE);
 
 		return $info_arrays;
+	}
+
+	/*
+	 * Counts every unique server from given $info_arrays and returns the count
+	 */
+	function count_servers($info_arrays) {
+		$servers = array();
+		foreach($info_arrays as $i_arr) {
+			// https://sogs.example.com:1234/token?public_key=...
+			$join_link = $i_arr["join_link"];
+			$exploded = explode("/", $join_link); // https: + "" + sogs.example.com:1234 + token?public_key=...
+			$servers[] = $exploded[0] . "//" . $exploded[2];
+		}
+		$servers = array_unique($servers);
+		sort($servers);
+//		print_r($servers);
+
+		return count($servers);
 	}
 
 ?>
