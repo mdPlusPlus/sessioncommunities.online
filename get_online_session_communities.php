@@ -4,6 +4,7 @@
 	// require other php files
 	require "helper_functions.php";
 	require "language_flags.php";
+	require "html_generator.php";
 
 	// some global stuff
 
@@ -45,8 +46,7 @@
 	$known_pubkeys = array(
 		// "server_without_proto" => "64 char hex public key"
 		"13.233.251.36:8081"  => "efcaecf00aebf5b75e62cf1fd550c6052842e1415a9339406e256c8b27cd2039",
-		"open.getsession.org" => "a03c383cf63c3c4efe67acc52112a6dd734b3a946b9545f488aaa93da7991238",
-//		"sog.zcyph.cc"        => "e56fa54f9da6df91928f97023e8651e2df10fb6cf743a1ec96d0543acb8f2e7a"
+		"open.getsession.org" => "a03c383cf63c3c4efe67acc52112a6dd734b3a946b9545f488aaa93da7991238"
 	);
 
 	// path for HTML output
@@ -74,8 +74,12 @@
 		$addr_assignments = get_pubkeys_of_servers($servers, $pubkeys);
 		$addr_assignments = reduce_addresses_of_pubkeys($addr_assignments);
 		$room_assignments = assign_rooms_to_address_assignments($addr_assignments, $rooms);
+		$info_arrays = generate_info_arrays($room_assignments);
+//		$final_join_links = generate_join_links($room_assignments);
 
-		$final_join_links = generate_join_links($room_assignments);
+		$table_html = get_table_html($info_arrays);
+		$title = "Self-updating list of active Session Communities";
+		$final_html = create_html_page_from_html_data($table_html, $title, $timestamp);
 
 //		print_r($wild_join_links);
 //		print_r($servers);
@@ -85,14 +89,10 @@
 //		print_r($room_assignments); //TODO: We also assigned empty room arrays. Should probably be fixed
 //		print_r($final_join_links);
 
-		$table_html = get_table_html($room_assignments);
-		$title = "Self-updating list of active Session Communities";
-		$final_html = create_html_page_from_table($table_html, $title, $timestamp);
-
 		// write output to disk
 		global $output;
 		file_put_contents($output, $final_html); // overwrites existing file
-		echo("Done. " .  count($final_join_links) . " unique Session Communities have been found." . PHP_EOL);
+		echo("Done. " .  count($info_arrays) . " unique Session Communities have been found." . PHP_EOL);
 	}
 
 	/*
@@ -546,6 +546,7 @@
 
 	/*
 	 * TODO: Description
+	 * This function is only used for debugging
 	 */
 	function generate_join_links($room_assignments_arr) {
 		$result = array();
@@ -573,122 +574,6 @@
 	}
 
 	/*
-	 * Writes HTML table with the following info:
-	 * Token + shortened pubkey | Name | Description | Users | View Links(?) | Join URL
-	 */
-	function get_table_html($room_assignments_arr) {
-		global $languages; // language_flags.php
-		$shortened_pubkey_length = 4; // shorten pubkey to this length to make room token unique
-		// contains the info for each line of the table
-		$ordered_table_elements = array();
-		// for each server a.k.a. public key do
-		foreach($room_assignments_arr as $pubkey => $room_assignment) {
-			$server = $room_assignment[0];
-			$shortened_pubkey = substr($pubkey, 0, $shortened_pubkey_length); // first X chars of pubkey
-			// for every room do
-			foreach($room_assignment[1] as $room_array) {
-				// info:
-				// $room_array = array(
-				//	"token"        => bla,
-				//	"name"         => Blabla,
-				//	"active_users" => -1,
-				//	"description"  => Blabla bla bla
-				//);
-
-				$join_link = $server . "/" . $room_array["token"] . "?public_key=" . $pubkey;
-				$identifier = $room_array["token"] . "+" . $shortened_pubkey;
-
-				$info_array = array(
-					"name"         => $room_array["name"],
-					"language"     => $languages[$identifier], // example: $languages["deutsch+118d"] = "🇩🇪"
-					"description"  => $room_array["description"],
-					"active_users" => $room_array["active_users"],
-					"join_link"    => $join_link
-				);
-				$ordered_table_elements[$identifier] = $info_array;
-			}
-		}
-
-		// sorting that keeps index association, sort by index
-		ksort($ordered_table_elements, SORT_STRING | SORT_FLAG_CASE);
-//		print_r($ordered_table_elements);
-
-		$table_lines = array();
-		foreach($ordered_table_elements as $id => $content) {
-			// https://1.2.3.4:56789/token?public_key=0123456789abcdef
-			$join_link = $content["join_link"];
-
-			// get preview links
-			$exploded = explode("/", $join_link); // https: + "" + 1.2.3.4:56789 + token?public_key=0123456789abcdef
-			$server_url = $exploded[0] . "//" . $exploded[2];
-			$token  = explode("?", $exploded[3])[0];
-
-			$preview_link = get_preview_link($server_url, $token);
-			if(!$preview_link || $preview_link == "") {
-				echo("Preview link is empty. Dumping variables." . PHP_EOL);
-				echo("Join link: " . $join_link . PHP_EOL);
-				echo("Server: " . $server. PHP_EOL);
-				echo("Token: " . $token . PHP_EOL);
-			}
-
-			$active_users = $content["active_users"];
-			// test if active_users is valid
-			/*if($active_users == -1) {
-				$active_users = "N/A"; // this breaks sortTable()
-			}*/
-
-			$line =
-				"	<tr id=\"" . $id . "\">" . PHP_EOL .
-				"		<td class=\"td_identifier\">" . $id . "</td>" . PHP_EOL .
-				"		<td>" . $content["language"] . "</td>" . PHP_EOL .
-				"		<td>" . $content["name"] . "</td>" . PHP_EOL .
-				"		<td>" . $content["description"] . "</td>" . PHP_EOL .
-				"		<td class=\"td_users\">" . $active_users . "</td>" . PHP_EOL .
-				"		<td><a href=\"" . $preview_link . "\">" . $preview_link . "</a></td>" . PHP_EOL .
-				"		<td class=\"td_join_url\">" . substr($join_link, 0, 32) . "..." . PHP_EOL .
-				"			<button class=\"copy_button\" onclick=\"copyToClipboard('" . $join_link . "')\">Copy</button>" . PHP_EOL .
-				"		</td>" . PHP_EOL .
-				"	</tr>" . PHP_EOL;
-			$table_lines[] = $line;
-		}
-
-		// prefix
-		$prefix =
-			"<h1 id=\"headline\">Session Communities</h1>" . PHP_EOL .
-			"<table id=\"tbl_communities\">" . PHP_EOL .
-			"	<tr>" . PHP_EOL .
-			"		<th onclick=\"sortTable(0)\" id=\"th_identifier\">Identifier</th>" . PHP_EOL .
-			"		<th onclick=\"sortTable(1)\" id=\"th_language\">L</th>" . PHP_EOL .
-			"		<th onclick=\"sortTable(2)\" id=\"th_name\">Name</th>" . PHP_EOL .
-			"		<th onclick=\"sortTable(3)\" id=\"th_description\">Description</th>" . PHP_EOL .
-			"		<th onclick=\"sortTable(4)\" id=\"th_users\">Users</th>" . PHP_EOL .
-			"		<th onclick=\"sortTable(5)\" id=\"th_preview\">Preview</th>" . PHP_EOL .
-			"		<th onclick=\"sortTable(6)\" id=\"th_join_url\">Join URL</th>" . PHP_EOL .
-			"	</tr>" . PHP_EOL;
-
-		// suffix
-		$suffix =
-			"</table>" . PHP_EOL .
-			"<table id=\"tbl_footer\">" . PHP_EOL .
-			"	<tr>" . PHP_EOL .
-			"		<td id=\"td_summary\">" . count($table_lines) . " unique Session Communities have been found.</td>" . PHP_EOL .
-			"	</tr>" . PHP_EOL .
-			"	<tr>" . PHP_EOL .
-			"		<td id=\"td_last_checked\">Last checked X minutes ago.</td>" . PHP_EOL .
-			"	</tr>" . PHP_EOL .
-			"</table>" . PHP_EOL;
-
-		// concatenate html
-		$html = $prefix;
-		foreach($table_lines as $line) {
-			$html = $html . $line;
-		}
-		$html = $html . $suffix;
-
-		return $html;
-	}
-
-	/*
 	 * Test if preview_links are 404 and return the right one (or null)
 	 */
 	function get_preview_link($server_url, $token) {
@@ -706,29 +591,6 @@
 		}
 
 		return $result;
-	}
-
-	/*
-	 * Build valid HTML5 page from provided table html
-	 */
-	function create_html_page_from_table($table_html, $title, $timestamp) {
-		$pre =
-			"<!DOCTYPE html>" . PHP_EOL .
-			"<html lang=\"en\">" . PHP_EOL .
-			"	<head>" . PHP_EOL .
-			"		<link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\" sizes=\"any\">" . PHP_EOL .
-			"		<link rel=\"stylesheet\" href=\"styles.css\">" . PHP_EOL .
-			"		<script src=\"script.js\" defer></script>" . PHP_EOL .
-			"		<title>" . $title . "</title>" . PHP_EOL .
-			"	</head>" . PHP_EOL .
-			"	<body onload=\"onLoad(" . $timestamp . ")\">" . PHP_EOL;
-		$post =
-			"	</body>" . PHP_EOL .
-			"</html>" . PHP_EOL;
-
-		$html5 = $pre . $table_html . $post;
-
-		return $html5;
 	}
 
 	/*
@@ -758,4 +620,57 @@
 
 		return $result;
 	}
+
+	/*
+	 * TODO: Description
+	 */
+	function generate_info_arrays($room_assignments_arr) {
+		global $languages; // language_flags.php
+		$shortened_pubkey_length = 4; // shorten pubkey to this length to make room token unique
+		$info_arrays = array(); // contains the info for each community, will be the returned as result
+
+		// for each server a.k.a. public key do
+		foreach($room_assignments_arr as $pubkey => $room_assignment) {
+			$server_url = $room_assignment[0];
+			$shortened_pubkey = substr($pubkey, 0, $shortened_pubkey_length); // first X chars of pubkey
+			// for every room do
+			foreach($room_assignment[1] as $room_array) {
+				// info:
+				// $room_array = array(
+				//	"token"        => bla,
+				//	"name"         => Blabla,
+				//	"active_users" => -1,
+				//	"description"  => Blabla bla bla
+				//);
+
+				$join_link = $server_url . "/" . $room_array["token"] . "?public_key=" . $pubkey;
+				$identifier = $room_array["token"] . "+" . $shortened_pubkey;
+				$preview_link = get_preview_link($server_url, $room_array["token"]);
+
+				// debug logging
+				if(!$preview_link || $preview_link == "") {
+					echo("Preview link is empty. Dumping variables." . PHP_EOL);
+					echo("Join link: " . $join_link . PHP_EOL);
+					echo("Server: " . $server_url. PHP_EOL);
+					echo("Token: " . $room_array["token"] . PHP_EOL);
+				}
+
+				$info_array = array(
+					"name"         => $room_array["name"],
+					"language"     => $languages[$identifier], // example: $languages["deutsch+118d"] = "🇩🇪"
+					"description"  => $room_array["description"],
+					"active_users" => $room_array["active_users"],
+					"preview_link" => $preview_link,
+					"join_link"    => $join_link
+				);
+				$info_arrays[$identifier] = $info_array;
+			}
+		}
+
+		// sorting that keeps index association, sort by index
+		ksort($info_arrays, SORT_STRING | SORT_FLAG_CASE);
+
+		return $info_arrays;
+	}
+
 ?>
