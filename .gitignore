@@ -5,10 +5,4 @@
 *.kate-swp
 
 # Debug HTML
-/output/index.html
-asgl.html
-ll.html
-sd.html
-
-# Debug JSON
-languages.json
+/output/*.html
