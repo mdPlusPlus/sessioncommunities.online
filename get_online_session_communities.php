@@ -82,7 +82,7 @@
 		$final_html = create_html_page_from_html_data($table_html, $title, $timestamp);
 
 //		print_r($wild_join_links);
-//		print_r($servers);
+		print_r($servers);
 //		print_r($rooms);
 //		print_r($pubkeys);
 //		print_r($addr_assignments);
