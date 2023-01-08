@@ -28,6 +28,9 @@
 	 * Token + shortened pubkey | Name | Description | Users | View Links(?) | Join URL
 	 */
 	function get_table_html($info_arrays) {
+//		$jl = "http://116.203.217.101/feels?public_key=2054fa3271f27ec9e55492c85d022f9582cb4aa2f457e4b885147fb913b9c131";
+//		$img_tag = get_qr_img_tag_from_join_url($jl);
+
 		$table_lines = array();
 		foreach($info_arrays as $id => $content) {
 			/*
@@ -54,9 +57,7 @@
 				"		<td>" . $content["description"] . "</td>" . PHP_EOL .
 				"		<td class=\"td_users\">" . $content["active_users"] . "</td>" . PHP_EOL .
 				"		<td><a href=\"" . $content["preview_link"] . "\">" . $content["preview_link"] . "</a></td>" . PHP_EOL .
-				/*"		<td class=\"td_join_url\">" . substr($content["join_link"], 0, 32) . "..." . PHP_EOL .
-				"			<button class=\"copy_button\" onclick=\"copyToClipboard('" . $content["join_link"] . "')\">Copy</button>" . PHP_EOL .
-				"		</td>" . PHP_EOL .*/
+//				"		<td id=\"qr_" . $id . "\">&#xf029;</td>" . PHP_EOL;
 				"		<td class=\"td_join_url\"><a href=\"" . $content["join_link"] . "\">" . $content["join_link"] . "</a></td>" . PHP_EOL .
 				"	</tr>" . PHP_EOL;
 			$table_lines[] = $line;
@@ -73,6 +74,7 @@
 			"		<th onclick=\"sortTable(3)\" id=\"th_description\">Description</th>" . PHP_EOL .
 			"		<th onclick=\"sortTable(4)\" id=\"th_users\">Users</th>" . PHP_EOL .
 			"		<th onclick=\"sortTable(5)\" id=\"th_preview\">Preview</th>" . PHP_EOL .
+//			"		<th onclick=\"sortTable(6)\" id=\"th_qr\">QR</th>" . PHP_EOL .
 			"		<th onclick=\"sortTable(6)\" id=\"th_join_url\">Join URL</th>" . PHP_EOL .
 			"	</tr>" . PHP_EOL;
 
@@ -96,5 +98,30 @@
 		$html = $html . $suffix;
 
 		return $html;
+	}
+
+	function get_qr_img_tag_from_join_url($join_url) {
+		$data = get_base64_qr_code_from_join_url($join_url);
+		$mime = "image/png";
+		$src = "data: " . $mime . ";base64," . $data;
+
+		$result = "<img src=\"" . $src . "\">";
+//		echo($result . PHP_EOL);
+		return $result;
+	}
+
+	function get_base64_qr_code_from_join_url($join_url) {
+		// https://developers.google.com/chart/infographics/docs/qr_codes
+		$data =  urlencode($join_url);
+		$size = "512x512";
+		//$error_correction_level = ""; // "chld=" L = 7%, M = 15%, Q = 25%, H = 30%
+		$api_url =
+			"https://chart.googleapis.com/chart?cht=qr" .
+			"&chs=" . $size .
+			"&chl=" . $data;
+		$img_base64 = base64_encode(file_get_contents($api_url));
+//		echo($img_base64 . PHP_EOL);
+
+		return $img_base64;
 	}
 ?>
