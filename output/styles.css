@@ -29,8 +29,11 @@
     --session-classic-dark-gray-one:   #414141;
     --session-classic-dark-gray-two:   #2d2d2d;
     --session-classic-dark-gray-three: #1b1b1b;
+    --alternate-row-color:             #e8e8e8;
 }
 th                                  { background-color: lightgray; }
+#tbl_communities tr:nth-child(odd)  { background-color: var(--alternate-row-color); }
+
 /*
 body                                { background-color: var(--session-classic-dark-green); }
 #tbl_communities tr:nth-child(odd)  { background-color: var(--session-classic-dark-gray-two); }
