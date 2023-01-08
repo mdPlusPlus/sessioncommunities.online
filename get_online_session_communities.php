@@ -583,7 +583,9 @@
 		$result = $preview_link;
 		if(!url_is_200($preview_link)) {
 			if(!url_is_200($preview_link_alt)) {
-				$result = null; // $preview_link and $preview_link_alt not reachable
+				// $preview_link and $preview_link_alt not reachable
+				//$result = null;
+				$result = $preview_link; // assume preview_link to be the valid one TODO: Why is it empty sometimes?
 			}
 			else {
 				$result = $preview_link_alt; // $preview_link_alt reachable
@@ -647,13 +649,15 @@
 				$identifier = $room_array["token"] . "+" . $shortened_pubkey;
 				$preview_link = get_preview_link($server_url, $room_array["token"]);
 
-				// debug logging
+				// debug logging - does not work anymore, since $preview_link will not be empty when failed
+				/*
 				if(!$preview_link || $preview_link == "") {
 					echo("Preview link is empty. Dumping variables." . PHP_EOL);
 					echo("Join link: " . $join_link . PHP_EOL);
 					echo("Server: " . $server_url. PHP_EOL);
 					echo("Token: " . $room_array["token"] . PHP_EOL);
 				}
+				*/
 
 				$info_array = array(
 					"name"         => $room_array["name"],
