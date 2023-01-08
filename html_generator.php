@@ -54,9 +54,10 @@
 				"		<td>" . $content["description"] . "</td>" . PHP_EOL .
 				"		<td class=\"td_users\">" . $content["active_users"] . "</td>" . PHP_EOL .
 				"		<td><a href=\"" . $content["preview_link"] . "\">" . $content["preview_link"] . "</a></td>" . PHP_EOL .
-				"		<td class=\"td_join_url\">" . substr($content["join_link"], 0, 32) . "..." . PHP_EOL .
+				/*"		<td class=\"td_join_url\">" . substr($content["join_link"], 0, 32) . "..." . PHP_EOL .
 				"			<button class=\"copy_button\" onclick=\"copyToClipboard('" . $content["join_link"] . "')\">Copy</button>" . PHP_EOL .
-				"		</td>" . PHP_EOL .
+				"		</td>" . PHP_EOL .*/
+				"		<td class=\"td_join_url\"><a href=\"" . $content["join_link"] . "\">" . $content["join_link"] . "</a></td>" . PHP_EOL .
 				"	</tr>" . PHP_EOL;
 			$table_lines[] = $line;
 		}

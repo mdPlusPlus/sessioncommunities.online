@@ -11,7 +11,10 @@
 .td_users        { text-align: right; }
 #th_preview      { width:19%; }
 #th_join_url     { width:17%; }
-.td_join_url     { font-family: monospace; }
+.td_join_url     {
+    font-family: monospace;
+    white-space: nowrap;
+}
 
 .copy_button     {  }
 
