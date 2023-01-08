@@ -10,7 +10,7 @@
 #th_users        {  }
 .td_users        { text-align: right; }
 #th_preview      { width:19%; }
-#th_join_url     { width:17%; }
+#th_join_url     { width:15%; }
 .td_join_url     {
     font-family: monospace;
     white-space: nowrap;

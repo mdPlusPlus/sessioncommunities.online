@@ -10,7 +10,7 @@ function createJoinLinkButtons() {
 	Array.from(elements).forEach((td_element) => {
 		a_href = td_element.getElementsByTagName('a')[0]; // get first (only) <a> element
 		join_link = a_href.getAttribute("href"); // get link
-		button_content = join_link.substring(0, 30) + "...<button class=\"copy_button\" onclick=\"copyToClipboard('" + join_link + "')\">Copy</button>";
+		button_content = join_link.substring(0, 31) + "...<button class=\"copy_button\" onclick=\"copyToClipboard('" + join_link + "')\">Copy</button>";
 
 		td_element.innerHTML = button_content;
 	});
