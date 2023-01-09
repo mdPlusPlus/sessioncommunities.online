@@ -9,8 +9,8 @@
 			"	<head>" . PHP_EOL .
 			"		<meta charset=\"UTF-8\">" . PHP_EOL .
 			"		<link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\" sizes=\"any\">" . PHP_EOL .
-			"		<link rel=\"stylesheet\" href=\"styles.css\">" . PHP_EOL .
-			"		<script src=\"script.js\" defer></script>" . PHP_EOL .
+			"		<link rel=\"stylesheet\" href=\"styles2.css\">" . PHP_EOL .
+			"		<script src=\"script2.js\" defer></script>" . PHP_EOL .
 			"		<title>" . $title . "</title>" . PHP_EOL .
 			"	</head>" . PHP_EOL .
 			"	<body onload=\"onLoad(" . $timestamp . ")\">" . PHP_EOL;
