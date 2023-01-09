@@ -154,7 +154,7 @@
 			$modal_html =
 				"<div id=\"modal_" . $id . "\" class=\"qr-code-modal\">" . PHP_EOL .
 				"	<div class=\"qr-code-modal-content\">" . PHP_EOL .
-				"		<span class=\"qr-code-modal-close\">&times;</span>" . PHP_EOL .
+				"		<span class=\"qr-code-modal-close\" onclick=\"hideQRModal('" . $id . "')\">&times;</span>" . PHP_EOL .
 				"		" . $img_elem . PHP_EOL .
 				"	</div>" . PHP_EOL .
 				"</div>" . PHP_EOL;

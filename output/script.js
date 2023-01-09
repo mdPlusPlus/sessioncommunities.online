@@ -11,6 +11,12 @@ function displayQRModal(communityID) {
 	modal.style.display = "block";
 }
 
+function hideQRModal(communityID) {
+	var modalID = "modal_" + communityID;
+	modal = document.getElementById(modalID);
+	modal.style.display = "none";
+}
+
 function createJoinLinkButtons() {
 	elements = document.getElementsByClassName("td_join_url");
 	Array.from(elements).forEach((td_element) => {
