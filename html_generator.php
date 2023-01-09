@@ -108,7 +108,8 @@
 
 		$result =
 			"<img src=\"" . $src . "\" " .
-			"alt=\"Community join link encoded as QR code image\">";
+			"alt=\"Community join link encoded as QR code image\" " .
+			"class=\"qr-code\">";
 //		echo($result . PHP_EOL);
 
 		return $result;
