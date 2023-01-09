@@ -5,6 +5,12 @@ function onLoad(timestamp) {
 	createJoinLinkButtons();
 }
 
+function displayQRModal(communityID) {
+	var modalID = "modal_" + communityID;
+	modal = document.getElementById(modalID);
+	modal.style.display = "block";
+}
+
 function createJoinLinkButtons() {
 	elements = document.getElementsByClassName("td_join_url");
 	Array.from(elements).forEach((td_element) => {

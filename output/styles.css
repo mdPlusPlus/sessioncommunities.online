@@ -5,11 +5,12 @@
 #th_identifier   { width:9%; }
 .td_identifier   { font-family: monospace; }
 #th_name         { width:13%; }
-#th_language     { width:16px }
+#th_language     { width:0% }
 #th_description  {  }
-#th_users        {  }
+#th_users        { width:0% }
 .td_users        { text-align: right; }
 #th_preview      { width:19%; }
+#th_qr           { width:0%; }
 #th_join_url     { width:15%; }
 .td_join_url     {
     font-family: monospace;
@@ -39,3 +40,22 @@ body                                { background-color: var(--session-classic-da
 #tbl_communities tr:nth-child(odd)  { background-color: var(--session-classic-dark-gray-two); }
 #tbl_communities tr:nth-child(even) { background-color: var(--session-classic-dark-gray-three); }
 */
+
+
+/* <QR code modals> */
+.qr-code-modal {
+    display: none;   /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1;      /* Sit on top */
+}
+.qr-code-modal-content {
+}
+.qr-code-modal-close {
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.qr-code-modal-close:hover,
+.qr-code-modal-close:focus {
+    cursor: pointer;
+}

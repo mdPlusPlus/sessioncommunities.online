@@ -7,6 +7,7 @@
 			"<!DOCTYPE html>" . PHP_EOL .
 			"<html lang=\"en\">" . PHP_EOL .
 			"	<head>" . PHP_EOL .
+			"		<meta charset=\"UTF-8\">" . PHP_EOL .
 			"		<link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\" sizes=\"any\">" . PHP_EOL .
 			"		<link rel=\"stylesheet\" href=\"styles.css\">" . PHP_EOL .
 			"		<script src=\"script.js\" defer></script>" . PHP_EOL .
@@ -28,9 +29,6 @@
 	 * Token + shortened pubkey | Name | Description | Users | View Links(?) | Join URL
 	 */
 	function get_table_html($info_arrays) {
-//		$jl = "http://116.203.217.101/feels?public_key=2054fa3271f27ec9e55492c85d022f9582cb4aa2f457e4b885147fb913b9c131";
-//		$img_tag = get_qr_img_tag_from_join_url($jl);
-
 		$table_lines = array();
 		foreach($info_arrays as $id => $content) {
 			/*
@@ -57,7 +55,7 @@
 				"		<td>" . $content["description"] . "</td>" . PHP_EOL .
 				"		<td class=\"td_users\">" . $content["active_users"] . "</td>" . PHP_EOL .
 				"		<td><a href=\"" . $content["preview_link"] . "\">" . $content["preview_link"] . "</a></td>" . PHP_EOL .
-//				"		<td id=\"qr_" . $id . "\">&#xf029;</td>" . PHP_EOL;
+				"		<td><img src=\"qrcode-solid.svg\" onclick=\"displayQRModal('" . $id . "')\" alt=\"Pictogram of an QR code\"></td>" . PHP_EOL .
 				"		<td class=\"td_join_url\"><a href=\"" . $content["join_link"] . "\">" . $content["join_link"] . "</a></td>" . PHP_EOL .
 				"	</tr>" . PHP_EOL;
 			$table_lines[] = $line;
@@ -74,8 +72,8 @@
 			"		<th onclick=\"sortTable(3)\" id=\"th_description\">Description</th>" . PHP_EOL .
 			"		<th onclick=\"sortTable(4)\" id=\"th_users\">Users</th>" . PHP_EOL .
 			"		<th onclick=\"sortTable(5)\" id=\"th_preview\">Preview</th>" . PHP_EOL .
-//			"		<th onclick=\"sortTable(6)\" id=\"th_qr\">QR</th>" . PHP_EOL .
-			"		<th onclick=\"sortTable(6)\" id=\"th_join_url\">Join URL</th>" . PHP_EOL .
+			"		<th id=\"th_qr\">QR</th>" . PHP_EOL .
+			"		<th onclick=\"sortTable(7)\" id=\"th_join_url\">Join URL</th>" . PHP_EOL .
 			"	</tr>" . PHP_EOL;
 
 		// suffix
@@ -100,16 +98,25 @@
 		return $html;
 	}
 
-	function get_qr_img_tag_from_join_url($join_url) {
+	/*
+	 * Needed until all Community servers reliably generate QR codes again
+	 */
+	function get_qr_img_element_from_join_url($join_url) {
 		$data = get_base64_qr_code_from_join_url($join_url);
 		$mime = "image/png";
-		$src = "data: " . $mime . ";base64," . $data;
+		$src = "data:" . $mime . ";base64," . $data;
 
-		$result = "<img src=\"" . $src . "\">";
+		$result =
+			"<img src=\"" . $src . "\" " .
+			"alt=\"Community join link encoded as QR code image\">";
 //		echo($result . PHP_EOL);
+
 		return $result;
 	}
 
+	/*
+	 * Use Google API to generate QR codes and encode them as base64
+	 */
 	function get_base64_qr_code_from_join_url($join_url) {
 		// https://developers.google.com/chart/infographics/docs/qr_codes
 		$data =  urlencode($join_url);
@@ -124,4 +131,56 @@
 
 		return $img_base64;
 	}
+
+	/*
+	 * TODO: Description
+	 */
+	function create_qr_code_modals_html($info_arrays) {
+		$html = "";
+		foreach($info_arrays as $id => $content) {
+			/*
+			 * $id is "room token+shortened_pubkey", e.g. "example+09af"
+			 * Each $content looks like this:
+			 * $info_array = array(
+			 * 		"name"         => "Name of the room",
+			 * 		"language"     => "🇩🇪",
+			 * 		"description"  => "Some text that describes the community",
+			 * 		"active_users" => 1234,
+			 * 		"preview_link" => "https://example.com/r/example",
+			 * 		"join_link"    => "https://example.com/example?public_key=[64_hex_chars]"
+			 * );
+			 */
+			$img_elem = get_qr_img_element_from_join_url($content["join_link"]); // TODO: incorporate ID to use in js function
+			$modal_html =
+				"<div id=\"modal_" . $id . "\" class=\"qr-code-modal\">" . PHP_EOL .
+				"	<div class=\"qr-code-modal-content\">" . PHP_EOL .
+				"		<span class=\"qr-code-modal-close\">&times;</span>" . PHP_EOL .
+				"		" . $img_elem . PHP_EOL .
+				"	</div>" . PHP_EOL .
+				"</div>" . PHP_EOL;
+
+			$html = $html . $modal_html;
+		}
+
+		return $html;
+	}
+
+	/*
+	 * TODO: Description
+	 */
+	function generateHTML($timestamp, $info_arrays) {
+		$title = "Self-updating list of active Session Communities";
+
+		$modal_html = create_qr_code_modals_html($info_arrays);
+		$table_html = get_table_html($info_arrays);
+
+		$html =
+			$modal_html . PHP_EOL .
+			$table_html . PHP_EOL;
+
+		$final_html = create_html_page_from_html_data($html, $title, $timestamp);
+
+		return $final_html;
+	}
+
 ?>
