@@ -55,7 +55,7 @@
 				"		<td>" . $content["description"] . "</td>" . PHP_EOL .
 				"		<td class=\"td_users\">" . $content["active_users"] . "</td>" . PHP_EOL .
 				"		<td><a href=\"" . $content["preview_link"] . "\">" . $content["preview_link"] . "</a></td>" . PHP_EOL .
-				"		<td><img src=\"qrcode-solid.svg\" onclick=\"displayQRModal('" . $id . "')\" alt=\"Pictogram of an QR code\"></td>" . PHP_EOL .
+				"		<td><img class=\"qr-code-icon\" src=\"qrcode-solid.svg\" onclick=\"displayQRModal('" . $id . "')\" alt=\"Pictogram of an QR code\"></td>" . PHP_EOL .
 				"		<td class=\"td_join_url\"><a href=\"" . $content["join_link"] . "\">" . $content["join_link"] . "</a></td>" . PHP_EOL .
 				"	</tr>" . PHP_EOL;
 			$table_lines[] = $line;

@@ -49,6 +49,9 @@ body                                { background-color: var(--session-classic-da
     margin-right: auto;
     width: 50%;
 }
+.qr-code-icon {
+    cursor: pointer;
+}
 .qr-code-modal {
     display: none;   /* Hidden by default */
     position: fixed; /* Stay in place */
