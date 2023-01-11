@@ -1,3 +1,5 @@
+var numberOfHiddenCommunities = 0;
+
 function onLoad(timestamp) {
 	setLastChecked(timestamp);
 	hideBadCommunities();
@@ -6,25 +8,25 @@ function onLoad(timestamp) {
 }
 
 function displayQRModal(communityID) {
-	var modalID = "modal_" + communityID;
-	modal = document.getElementById(modalID);
+	const modalID = "modal_" + communityID;
+	const modal = document.getElementById(modalID);
 	modal.style.display = "block";
 }
 
 function hideQRModal(communityID) {
-	var modalID = "modal_" + communityID;
-	modal = document.getElementById(modalID);
+	const modalID = "modal_" + communityID;
+	const modal = document.getElementById(modalID);
 	modal.style.display = "none";
 }
 
 function createJoinLinkButtons() {
-	elements = document.getElementsByClassName("td_join_url");
+	const elements = document.getElementsByClassName("td_join_url");
 	Array.from(elements).forEach((td_element) => {
-		a_href = td_element.getElementsByTagName('a')[0]; // get first (only) <a> element
-		join_link = a_href.getAttribute("href"); // get link
-		button_content = join_link.substring(0, 31) + "...<button class=\"copy_button\" onclick=\"copyToClipboard('" + join_link + "')\">Copy</button>";
+		const a_href = td_element.getElementsByTagName('a')[0]; // get first (only) <a> element
+		const join_link = a_href.getAttribute("href"); // get link
+		const cell_content = join_link.substring(0, 31) + "...<button class=\"copy_button\" onclick=\"copyToClipboard('" + join_link + "')\">Copy</button>";
 
-		td_element.innerHTML = button_content;
+		td_element.innerHTML = cell_content;
 	});
 }
 
@@ -46,18 +48,23 @@ function hideBadCommunities() {
 
 	// These communities should be checked regularly in case they updated their PySOGS version
 	const legacyCommunitiyIDs = [
-		"Ukraine+02bd"
+		"Ukraine+02bd" // https://reccacon.com/view/room/Ukraine
 	];
 
 	testCommunityIDs.forEach(hideElementByID);
 	badCommunityIDs.forEach(hideElementByID);
 	legacyCommunitiyIDs.forEach(hideElementByID);
+
+	const summary = document.getElementById("td_summary");
+	summaryNew = summary.innerHTML + " (" + numberOfHiddenCommunities + " hidden)";
+	summary.innerHTML = summaryNew;
 }
 
 function hideElementByID(id) {
-	element = document.getElementById(id);
+	const element = document.getElementById(id);
 	if(element != null) {
 		element.remove();
+		numberOfHiddenCommunities++;
 	}
 }
 
@@ -66,11 +73,11 @@ function copyToClipboard(text) {
 }
 
 function setLastChecked(timestamp) {
-	now = Math.floor(Date.now() / 1000); // timestamp in seconds
-	time_passed_in_seconds = now - timestamp;
-	time_passed_in_minutes = Math.floor(time_passed_in_seconds / 60); // time in minutes, rounded down
-	td_element = document.getElementById("td_last_checked");
-	td_element.innerHTML = "Last checked " + time_passed_in_minutes + " minutes ago.";
+	const now = Math.floor(Date.now() / 1000); // timestamp in seconds
+	const time_passed_in_seconds = now - timestamp;
+	const time_passed_in_minutes = Math.floor(time_passed_in_seconds / 60); // time in minutes, rounded down
+	const td_last_checked = document.getElementById("td_last_checked");
+	td_last_checked.innerHTML = "Last checked " + time_passed_in_minutes + " minutes ago.";
 }
 
 function sortTable(n) {
