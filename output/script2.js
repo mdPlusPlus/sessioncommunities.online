@@ -44,8 +44,14 @@ function hideBadCommunities() {
 		"60fa60+c7fb"  // "N-word" Community
 	];
 
+	// These communities should be checked regularly in case they updated their PySOGS version
+	const legacyCommunitiyIDs = [
+		"Ukraine+02bd"
+	];
+
 	testCommunityIDs.forEach(hideElementByID);
 	badCommunityIDs.forEach(hideElementByID);
+	legacyCommunitiyIDs.forEach(hideElementByID);
 }
 
 function hideElementByID(id) {
