@@ -1,4 +1,5 @@
 # /etc/sudoers.d/session_sudoers
+# chmod 0440 /etc/sudoers.d/session_sudoers
 # sudoers file to let the users of the group(%) "session" restart the service for https://sessioncommunities.online
 %session ALL= NOPASSWD: /bin/systemctl start   sessioncommunities.service
 %session ALL= NOPASSWD: /bin/systemctl stop    sessioncommunities.service
