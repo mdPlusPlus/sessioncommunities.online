@@ -72,6 +72,13 @@ function hideElementByID(id) {
 
 function copyToClipboard(text) {
 	navigator.clipboard.writeText(text);
+
+	// Snackbar
+	const snackbar = document.getElementById("copy-snackbar");
+	// Add the "show" class to DIV
+	snackbar.className = "show";
+	// After 3 seconds, remove the show class from DIV
+	setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
 }
 
 function setLastChecked(timestamp) {

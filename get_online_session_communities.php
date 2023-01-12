@@ -77,10 +77,7 @@
 		$info_arrays = generate_info_arrays($room_assignments);
 //		$final_join_links = generate_join_links($room_assignments);
 
-//		$modal_html = create_qr_code_modals_html($info_arrays);
-//		$table_html = get_table_html($info_arrays);
-//		$title = "Self-updating list of active Session Communities";
-//		$final_html = create_html_page_from_html_data($table_html, $title, $timestamp);
+
 		$final_html = generateHTML($timestamp, $info_arrays);
 
 //		print_r($wild_join_links);

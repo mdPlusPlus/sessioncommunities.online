@@ -167,17 +167,31 @@
 	}
 
 	/*
+	 * Generate the HTML for the toast/snackbar when you copy a join link
+	 */
+	function get_copy_snackbar() {
+		$snackbar_html =
+			"<div id=\"copy-snackbar\">" .
+				"Copied the URL to the clipboard. Paste into Session app to join." .
+			"</div>";
+
+		return $snackbar_html;
+	}
+
+	/*
 	 * TODO: Description
 	 */
 	function generateHTML($timestamp, $info_arrays) {
 		$title = "Self-updating list of active Session Communities";
 
-		$modal_html = create_qr_code_modals_html($info_arrays);
 		$table_html = get_table_html($info_arrays);
+		$modal_html = create_qr_code_modals_html($info_arrays);
+		$snackbar_html = get_copy_snackbar();
 
 		$html =
+			$table_html . PHP_EOL .
 			$modal_html . PHP_EOL .
-			$table_html . PHP_EOL;
+			$snackbar_html . PHP_EOL;
 
 		$final_html = create_html_page_from_html_data($html, $title, $timestamp);
 
