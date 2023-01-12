@@ -1,8 +1,7 @@
 # Generated HTML
-/output/index.php
+/output/*.html
 
 # Kate
 *.kate-swp
 
-# Debug HTML
-/output/*.html
+

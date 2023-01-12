@@ -50,7 +50,7 @@
 	);
 
 	// path for HTML output
-	$output = "output/index.php";
+	$output = "output/index.html";
 
 
 	// run main function
