@@ -39,7 +39,8 @@ function hideBadCommunities() {
 		"test+118d",   // Testing 1, 2, 3
 		"test+13f6",   // Testing room
 		"test+c01b",   // Testing room
-		"test+fe93"    // 测试（Test)
+		"test+fe93",   // 测试（Test)
+		"xyz+efca",    // XYZ Room
 	];
 
 	const badCommunityIDs = [
