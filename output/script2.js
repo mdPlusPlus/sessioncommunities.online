@@ -32,15 +32,16 @@ function createJoinLinkButtons() {
 
 function hideBadCommunities() {
 	const testCommunityIDs = [
-		"2e9345+c7fb", // TestRoom
-		"762ba9+c7fb", // TesterRoom
-		"b4d829+c7fb", // Test
-		"e5853a+c7fb", // testtest
-		"test+118d",   // Testing 1, 2, 3
-		"test+13f6",   // Testing room
-		"test+c01b",   // Testing room
-		"test+fe93",   // 测试（Test)
-		"xyz+efca",    // XYZ Room
+		"2e9345+c7fb",  // TestRoom
+		"762ba9+c7fb",  // TesterRoom
+		"b4d829+c7fb",  // Test
+		"e5853a+c7fb",  // testtest
+		"fishing+8e2e", // Example from here: https://github.com/oxen-io/session-pysogs/blob/0a5a58eb9f53e78f9ec93d2357cec3db18cefe79/administration.md
+		"test+118d",    // Testing 1, 2, 3
+		"test+13f6",    // Testing room
+		"test+c01b",    // Testing room
+		"test+fe93",    // 测试（Test)
+		"xyz+efca",     // XYZ Room
 	];
 
 	const badCommunityIDs = [
