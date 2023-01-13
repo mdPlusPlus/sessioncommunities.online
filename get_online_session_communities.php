@@ -85,7 +85,7 @@
 //		print_r($rooms);
 //		print_r($pubkeys);
 //		print_r($addr_assignments);
-//		print_r($room_assignments); //TODO: We also assigned empty room arrays. Should probably be fixed
+//		print_r($room_assignments);
 //		print_r($final_join_links);
 
 		// write output to disk
@@ -256,12 +256,6 @@
 			}
 		}
 
-		/*$counter = 0;
-		foreach($rooms as $room_arr) {
-			$counter = $counter + count($room_arr);
-		}
-		echo("Found " . $counter . " rooms, but there could be duplicates." . PHP_EOL);*/
-
 //		print_r($failed_arr);
 
 		return $rooms;
@@ -270,7 +264,7 @@
 	/*
 	 * TODO: Description
 	 */
-	function query_single_servers_for_rooms($server_url, $failed_arr = null) {
+	function query_single_servers_for_rooms($server_url, &$failed_arr = null) {
 		$result = array();
 		$endpoint = "/rooms";
 		$json_url = $server_url . $endpoint;
@@ -286,10 +280,15 @@
 			if($json_obj) {
 				foreach($json_obj as $json_room) {
 					$token = $json_room->token; // room "name"
+					$users_per_second = $json_room->active_users / $json_room->active_users_cutoff;
+					$seconds_in_a_week = 604800;
+					$weekly_active_users = floor($users_per_second * $seconds_in_a_week);
+//					echo($token . " has " . $users_per_second . " UPS." . PHP_EOL);
+//					echo($token . " has " . $weekly_active_users . " WAU. (" . $json_room->active_users . ")" . PHP_EOL);
 					$room_array = array(
 						"token"        => $token,
 						"name"         => $json_room->name,
-						"active_users" => $json_room->active_users,
+						"active_users" => $weekly_active_users,
 						"description"  => $json_room->description
 					);
 
@@ -300,7 +299,7 @@
 			}
 			else {
 				$failed = true;
-//					echo($json_url . " failed to decode" . PHP_EOL);
+//				echo($json_url . " failed to decode" . PHP_EOL);
 				}
 			}
 		else {
@@ -309,17 +308,21 @@
 
 		if($failed) {
 			// 404 - could mean it's a legacy server that doesn't provide /room endpoint
-			if($failed_arr) {
+//			echo("Failed json_url: " . $json_url . PHP_EOL);
+			if(!is_null($failed_arr)) {
 				// if $failed_arr has been used as parameter, add failed URL to it
 				$failed_arr[] = $server_url;
+//				echo("Failed: " . $server_url . PHP_EOL);
 			}
 			$legacy_rooms = query_homepage_for_rooms($server_url);
 			if($legacy_rooms) {
 				$result = $legacy_rooms;
 			} else {
-				return null;
+				$result = null;
 			}
 		}
+
+//		print_r($failed_arr);
 
 		return $result;
 	}
@@ -532,12 +535,34 @@
 	}
 
 	/*
-	 * TODO: Description
+	 * Returns an array that uses the public key as the index
+	 * and assigns an array that has the server URL as index [0],
+	 * and an array with all the room arrays as index[1]
+	 * Example:
+	 * [49ac5595058829c961eea6f60c44914cd08ea9b4c463d657fc82904eb2a89623] => Array (
+	 *		[0] => https://2hu-ch.org
+	 *		[1] => Array (
+	 *			[animu] => Array (
+	 *				[token] => animu
+	 *				[name] => animu
+	 *				[active_users] => 34
+	 *				[description] =>
+	 *			)
+	 *			[cryptography] => Array (
+	 *				[token] => cryptography
+	 *				[name] => cryptography
+	 *				[active_users] => 14
+	 *				[description] =>
+	 *			)
+	 *))
 	 */
 	function assign_rooms_to_address_assignments($addr_assignments_arr, $rooms_arr) {
 		$result = array();
 		foreach($addr_assignments_arr as $pubkey => $address) {
-			$result[$pubkey] = array($address, $rooms_arr[$address]);
+			// only assign room array when one can be found in $rooms_arr
+			if($rooms_arr[$address]) {
+				$result[$pubkey] = array($address, $rooms_arr[$address]);
+			}
 		}
 
 		return $result;
