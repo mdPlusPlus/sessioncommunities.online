@@ -122,11 +122,11 @@
 		// https://developers.google.com/chart/infographics/docs/qr_codes
 		$data =  urlencode($join_url);
 		$size = "512x512";
-		//$error_correction_level = ""; // "chld=" L = 7%, M = 15%, Q = 25%, H = 30%
 		$api_url =
 			"https://chart.googleapis.com/chart?cht=qr" .
 			"&chs=" . $size .
-			"&chl=" . $data;
+			"&chl=" . $data .
+			"&chld=L|0"; // error correction level: L = 7%, M = 15%, Q = 25%, H = 30% | margin in number of rows
 		$img_base64 = base64_encode(file_get_contents($api_url));
 //		echo($img_base64 . PHP_EOL);
 
