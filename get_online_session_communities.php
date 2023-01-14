@@ -87,6 +87,7 @@
 //		print_r($addr_assignments);
 //		print_r($room_assignments);
 //		print_r($final_join_links);
+//		print_pinned_messages($room_assignments);
 
 		// write output to disk
 		global $output;
@@ -717,6 +718,36 @@
 //		print_r($servers);
 
 		return count($servers);
+	}
+
+	/*
+	 * Debug function to see which communities use pinned messages already
+	 */
+	function print_pinned_messages($room_assignments_arr) {
+		// for each server a.k.a. public key do
+		foreach($room_assignments_arr as $pubkey => $room_assignment) {
+			// for every room do
+			foreach($room_assignment[1] as $room_array) {
+				// info:
+				// $room_array = array(
+				//	"token"        => bla,
+				//	"name"         => Blabla,
+				//	"active_users" => -1,
+				//	"description"  => Blabla bla bla
+				//);
+				$server_url = $room_assignment[0];
+				$room_json_url = $server_url . "/room/" . $room_array["token"];
+				echo($room_json_url . PHP_EOL);
+				$contents = file_get_contents($room_json_url);
+				if($contents) {
+//					print_r($contents);
+					$json_obj = json_decode($contents);
+					$pinned_messages = $json_obj->pinned_messages;
+					echo("Pinned messages:" . PHP_EOL);
+					print_r($pinned_messages);
+				}
+			}
+		}
 	}
 
 ?>
