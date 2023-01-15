@@ -97,8 +97,7 @@ function sortTable(n) {
 	switching = true;
 	// Set the sorting direction to ascending:
 	dir = "asc";
-	/* Make a loop that will continue until
-	 no switching has been don*e: */
+	// Make a loop that will continue until no switching has been done:
 	while (switching) {
 		// Start by saying: no switching is done:
 		switching = false;
