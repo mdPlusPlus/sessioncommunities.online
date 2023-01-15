@@ -45,7 +45,8 @@ function hideBadCommunities() {
 	];
 
 	const badCommunityIDs = [
-		"60fa60+c7fb"  // "N-word" Community
+		"60fa60+c7fb",  // "N-word" Community
+		"ab1a4d+c7fb"   //
 	];
 
 	// These communities should be checked regularly in case they updated their PySOGS version
