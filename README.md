@@ -44,7 +44,10 @@ Depending on your location, it is possible for you to get really bad routing to 
 The details can be seen in `curl_get_contents()`.
 
 ### Official repositories
-- https://github.com/mdPlusPlus/sessioncommunities.online/
+- https://github.com/mdPlusPlus/sessioncommunities.online
+- https://lokilocker.com/SomeGuy/sessioncommunities.online
+
+If you're the owner of a Session Community, or are a member of one, that does not yet have a language flag assigned to it, you can issue a pull request here:
 - https://github.com/mdPlusPlus/sessioncommunities.online-languages/
 
 
