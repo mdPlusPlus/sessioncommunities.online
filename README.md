@@ -46,3 +46,8 @@ The details can be seen in `curl_get_contents()`.
 ### Official repositories
 - https://github.com/mdPlusPlus/sessioncommunities.online/
 - https://github.com/mdPlusPlus/sessioncommunities.online-languages/
+
+
+## Contact
+
+If you want to contact me, you can add me on Session via my [ONS](https://docs.oxen.io/using-the-oxen-blockchain/using-oxen-name-system): "someguy" (without the quotes)
