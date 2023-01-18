@@ -340,11 +340,11 @@
 		$contents = file_get_contents($url);
 		if($contents) {
 			$regex_new = "/\/r\/" . $room_token_regex_part . "/";
-			$regex_old = "/\/view\/room\/" . $room_token_regex_part . "/";
+			$regex_old = "/\/view\/room\/" . $room_token_regex_part . "/"; // @legacy
 
 			preg_match_all($regex_new, $contents, $rooms);
 			$rooms = $rooms[0];
-			// if the new regex doesn't match, use the old one
+			// if the new regex doesn't match, use the old one // @legacy
 			if(empty($rooms)) {
 				preg_match_all($regex_old, $contents, $rooms);
 				$rooms = $rooms[0];
@@ -368,7 +368,7 @@
 						"active_users" => -1, // without API we can't query the acutal number
 						"description"  => null // same goes for the description
 					);
-					//$result[] = $token;
+
 					$result[$token] = $room_array;
 				}
 			}
@@ -599,7 +599,7 @@
 	}
 
 	/*
-	 * Test if preview_links are 404 and return the right one (or null)
+	 * Test if preview_links are 404 and return the right one (or null) // @legacy
 	 */
 	function get_preview_link($server_url, $token) {
 		$preview_link     = $server_url . "/r/" . $token . "/";
@@ -633,7 +633,7 @@
 			$room_to_visit = $rooms[array_key_first($rooms)]; // use first room e.g. $rooms["offtopic"]
 //			print_r($room_to_visit);
 			$token  = $room_to_visit["token"];
-			$preview_link = get_preview_link($server_url, $token);
+			$preview_link = get_preview_link($server_url, $token); // @legacy
 //			var_dump($preview_link);
 			$preview_contents = file_get_contents($preview_link);
 //			print_r($preview_contents);
@@ -672,7 +672,7 @@
 
 				$join_link = $server_url . "/" . $room_array["token"] . "?public_key=" . $pubkey;
 				$identifier = $room_array["token"] . "+" . $shortened_pubkey;
-				$preview_link = get_preview_link($server_url, $room_array["token"]);
+				$preview_link = get_preview_link($server_url, $room_array["token"]); // @legacy
 
 				// debug logging - does not work anymore, since $preview_link will not be empty when failed
 				/*
