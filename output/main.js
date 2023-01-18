@@ -7,8 +7,8 @@
  * Learn more: https://jsdoc.app/
  */
  
- // Nudge TypeScript plugins to type-check using JSDoc comments.
- // @ts-check
+// Nudge TypeScript plugins to type-check using JSDoc comments.
+// @ts-check
 
 // Early prevention for bugs introduced by lazy coding.
 'use strict';
