@@ -3,8 +3,8 @@
 
 	// require other php files
 	require "helper_functions.php";
-	require "languages/language_flags.php";
 	require "html_generator.php";
+	include "languages/language_flags.php"; // actually runs fine without it
 
 	// some global stuff
 
