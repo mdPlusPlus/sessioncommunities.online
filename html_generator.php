@@ -172,7 +172,7 @@
 	function get_copy_snackbar() {
 		$snackbar_html =
 			"<div id=\"copy-snackbar\">" .
-				"Copied the URL to the clipboard. Paste into Session app to join." .
+				"Copied URL to clipboard. Paste into Session app to join." .
 			"</div>";
 
 		return $snackbar_html;
