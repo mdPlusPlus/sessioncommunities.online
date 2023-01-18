@@ -3,12 +3,12 @@
 // change in the foreseeable future.
 
 export const dom = {
-  tbl_communities: () => document.getElementById("tbl_communities"),
-  td_last_checked: () => document.getElementById("td_last_checked"),
-  qr_modal: (communityID) => document.getElementById(`modal_${communityID}`),
-  join_urls: () => document.getElementsByClassName("td_join_url"),
-  td_summary: () => document.getElementById("td_summary"),
-  snackbar: () => document.getElementById("copy-snackbar")
+	tbl_communities: () => document.getElementById("tbl_communities"),
+	td_last_checked: () => document.getElementById("td_last_checked"),
+	qr_modal: (communityID) => document.getElementById(`modal_${communityID}`),
+	join_urls: () => document.getElementsByClassName("td_join_url"),
+	td_summary: () => document.getElementById("td_summary"),
+	snackbar: () => document.getElementById("copy-snackbar")
 }
 
 export const COLUMN = {
@@ -21,7 +21,7 @@ export const COLUMN = {
 // Takes original key-value pairs, flips them, and casefolds the new values.
 // Should correspond to #th_{} and .td_{} elements in communities table.
 export const COLUMN_LITERAL = Object.fromEntries(
-  Object.entries(COLUMN).map(([name, id]) => [id, name.toLowerCase()])
+	Object.entries(COLUMN).map(([name, id]) => [id, name.toLowerCase()])
 );
 
 export const COMPARISON = {
@@ -29,16 +29,16 @@ export const COMPARISON = {
 };
 
 export const ATTRIBUTES = {
-  SORTING: {
-    ACTIVE: 'data-sort',
-    ASCENDING: 'data-sort-asc',
-    COLUMN: 'data-sorted-by',
-    COLUMN_LITERAL: 'sorted-by'
-  }
+	SORTING: {
+		ACTIVE: 'data-sort',
+		ASCENDING: 'data-sort-asc',
+		COLUMN: 'data-sorted-by',
+		COLUMN_LITERAL: 'sorted-by'
+	}
 };
 
 export function columnAscendingByDefault(column) { 
-  return column != COLUMN.USERS; 
+	return column != COLUMN.USERS; 
 }
 
 export function columnIsSortable(column) { return column != COLUMN.QR_CODE; }
@@ -56,3 +56,4 @@ export function columnIsNumeric(column) {
 		COLUMN.USERS
 	].includes(column);
 }
+
