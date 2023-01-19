@@ -5,7 +5,7 @@
 	$ROOMS_FILE="$CACHE_ROOT/rooms.json";
 	$DOCUMENT_ROOT="$PROJECT_ROOT/output";
 	$TEMPLATES_ROOT="$PROJECT_ROOT/sites";
-	$LANGUAGES_ROOT="$PROJECT_ROOT/languages"
+	$LANGUAGES_ROOT="$PROJECT_ROOT/languages";
 	
 	// set timeout for file_get_contents()
 	ini_set('default_socket_timeout', 6); // in seconds, default is 60

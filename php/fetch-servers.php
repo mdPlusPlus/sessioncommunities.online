@@ -2,7 +2,7 @@
 	// requires php-curl
 
 	// require other php files
-	require_once "getenv.php"
+	require_once "getenv.php";
 	require_once "utils/server-utils.php";
 	include_once "$LANGUAGES_ROOT/language_flags.php"; // actually runs fine without it
 
@@ -49,10 +49,6 @@
 
 	function main() {
 		$timestamp = time(); // unix timestamp in seconds
-
-		echo("Running, please wait..." . PHP_EOL);
-		echo("This script will usually take approximately 4 minutes to run." . PHP_EOL);
-		echo("It will take longer if the Chinese servers are spasming out." . PHP_EOL);
 
 		$html = get_html_from_known_sources();
 		$wild_join_links = extract_join_links_from_html($html);

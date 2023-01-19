@@ -1,7 +1,7 @@
 <?php
 	// prerequisite include for sites and components
 	require_once "+getenv.php";
-	require_once "$PROJECT_ROOT/php/server-utils.php";
+	require_once "$PROJECT_ROOT/php/utils/server-utils.php";
 	
 	$rooms_raw = file_get_contents($ROOMS_FILE);
 	$rooms = json_decode($rooms_raw);
