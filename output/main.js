@@ -86,8 +86,10 @@ function hideBadCommunities() {
 	let numberOfHiddenCommunities = 0;
 	
 	for (const category of ['tests', 'offensive', 'legacy']) {
-		filteredCommunities[category].forEach(hideElementByID);
-		numberOfHiddenCommunities += filteredCommunities[category].length;
+		numberOfHiddenCommunities += 
+		  filteredCommunities[category]
+		    .map(hideElementByID)
+		    .reduce((a, b) => a + b);
 	}
 
 	// Not ideal. Separate element should be allocated for content.
@@ -95,8 +97,13 @@ function hideBadCommunities() {
 	summary.innerText += ` (${numberOfHiddenCommunities} hidden)`;
 }
 
+/**
+ * Removes an element by its ID and returns the number of elements removed.
+ */
 function hideElementByID(id) {
-	document.getElementById(id)?.remove();
+  const element = document.getElementById(id);
+	element?.remove();
+	return element ? 1 : 0;
 }
 
 /**
