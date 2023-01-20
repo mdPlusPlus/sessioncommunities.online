@@ -26,7 +26,7 @@
 		return base64_encode($png);
 	}
 	
-	file_exists($QR_CODES) or mkdir($QR_CODES, 700);	
+	file_exists($QR_CODES) or mkdir($QR_CODES, 0700);
 ?>
 
 <?php foreach ($rooms as $id => $room): ?>

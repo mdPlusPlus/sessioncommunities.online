@@ -42,7 +42,7 @@
 	// path for room data output
 	$output = "$ROOMS_FILE";
 	
-	file_exists($CACHE_ROOT) or mkdir($CACHE_ROOT, 700);
+	file_exists($CACHE_ROOT) or mkdir($CACHE_ROOT, 0700);
 
 	// run main function
 	main();
