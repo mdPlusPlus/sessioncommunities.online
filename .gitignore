@@ -1,5 +1,8 @@
 # Generated HTML
-/output/*.html
+output/*.html
+
+# Server-side cache
+cache
 
 # Kate
 *.kate-swp
