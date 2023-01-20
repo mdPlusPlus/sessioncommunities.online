@@ -37,16 +37,16 @@ export const ATTRIBUTES = {
 	}
 };
 
-export function columnAscendingByDefault(column) { 
-	return column != COLUMN.USERS; 
+export function columnAscendingByDefault(column) {
+	return column != COLUMN.USERS;
 }
 
 export function columnIsSortable(column) { return column != COLUMN.QR_CODE; }
 
 export function columnNeedsCasefold(column) {
 	return [
-		COLUMN.IDENTIFIER, 
-		COLUMN.NAME, 
+		COLUMN.IDENTIFIER,
+		COLUMN.NAME,
 		COLUMN.DESCRIPTION
 	].includes(column);
 }

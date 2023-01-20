@@ -6,15 +6,15 @@
  * This JavaScript file uses the JSDoc commenting style.
  * Learn more: https://jsdoc.app/
  */
- 
+
 // Nudge TypeScript plugins to type-check using JSDoc comments.
 // @ts-check
 
 // Early prevention for bugs introduced by lazy coding.
 'use strict';
 
-// Import magic numbers and data 
-import { 
+// Import magic numbers and data
+import {
 	dom, COLUMN, COLUMN_LITERAL, COMPARISON, ATTRIBUTES,
 	columnAscendingByDefault, columnIsSortable, columnNeedsCasefold,
 	columnIsNumeric
@@ -41,7 +41,7 @@ const filteredCommunities = {
 		"gore+e5e0"     // gore
 	],
 
-	// These communities should be checked regularly 
+	// These communities should be checked regularly
 	// in case they update their PySOGS version
 	legacy: [
 		"Ukraine+02bd"  // https://reccacon.com/view/room/Ukraine
@@ -50,7 +50,7 @@ const filteredCommunities = {
 
 // This can be achieved with `text-overflow: ellipsis` instead
 // and generated entirely server-side.
-const transformJoinURL = (join_link) => 
+const transformJoinURL = (join_link) =>
 	`${join_link.substring(0, 31)}...
 	<button class="copy_button" onclick="copyToClipboard('${join_link}')">
 		Copy
@@ -77,16 +77,16 @@ function createJoinLinkButtons() {
 	const join_URLs = dom.join_urls();
 	Array.from(join_URLs).forEach((td_url) => {
 		const a_href = td_url.querySelector('a'); // get first (only) <a> element
-		const join_link = a_href.getAttribute("href"); // get link		
+		const join_link = a_href.getAttribute("href"); // get link
 		td_url.innerHTML = transformJoinURL(join_link); // add interactive content
 	});
 }
 
 function hideBadCommunities() {
 	let numberOfHiddenCommunities = 0;
-	
+
 	for (const category of ['tests', 'offensive', 'legacy']) {
-		numberOfHiddenCommunities += 
+		numberOfHiddenCommunities +=
 		  filteredCommunities[category]
 		    .map(hideElementByID)
 		    .reduce((a, b) => a + b);
@@ -117,7 +117,7 @@ function copyToClipboard(text) {
 	const snackbar = dom.snackbar();
 
 	snackbar.classList.add('show')
-	
+
 	// After 3 seconds, hide the snackbar.
 	setTimeout(() => snackbar.classList.remove('show'), 3000);
 }
@@ -129,10 +129,10 @@ function copyToClipboard(text) {
 function setLastChecked(last_checked) {
 	const seconds_now = Math.floor(Date.now() / 1000); // timestamp in seconds
 	const time_passed_in_seconds = seconds_now - last_checked;
-	const time_passed_in_minutes = 
+	const time_passed_in_minutes =
 		Math.floor(time_passed_in_seconds / 60); // time in minutes, rounded down
 	const timestamp_element = dom.td_last_checked();
-	timestamp_element.innerText = 
+	timestamp_element.innerText =
 		`Last checked ${time_passed_in_minutes} minutes ago.`;
 }
 
@@ -142,14 +142,14 @@ function setLastChecked(last_checked) {
  * @callback comparer
  * @param {*} fst - First value to compare.
  * @param {*} snd - Second value to compare.
- * @returns 1 if fst is to come first, -1 if snd is, 0 otherwise. 
+ * @returns 1 if fst is to come first, -1 if snd is, 0 otherwise.
  */
 
 /**
  * Performs a comparison on two arbitrary values. Treats "" as Infinity.
  * @param {*} fst - First value to compare.
  * @param {*} snd - Second value to compare.
- * @returns 1 if fst > snd, -1 if fst < snd, 0 otherwise. 
+ * @returns 1 if fst > snd, -1 if fst < snd, 0 otherwise.
  */
 function compareAscending(fst, snd) {
 	// Triple equals to avoid "" == 0.
@@ -162,7 +162,7 @@ function compareAscending(fst, snd) {
  * Performs a comparison on two arbitrary values. Treats "" as Infinity.
  * @param {*} fst - First value to compare.
  * @param {*} snd - Second value to compare.
- * @returns -1 if fst > snd, 1 if fst < snd, 0 otherwise. 
+ * @returns -1 if fst > snd, 1 if fst < snd, 0 otherwise.
  */
 function compareDescending(fst, snd) {
 	return -compareAscending(fst, snd);
@@ -188,10 +188,10 @@ function makeRowComparer(column, ascending) {
 	if (!columnIsSortable(column)) {
 		throw new Error(`Column ${column} is not sortable`);
 	}
-	
+
 	// Callback to obtain sortable content from cell text.
 	let contentToSortable = (text) => text.trim();
-	
+
 	if (columnNeedsCasefold(column)) {
 		// Make certain columns sort regardless of casing.
 		contentToSortable = (text) => text.toLowerCase().trim();
@@ -200,13 +200,13 @@ function makeRowComparer(column, ascending) {
 		// Make certain columns sort on parsed numeric value instead of text.
 		contentToSortable = (text) => parseInt(text);
 	}
-	
-	// Construct comparer using derived property to determine sort order. 
+
+	// Construct comparer using derived property to determine sort order.
 	const rowComparer = compareProp(
 		ascending ? compareAscending : compareDescending,
 		row => contentToSortable(row.children[column].innerText)
 	);
-	
+
 	return rowComparer;
 }
 
@@ -246,7 +246,7 @@ function setSortState(table, { ascending, column }) {
 	}
 	table.setAttribute(ATTRIBUTES.SORTING.ASCENDING, ascending);
 	table.setAttribute(ATTRIBUTES.SORTING.COLUMN, column);
-	// This can be used to style column headers in a consistent way, i.e. 
+	// This can be used to style column headers in a consistent way, i.e.
 	// #tbl_communities[data-sort-asc=true][sorted-by=name]::after #th_name, ...
 	table.setAttribute(ATTRIBUTES.SORTING.COLUMN_LITERAL, COLUMN_LITERAL[column]);
 }
@@ -262,7 +262,7 @@ function markSortableColumns() {
 
 /**
  * Sorts the default communities table according the given column.
- * Sort direction is determined by defaults; successive sorts 
+ * Sort direction is determined by defaults; successive sorts
  * on the same column reverse the sort direction.
  * @param {number} column - Numeric ID of column being sorted.
  */
@@ -283,7 +283,7 @@ function sortTable(column) {
 
 // Crude way to export from module script due to inline event handlers.
 // Ideally, all handlers would be attached from JS via addEventListener.
-Object.assign(window, { 
+Object.assign(window, {
 	onLoad, sortTable, displayQRModal,
 	hideQRModal, copyToClipboard
 });
