@@ -26,7 +26,7 @@
 		// This works? Yes, yes it does.
 		// We do this to isolate the environment and include-once triggers,
 		// otherwise we could include the documents in an ob_* wrapper.
-		$document = `php $phppath`;
+		$document = `php $phppath`; // should be identical to shell_exec("php $phppath")
 		
 		file_put_contents($docpath, $document);
 	}

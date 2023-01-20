@@ -12,7 +12,9 @@
 		// https://developers.google.com/chart/infographics/docs/qr_codes
 		$png_cached = room_qr_code_cached($room_id);
 		if (file_exists($png_cached)) 
+//			fwrite(STDERR, "QR code found for " . $room_id . PHP_EOL);
 			return base64_encode(file_get_contents($png_cached));
+//			fwrite(STDERR, "QR code NOT found for " . $room_id . PHP_EOL);
 		$data = urlencode($join_url);
 		$api_url =
 			"https://chart.googleapis.com/chart?cht=qr" .
