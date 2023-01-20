@@ -14,7 +14,7 @@
 		<meta charset="UTF-8">
 		<link rel="icon" type="image/svg+xml" href="favicon.svg" sizes="any">
 		<link rel="stylesheet" href="styles2.css">
-		<script src="script2.js" defer></script>
+		<script type="module" src="main.js" defer></script>
 		<title>Self-updating list of active Session communities</title>
 	</head>
 	<body onload="onLoad(<?php echo $timestamp ?>)">
