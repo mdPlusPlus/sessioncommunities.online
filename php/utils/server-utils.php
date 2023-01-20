@@ -1,5 +1,24 @@
 <?php
 	/*
+	 * Counts every unique server from given $info_arrays and returns the count
+	 */
+	function count_servers($info_arrays) {
+		$servers = array();
+		foreach($info_arrays as $i_arr) {
+			// https://sogs.example.com:1234/token?public_key=...
+			$join_link = $i_arr["join_link"];
+			// https: + "" + sogs.example.com:1234 + token?public_key=...
+			$exploded = explode("/", $join_link); 
+			$servers[] = $exploded[0] . "//" . $exploded[2];
+		}
+		$servers = array_unique($servers);
+		sort($servers);
+//		print_r($servers);
+
+		return count($servers);
+	}
+	
+	/*
 	 * Helper function for reduce_servers
 	 */
 	function url_is_reachable($url) {

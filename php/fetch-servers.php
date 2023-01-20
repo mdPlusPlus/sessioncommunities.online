@@ -2,21 +2,9 @@
 	// requires php-curl
 
 	// require other php files
-	require "helper_functions.php";
-	require "html_generator.php";
-	include "languages/language_flags.php"; // actually runs fine without it
-
-	// some global stuff
-
-	// set timeout for file_get_contents()
-	ini_set('default_socket_timeout', 6); // in seconds, default is 60
-
-	// curl timeout is millisecons
-	$curl_connecttimeout_ms = 3000; // time for initiation of the connection
-	$curl_timeout_ms = 6000;        // max time for whole connection (incl. transfer)
-
-	// do not report warnings (timeouts, SSL/TLS errors)
-	error_reporting(E_ALL & ~E_WARNING);
+	require_once "getenv.php";
+	require_once "utils/server-utils.php";
+	include_once "$LANGUAGES_ROOT/language_flags.php"; // actually runs fine without it
 
 	// room token regex part, must consist of letters, numbers, underscores, or dashes: https://github.com/oxen-io/session-pysogs/blob/dev/administration.md
 	$room_token_regex_part = "[0-9A-Za-z-_]+";
@@ -32,7 +20,6 @@
 	 * http(s)://[server]/[room_token]?public_key=[64_hexadecimal_digits]
 	 */
 	$room_join_regex = "/https?:\/\/[^\/]+\/" . $room_token_regex_part . "\?public_key=[0-9A-Fa-f]{64}/";
-
 
 	/*
 	 * Some servers don't appear in the wild yet, but can be queried
@@ -50,18 +37,18 @@
 	);
 
 	// path for HTML output
-	$output = "output/index.html";
-
+	// $output = "output/index.html";
+	
+	// path for room data output
+	$output = "$ROOMS_FILE";
+	
+	file_exists($CACHE_ROOT) or mkdir($CACHE_ROOT, 0700);
 
 	// run main function
 	main();
 
 	function main() {
 		$timestamp = time(); // unix timestamp in seconds
-
-		echo("Running, please wait..." . PHP_EOL);
-		echo("This script will usually take approximately 4 minutes to run." . PHP_EOL);
-		echo("It will take longer if the Chinese servers are spasming out." . PHP_EOL);
 
 		$html = get_html_from_known_sources();
 		$wild_join_links = extract_join_links_from_html($html);
@@ -75,10 +62,11 @@
 		$addr_assignments = reduce_addresses_of_pubkeys($addr_assignments);
 		$room_assignments = assign_rooms_to_address_assignments($addr_assignments, $rooms);
 		$info_arrays = generate_info_arrays($room_assignments);
+		
 //		$final_join_links = generate_join_links($room_assignments);
 
 
-		$final_html = generateHTML($timestamp, $info_arrays);
+//		$final_html = generateHTML($timestamp, $info_arrays);
 
 //		print_r($wild_join_links);
 //		print_r($servers);
@@ -91,7 +79,7 @@
 
 		// write output to disk
 		global $output;
-		file_put_contents($output, $final_html); // overwrites existing file
+		file_put_contents($output, json_encode($info_arrays)); // overwrites existing file
 		echo("Done. " .  count($info_arrays) . " unique Session Communities on " . count_servers($info_arrays) . " servers have been found." . PHP_EOL);
 	}
 
@@ -700,24 +688,6 @@
 		ksort($info_arrays, SORT_STRING | SORT_FLAG_CASE);
 
 		return $info_arrays;
-	}
-
-	/*
-	 * Counts every unique server from given $info_arrays and returns the count
-	 */
-	function count_servers($info_arrays) {
-		$servers = array();
-		foreach($info_arrays as $i_arr) {
-			// https://sogs.example.com:1234/token?public_key=...
-			$join_link = $i_arr["join_link"];
-			$exploded = explode("/", $join_link); // https: + "" + sogs.example.com:1234 + token?public_key=...
-			$servers[] = $exploded[0] . "//" . $exploded[2];
-		}
-		$servers = array_unique($servers);
-		sort($servers);
-//		print_r($servers);
-
-		return count($servers);
 	}
 
 	/*

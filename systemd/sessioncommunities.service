@@ -5,4 +5,4 @@ Description=Scrape every known source for Session Communities and put the data t
 [Service]
 WorkingDirectory=/home/session/sessioncommunities.online
 User=session
-ExecStart=/usr/bin/php get_online_session_communities.php
+ExecStart=/usr/bin/php php/update-listing.php

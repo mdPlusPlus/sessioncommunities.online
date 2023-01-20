@@ -1,0 +1,19 @@
+<?php
+	$PROJECT_ROOT=__DIR__;
+	$CACHE_ROOT="$PROJECT_ROOT/cache";
+	$QR_CODES="$CACHE_ROOT/qr-codes";
+	$ROOMS_FILE="$CACHE_ROOT/rooms.json";
+	$DOCUMENT_ROOT="$PROJECT_ROOT/output";
+	$TEMPLATES_ROOT="$PROJECT_ROOT/sites";
+	$LANGUAGES_ROOT="$PROJECT_ROOT/languages";
+	
+	// set timeout for file_get_contents()
+	ini_set('default_socket_timeout', 6); // in seconds, default is 60
+
+	// curl timeout is millisecons
+	$curl_connecttimeout_ms = 3000; // time for initiation of the connection
+	$curl_timeout_ms = 6000;        // max time for whole connection (incl. transfer)
+
+	// do not report warnings (timeouts, SSL/TLS errors)
+	error_reporting(E_ALL & ~E_WARNING);
+?>
