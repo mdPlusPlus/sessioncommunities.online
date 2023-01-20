@@ -85,16 +85,15 @@
 /* The snackbar - position it at the bottom and in the middle of the screen */
 #copy-snackbar {
 	visibility: hidden; /* Hidden by default. Visible on click */
-	min-width: 250px; /* Set a default minimum width */
-	margin-left: -125px; /* Divide value of min-width by 2 */
 	background-color: #333; /* Black background color */
 	color: #fff; /* White text color */
 	text-align: center; /* Centered text */
-	border-radius: 2px; /* Rounded borders */
-	padding: 16px; /* Padding */
-	position: fixed; /* Sit on top of the screen */
+	border-radius: 2px; /* Rounded corners */
+	padding: 16px;
+	position: fixed; /* Move along as viewport scrolls */
 	z-index: 1; /* Add a z-index if needed */
-	left: 50%; /* Center the snackbar */
+	left: 50%; /* Offset the snackbar by half the viewport width */
+	transform: translateX(-50%); /* Push the snackbar back by half its width */
 	bottom: 30px; /* 30px from the bottom */
 }
 
