@@ -2,7 +2,7 @@
 	// prerequisite include for sites and components
 	require_once "+getenv.php";
 	require_once "$PROJECT_ROOT/php/utils/server-utils.php";
-	
+
 	$rooms_raw = file_get_contents($ROOMS_FILE);
 	$rooms = json_decode($rooms_raw);
 	$rooms_assoc = json_decode($rooms_raw, true);
@@ -11,8 +11,8 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<meta charset="UTF-8">
-		<link rel="icon" type="image/svg+xml" href="favicon.svg" sizes="any">
+		<?php include "+components/page-head.php" ?>
+
 		<link rel="stylesheet" href="styles2.css">
 		<script type="module" src="main.js" defer></script>
 		<title>Self-updating list of active Session communities</title>
