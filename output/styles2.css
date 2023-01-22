@@ -1,4 +1,14 @@
-#headline        { text-align: center; }
+header {
+  display: flex;
+  direction: row;
+  /* Push items as far apart as possible */
+  justify-content: space-between;
+}
+
+#headline {
+  text-align: center;
+  flex-grow: 1;
+}
 
 #tbl_communities { width:100%; }
 

@@ -18,13 +18,23 @@
 		<title>Self-updating list of active Session communities</title>
 	</head>
 	<body onload="onLoad(<?php echo $timestamp ?>)">
-		<h1 id="headline">Session Communities</h1>
+		<header>
+			<div id="header-start"></div>
+			<div id="header-end">
+				<a
+					id="link-instructions"
+					target="_blank"
+					href="instructions.html"
+				>Instructions</a>
+			</div>
+		</header>
+			<h1 id="headline">Session Communities</h1>
 		<?php include "+components/qr_modals.php" ?>
 
 		<?php include "+components/tbl_communities.php" ?>
-		
+
 		<hr>
-		
+
 		<footer>
 			<p id="server_summary">
 				<?=count($rooms_assoc)?> unique Session Communities
