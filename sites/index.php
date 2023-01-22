@@ -22,18 +22,63 @@
 		<?php include "+components/qr_modals.php" ?>
 
 		<?php include "+components/tbl_communities.php" ?>
-
-		<table id="tbl_footer">
-			<tr>
-				<td id="td_summary">
-					<?=count($rooms_assoc)?> unique Session Communities 
-					on <?=count_servers($rooms_assoc)?> servers have been found.
-				</td>
-			</tr>
-			<tr>
-				<td id="td_last_checked">Last checked X minutes ago.</td>
-			</tr>
-		</table>
+		
+		<hr>
+		
+		<footer>
+			<p id="server_summary">
+				<?=count($rooms_assoc)?> unique Session Communities
+				on <?=count_servers($rooms_assoc)?> servers have been found.
+				<span id="servers_hidden">(None hidden as JS is off)</span>
+			</p>
+			<p id="last_checked">
+				Last checked <span id="last_checked_value"></span> ago.
+			</p>
+			<p id="disclaimer">
+					This site is not affiliated with
+					<a href="https://optf.ngo">Oxen Tech Privacy Foundation</a>.
+					<br>
+					Communities shown are fetched automatically from
+					various sources.
+					<br>
+					We make an attempt to hide communities containing
+					objectionable or illegal content, but
+					you should still proceed with caution.
+			</p>
+			<noscript>
+				<p>
+					This site works fine without JavaScript.
+					However, some interactive features are
+					only available with JS enabled.
+				</p>
+			</noscript>
+			<nav>
+				<a
+					href="https://lokilocker.com/Mods/Session-Groups/wiki/Session-Closed-Groups"
+					target="_blank"
+					title="Closed groups curated by community moderators"
+				>Closed Groups</a>
+				<a
+					href="https://session.directory/"
+					target="_blank"
+					title="User-submitted closed groups, communities and user profiles. Not safe for work."
+				>session.directory</a>
+				<a
+					href="https://github.com/oxen-io/session-pysogs"
+					target="_blank"
+					title="Information about running a community server"
+				>Host Your Own Community</a>
+				<a
+					href="https://getsession.org/terms-of-service"
+					target="_blank"
+				>Session Terms Of Service</a>
+				<a
+					href="https://github.com/mdPlusPlus/sessioncommunities.online"
+					target="_blank"
+					title="sessioncommunities.online repository on GitHub."
+				>Source Code & Contact</a>
+			</nav>
+		</footer>
 
 		<div id="copy-snackbar">
 			Copied URL to clipboard. Paste into Session app to join
