@@ -4,10 +4,10 @@
 
 export const dom = {
 	tbl_communities: () => document.getElementById("tbl_communities"),
-	td_last_checked: () => document.getElementById("td_last_checked"),
+	last_checked: () => document.getElementById("last_checked_value"),
 	qr_modal: (communityID) => document.getElementById(`modal_${communityID}`),
 	join_urls: () => document.getElementsByClassName("td_join_url"),
-	td_summary: () => document.getElementById("td_summary"),
+	servers_hidden: () => document.getElementById("servers_hidden"),
 	snackbar: () => document.getElementById("copy-snackbar")
 }
 

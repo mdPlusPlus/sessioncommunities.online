@@ -1,4 +1,14 @@
-#headline        { text-align: center; }
+header {
+  display: flex;
+  direction: row;
+  /* Push items as far apart as possible */
+  justify-content: space-between;
+}
+
+#headline {
+  text-align: center;
+  flex-grow: 1;
+}
 
 #tbl_communities { width:100%; }
 
@@ -19,11 +29,23 @@
 
 .copy_button     {  }
 
-#tbl_footer      { width:100%; }
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+}
 
-#td_summary      { text-align: center; }
-#td_last_checked { text-align: center; }
+footer p {
+  width: 75%;
+  margin: .5em;
+  text-align: center;
+}
 
+footer nav a {
+  margin: 0 .5ch;
+}
 
 /* <Colors> */
 :root {

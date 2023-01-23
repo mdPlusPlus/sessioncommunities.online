@@ -1,0 +1,13 @@
+On mobile:
+
+
+- Click the Copy button to copy the Join URL.
+- Open Session, tap the plus button and choose "Join Community".
+- Tap the "Enter Community URL" field, paste your URL and tap "Join".
+
+
+On mobile, with this site open on your PC:
+
+- Click the QR Code button for your chosen community on your PC.
+- Open Session, tap the plus button and choose "Join Community".
+- Choose "Scan QR Code" at the top and point your phone camera at the QR code. 

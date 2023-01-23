@@ -1,0 +1,20 @@
+header {
+  text-align: center;
+}
+
+#instructions {
+  padding: 1em;
+}
+
+.instructions {
+  display: none;
+  /* Inconsistent with rest of content */
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 1.25em;
+  line-height: 1.5;
+  padding: 2em;
+  background-color: silver;
+  border: 2px solid black;
+  border-radius: 1em;
+}
