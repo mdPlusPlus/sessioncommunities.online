@@ -16,7 +16,17 @@ header {
 .td_identifier   { font-family: monospace; }
 #th_name         { width:13%; }
 #th_language     { width:0% }
-#th_description  {  }
+#th_description  { }
+.clamp {
+	/*white-space: nowrap;*/
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display:
+		-webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 3;
+
+}
 #th_users        { width:0% }
 .td_users        { text-align: right; }
 #th_preview      { width:19%; }
