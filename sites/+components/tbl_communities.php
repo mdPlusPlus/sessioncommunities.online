@@ -38,14 +38,18 @@
 		<td class="td_language"><?=$room->language?></td>
 		<td class="td_name"><?=$room->name?></td>
 		<td class="td_description">
-				<?=$room->description?>
+			<?=$room->description?>
 
 		</td>
 		<td class="td_users"><?=$room->active_users?></td>
 		<td class="td_preview">
 			<a href="<?=$room->preview_link?>">
-				<?=$room->preview_link?>
-			
+				<?php if (str_starts_with($room->preview_link, 'http://')): ?>
+					<span class="protocol-indicator protocol-http">HTTP</span>
+				<?php endif; ?>
+				<?php if (str_starts_with($room->preview_link, 'https://')): ?>
+					<span class="protocol-indicator protocol-https">HTTPS</span>
+				<?php endif; ?>
 			</a>
 		</td>
 		<td class="td_qr_code">
