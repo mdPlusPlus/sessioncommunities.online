@@ -92,9 +92,8 @@ function hideBadCommunities() {
 		    .reduce((a, b) => a + b);
 	}
 
-	// Not ideal. Separate element should be allocated for content.
-	const summary = dom.td_summary();
-	summary.innerText += ` (${numberOfHiddenCommunities} hidden)`;
+	const summary = dom.servers_hidden();
+	summary.innerText = `(${numberOfHiddenCommunities} hidden)`;
 }
 
 /**
@@ -131,9 +130,8 @@ function setLastChecked(last_checked) {
 	const time_passed_in_seconds = seconds_now - last_checked;
 	const time_passed_in_minutes =
 		Math.floor(time_passed_in_seconds / 60); // time in minutes, rounded down
-	const timestamp_element = dom.td_last_checked();
-	timestamp_element.innerText =
-		`Last checked ${time_passed_in_minutes} minutes ago.`;
+	const timestamp_element = dom.last_checked();
+	timestamp_element.innerText =	`${time_passed_in_minutes} minutes`;
 }
 
 /**
