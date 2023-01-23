@@ -17,8 +17,7 @@ header {
 #th_name         { width:13%; }
 #th_language     { width:0% }
 #th_description  { }
-.clamp {
-	/*white-space: nowrap;*/
+.td_description  {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	display:
