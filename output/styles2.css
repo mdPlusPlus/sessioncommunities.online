@@ -26,14 +26,21 @@ header {
 
 #tbl_communities { width:100%; }
 
+/* Hide the identifier column before removal. */
+#th_identifier { display: none; }
+.td_identifier { display: none; font-family: monospace; }
+
+.td_language:empty::after {
+  content: "\2753";
+}
+
 #th_description  { }
 .td_description  {
 	overflow: hidden;
 	text-overflow: ellipsis;
-	display:
-		-webkit-box;
-		-webkit-box-orient: vertical;
-		-webkit-line-clamp: 3;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 3;
 
 }
 

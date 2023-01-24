@@ -39,10 +39,8 @@
 		<td class="td_identifier"><?=$id?></td>
 		<td class="td_language"><?=$room->language?></td>
 		<td class="td_name"><?=$room->name?></td>
-		<td class="td_description">
-			<?=$room->description?>
-
-		</td>
+		<td class="td_description"
+			><?=$room->description?></td>
 		<td class="td_users"><?=$room->active_users?></td>
 		<td class="td_preview">
 			<a href="<?=$room->preview_link?>" target="_blank" rel="noopener noreferrer">
