@@ -1,3 +1,8 @@
+html {
+  /* Not these hacks again. */
+  font-size: calc(1vmin + 1vw);
+}
+
 html.js .noscript {
   display: none;
 }
@@ -21,10 +26,6 @@ header {
 
 #tbl_communities { width:100%; }
 
-#th_identifier   { width:9%; }
-.td_identifier   { font-family: monospace; }
-#th_name         { width:13%; }
-#th_language     { width:0% }
 #th_description  { }
 .td_description  {
 	overflow: hidden;
@@ -35,12 +36,9 @@ header {
 		-webkit-line-clamp: 3;
 
 }
-#th_users        { width:0% }
+
 .td_users        { text-align: right; }
-#th_preview      { max-width:5%; }
 .td_preview      { text-align: center; }
-#th_qr           { width:0%; }
-#th_join_url     { width:15%; }
 .td_join_url     {
 	font-family: monospace;
 	white-space: nowrap;
@@ -111,8 +109,8 @@ footer nav a {
 	display: inline-block;
 	font-family: monospace;
 	border-radius: 3px;
+	padding: .25em .05em;
 	width: 6ch;
-	line-height: 22px;
 	text-align: center;
 }
 .protocol-http      { background-color:lightgray }
@@ -208,3 +206,4 @@ footer nav a {
 	from {bottom: 30px; opacity: 1;}
 	to {bottom: 0; opacity: 0;}
 }
+
