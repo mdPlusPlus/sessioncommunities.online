@@ -43,7 +43,7 @@
 		</td>
 		<td class="td_users"><?=$room->active_users?></td>
 		<td class="td_preview">
-			<a href="<?=$room->preview_link?>">
+			<a href="<?=$room->preview_link?>" target="_blank" rel="noopener noreferrer">
 				<?php if (str_starts_with($room->preview_link, 'http://')): ?>
 					<span class="protocol-indicator protocol-http">HTTP</span>
 				<?php endif; ?>
