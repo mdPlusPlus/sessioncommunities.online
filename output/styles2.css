@@ -1,3 +1,12 @@
+html.js .noscript {
+  display: none;
+}
+
+/* Dead style */
+html:not(.js) .js-only {
+  display: none;
+}
+
 header {
   display: flex;
   direction: row;
@@ -81,7 +90,9 @@ footer p {
 }
 
 footer nav a {
-  margin: 0 .5ch;
+  display: inline-block;
+  margin: .25em;
+  white-space: nowrap;
 }
 
 /* <Colors> */

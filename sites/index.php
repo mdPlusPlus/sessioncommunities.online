@@ -57,13 +57,11 @@
 					objectionable or illegal content, but
 					you should still proceed with caution.
 			</p>
-			<noscript>
-				<p>
-					This site works fine without JavaScript.
-					However, some interactive features are
-					only available with JS enabled.
-				</p>
-			</noscript>
+			<p class="noscript">
+				This site works fine without JavaScript.
+				However, some interactive features are
+				only available with JS enabled.
+			</p>
 			<nav>
 				<a
 					href="https://lokilocker.com/Mods/Session-Groups/wiki/Session-Closed-Groups"
