@@ -17,7 +17,7 @@
 import {
 	dom, COLUMN, COLUMN_LITERAL, COMPARISON, ATTRIBUTES,
 	columnAscendingByDefault, columnIsSortable, columnNeedsCasefold,
-	columnIsNumeric
+	columnIsNumeric, element
 } from './js/constants.js';
 
 // Hidden communities for transparency.
@@ -50,12 +50,13 @@ const filteredCommunities = {
 
 // This can be achieved with `text-overflow: ellipsis` instead
 // and generated entirely server-side.
-const transformJoinURL = (join_link) =>
-	`${join_link.substring(0, 31)}...
-	<button class="copy_button" onclick="copyToClipboard('${join_link}')">
-		Copy
-	</button>
-	`.trim();
+const transformJoinURL = (join_link) => {
+  return element.button({
+    textContent: "Copy",
+    className: "copy_button",
+    onclick: () => copyToClipboard(join_link)
+  });
+}
 
 function onLoad(timestamp) {
 	setLastChecked(timestamp);
@@ -78,7 +79,7 @@ function createJoinLinkButtons() {
 	Array.from(join_URLs).forEach((td_url) => {
 		const a_href = td_url.querySelector('a'); // get first (only) <a> element
 		const join_link = a_href.getAttribute("href"); // get link
-		td_url.innerHTML = transformJoinURL(join_link); // add interactive content
+		td_url.append(transformJoinURL(join_link)); // add interactive content
 	});
 }
 
@@ -278,6 +279,9 @@ function sortTable(column) {
 	table.querySelector("tbody").append(...rows);
 	setSortState(table, { ascending, column });
 }
+
+// html.js for styling purposes
+window.document.documentElement.classList.add("js");
 
 // Crude way to export from module script due to inline event handlers.
 // Ideally, all handlers would be attached from JS via addEventListener.

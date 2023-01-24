@@ -18,6 +18,12 @@
 		return count($servers);
 	}
 	
+	function truncate($url, $len) {
+		return (strlen($url) > $len + 3)
+			? substr($url, 0, $len).'...'
+			: $string;
+	}
+	
 	/*
 	 * Helper function for reduce_servers
 	 */

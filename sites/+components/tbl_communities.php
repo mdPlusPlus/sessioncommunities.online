@@ -1,4 +1,6 @@
-<?php	
+<?php
+	require_once "$PROJECT_ROOT/php/utils/server-utils.php";
+
 	// Once handlers are attached in JS, this check ceases to be useful.
 	function column_sortable($id) {
 		return $id != "qr";
@@ -61,10 +63,13 @@
 			>
 		</td>
 		<td class="td_join_url">
-			<a href="<?=$room->join_link?>">
-				<?=$room->join_link?>
-
-			</a>
+			<div class="join_url_container">
+				<a class="join_url" href="<?=$room->join_link?>"
+					title="<?=$room->join_link?>"
+					><?=truncate($room->join_link, 32)?></a>
+				<a class="join_url nojs_mobile" href="<?=$room->join_link?>"
+					>Copy link</a>
+			</div>
 		</td>
 	</tr>
 <?php endforeach; ?>
