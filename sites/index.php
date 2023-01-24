@@ -42,7 +42,9 @@
 				<span id="servers_hidden">(None hidden as JS is off)</span>
 			</p>
 			<p id="last_checked">
-				Last checked <span id="last_checked_value"></span> ago.
+				Last checked <span id="last_checked_value">
+					<?=date("Y-m-d H:i:s", $timestamp)?> (UTC)
+				</span>.
 			</p>
 			<p id="disclaimer">
 					This site is not affiliated with

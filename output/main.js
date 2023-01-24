@@ -131,7 +131,7 @@ function setLastChecked(last_checked) {
 	const time_passed_in_minutes =
 		Math.floor(time_passed_in_seconds / 60); // time in minutes, rounded down
 	const timestamp_element = dom.last_checked();
-	timestamp_element.innerText =	`${time_passed_in_minutes} minutes`;
+	timestamp_element.innerText =	`${time_passed_in_minutes} minutes ago`;
 }
 
 /**
