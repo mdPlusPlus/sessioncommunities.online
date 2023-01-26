@@ -50,7 +50,7 @@
 		return base64_encode($png);
 	}
 	
-	file_exists($QR_CODES) or mkdir($QR_CODES, 0700);
+	// file_exists($QR_CODES) or mkdir($QR_CODES, 0700); // @Deprecated
 ?>
 
 <?php foreach ($rooms as $id => $room): ?>
