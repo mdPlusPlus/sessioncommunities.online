@@ -14,7 +14,7 @@
 		<?php include "+components/page-head.php" ?>
 
 		<link rel="stylesheet" href="styles2.css">
-		<script type="module" src="main.js" defer></script>
+		<script type="module" src="main.js"></script>
 		<title>Self-updating list of active Session communities</title>
 	</head>
 	<body onload="onLoad(<?php echo $timestamp ?>)">
