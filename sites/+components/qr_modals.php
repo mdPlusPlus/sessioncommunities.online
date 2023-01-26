@@ -53,27 +53,29 @@
 	// file_exists($QR_CODES) or mkdir($QR_CODES, 0700); // @Deprecated
 ?>
 
+<div id="modal-container">
 <?php foreach ($rooms as $id => $room): ?>
-<div id="modal_<?=$id?>" class="qr-code-modal">
-	<div class="qr-code-modal-content">
-		<span class="qr-code-modal-close" onclick='hideQRModal("<?=$id?>")'>
-			&times;
-		</span>
-		<!--
-		<img 
-			src="data:image/png;base64,<?=base64_qr_code($id, $room->join_link)?>"
-			alt="Community join link encoded as QR code"
-			class="qr-code"
-			loading="lazy"
-		>
-		-->
-		<img
-			src="<?=room_qr_code_native($room->join_link)?>"
-			alt="Community join link encoded as QR code"
-			class="qr-code"
-			loading="lazy"
-			referrerpolicy="no-referrer"
-		>
+	<div id="modal_<?=$id?>" class="qr-code-modal">
+		<div class="qr-code-modal-content">
+			<span class="qr-code-modal-close" onclick='hideQRModal("<?=$id?>")'>
+				&times;
+			</span>
+			<!--
+			<img
+				src="data:image/png;base64,<?=base64_qr_code($id, $room->join_link)?>"
+				alt="Community join link encoded as QR code"
+				class="qr-code"
+				loading="lazy"
+			>
+			-->
+			<img
+				src="<?=room_qr_code_native($room->join_link)?>"
+				alt="Community join link encoded as QR code"
+				class="qr-code"
+				loading="lazy"
+				referrerpolicy="no-referrer"
+			>
+		</div>
 	</div>
-</div>
 <?php endforeach; ?>
+</div>

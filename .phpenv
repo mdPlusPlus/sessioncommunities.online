@@ -16,4 +16,6 @@
 
 	// do not report warnings (timeouts, SSL/TLS errors)
 	error_reporting(E_ALL & ~E_WARNING);
+	
+	date_default_timezone_set('UTC');
 ?>
