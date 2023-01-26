@@ -1,60 +1,98 @@
+html {
+	font-size: clamp(10px, 2vw, 18px);
+}
+
+html.js .noscript {
+	display: none;
+}
+
+/* Dead style */
+html:not(.js) .js-only {
+	display: none;
+}
+
 header {
-  display: flex;
-  direction: row;
-  /* Push items as far apart as possible */
-  justify-content: space-between;
+	display: flex;
+	direction: row;
+	/* Push items as far apart as possible */
+	justify-content: space-between;
 }
 
 #headline {
-  text-align: center;
-  flex-grow: 1;
+	text-align: center;
+	flex-grow: 1;
 }
 
 #tbl_communities { width:100%; }
 
-#th_identifier   { width:9%; }
-.td_identifier   { font-family: monospace; }
-#th_name         { width:13%; }
-#th_language     { width:0% }
+/* Hide the identifier column before removal. */
+#th_identifier { display: none; }
+.td_identifier { display: none; font-family: monospace; }
+
+.td_language:empty::after {
+	content: "\2753";
+}
+
 #th_description  { }
 .td_description  {
 	overflow: hidden;
 	text-overflow: ellipsis;
-	display:
-		-webkit-box;
-		-webkit-box-orient: vertical;
-		-webkit-line-clamp: 3;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 3;
 
 }
-#th_users        { width:0% }
+
 .td_users        { text-align: right; }
-#th_preview      { max-width:5%; }
 .td_preview      { text-align: center; }
-#th_qr           { width:0%; }
-#th_join_url     { width:15%; }
 .td_join_url     {
 	font-family: monospace;
 	white-space: nowrap;
+	font-size: .8em;
 }
 
-.copy_button     {  }
+.join_url {
+	/* Apply margin against copy button or link. */
+	/* URL now guaranteed to have interactive element to right when present. */
+	margin-right: 1em;
+}
+
+
+@media (max-width: 950px) {
+	/* Only current width breakpoint; */
+	/* Would follow w4 and precede w6. */
+	.show-from-w5 {
+		display: none;
+	}
+}
+
+.join_url_container {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.copy_button     { font-size: inherit }
 
 footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	text-align: center;
 }
 
 footer p {
-  width: 75%;
-  margin: .5em;
-  text-align: center;
+	width: 75%;
+	margin: .5em;
+	text-align: center;
 }
 
 footer nav a {
-  margin: 0 .5ch;
+	display: inline-block;
+	margin: .25em;
+	white-space: nowrap;
 }
 
 /* <Colors> */
@@ -73,8 +111,8 @@ footer nav a {
 	display: inline-block;
 	font-family: monospace;
 	border-radius: 4px;
+	padding: .25em .05em;
 	width: 6ch;
-	line-height: 22px;
 	text-align: center;
 }
 .protocol-http      { background-color:lightgray }
@@ -170,3 +208,4 @@ footer nav a {
 	from {bottom: 30px; opacity: 1;}
 	to {bottom: 0; opacity: 0;}
 }
+

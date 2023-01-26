@@ -42,7 +42,9 @@
 				<span id="servers_hidden">(None hidden as JS is off)</span>
 			</p>
 			<p id="last_checked">
-				Last checked <span id="last_checked_value"></span> ago.
+				Last checked <span id="last_checked_value">
+					<?=date("Y-m-d H:i:s", $timestamp)?> (UTC)
+				</span>.
 			</p>
 			<p id="disclaimer">
 					This site is not affiliated with
@@ -55,13 +57,11 @@
 					objectionable or illegal content, but
 					you should still proceed with caution.
 			</p>
-			<noscript>
-				<p>
-					This site works fine without JavaScript.
-					However, some interactive features are
-					only available with JS enabled.
-				</p>
-			</noscript>
+			<p class="noscript">
+				This site works fine without JavaScript.
+				However, some interactive features are
+				only available with JS enabled.
+			</p>
 			<nav>
 				<a
 					href="https://lokilocker.com/Mods/Session-Groups/wiki/Session-Closed-Groups"

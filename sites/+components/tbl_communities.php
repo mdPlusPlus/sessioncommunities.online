@@ -1,4 +1,6 @@
-<?php	
+<?php
+	require_once "$PROJECT_ROOT/php/utils/server-utils.php";
+
 	// Once handlers are attached in JS, this check ceases to be useful.
 	function column_sortable($id) {
 		return $id != "qr";
@@ -37,10 +39,8 @@
 		<td class="td_identifier"><?=$id?></td>
 		<td class="td_language"><?=$room->language?></td>
 		<td class="td_name"><?=$room->name?></td>
-		<td class="td_description">
-			<?=$room->description?>
-
-		</td>
+		<td class="td_description"
+			><?=$room->description?></td>
 		<td class="td_users"><?=$room->active_users?></td>
 		<td class="td_preview">
 			<a href="<?=$room->preview_link?>" target="_blank" rel="noopener noreferrer">
@@ -61,10 +61,12 @@
 			>
 		</td>
 		<td class="td_join_url">
-			<a href="<?=$room->join_link?>">
-				<?=$room->join_link?>
-
-			</a>
+			<div class="join_url_container">
+				<a class="join_url show-from-w5" title="<?=$room->join_link?>"
+					><?=truncate($room->join_link, 32)?></a>
+				<a class="noscript" href="<?=$room->join_link?>"
+					>Copy link</a>
+			</div>
 		</td>
 	</tr>
 <?php endforeach; ?>
