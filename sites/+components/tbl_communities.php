@@ -62,10 +62,9 @@
 		</td>
 		<td class="td_join_url">
 			<div class="join_url_container">
-				<a class="join_url" href="<?=$room->join_link?>"
-					title="<?=$room->join_link?>"
+				<a class="join_url show-from-w5" title="<?=$room->join_link?>"
 					><?=truncate($room->join_link, 32)?></a>
-				<a class="join_url nojs_mobile" href="<?=$room->join_link?>"
+				<a class="noscript" href="<?=$room->join_link?>"
 					>Copy link</a>
 			</div>
 		</td>

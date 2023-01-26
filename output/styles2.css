@@ -51,23 +51,18 @@ header {
 	font-size: .8em;
 }
 
-.join_url.nojs_mobile {
-	display: none;
-}
-
-/* Apply margin against copy button. */
-html.js .join_url {
+.join_url {
+	/* Apply margin against copy button or link. */
+	/* URL now guaranteed to have interactive element to right when present. */
 	margin-right: 1em;
 }
 
-@media (max-width: 850px) {
-	.join_url {
-		display: none;
-	}
 
-	/* Show backup link only when button is not available. */
-	html:not(.js) .join_url.nojs_mobile {
-		display: inline;
+@media (max-width: 950px) {
+	/* Only current width breakpoint; */
+	/* Would follow w4 and precede w6. */
+	.show-from-w5 {
+		display: none;
 	}
 }
 
