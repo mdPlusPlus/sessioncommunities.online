@@ -110,7 +110,7 @@ footer nav a {
 .protocol-indicator {
 	display: inline-block;
 	font-family: monospace;
-	border-radius: 3px;
+	border-radius: 4px;
 	padding: .25em .05em;
 	width: 6ch;
 	text-align: center;
