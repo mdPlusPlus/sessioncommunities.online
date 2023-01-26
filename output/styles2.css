@@ -72,7 +72,7 @@ footer nav a {
 .protocol-indicator {
 	display: inline-block;
 	font-family: monospace;
-	border-radius: 3px;
+	border-radius: 4px;
 	width: 6ch;
 	line-height: 22px;
 	text-align: center;
