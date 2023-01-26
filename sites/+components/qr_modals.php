@@ -1,4 +1,7 @@
 <?php
+	/*
+	 * @Deprecated
+	 */
 	function room_qr_code_cached($room_id) {
 		global $QR_CODES;
 		return "$QR_CODES/$room_id.png";
