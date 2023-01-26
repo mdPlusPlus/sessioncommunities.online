@@ -1,6 +1,5 @@
 html {
-  /* Not these hacks again. */
-  font-size: calc(1vmin + 1vw);
+	font-size: clamp(10px, 2vw, 18px);
 }
 
 html.js .noscript {
