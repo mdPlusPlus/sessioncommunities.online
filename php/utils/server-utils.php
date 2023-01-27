@@ -91,7 +91,7 @@
 		$counter = 1;
 
 		while(!$contents && $counter <= $retries) {
-//			echo("Trial #" . $counter . PHP_EOL);
+//			echo("Trial #" . $counter . " for " . $url .PHP_EOL);
 			$curl = curl_init($url);
 //			curl_setopt($curl, CURLOPT_VERBOSE, true);
 
@@ -111,7 +111,7 @@
 			sleep($sleep);
 		}
 
-		if($retcode != 200) {
+		if ($retcode != 200) {
 			return false;
 		} else {
 			return $contents;
