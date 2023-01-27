@@ -23,12 +23,57 @@ header {
 	flex-grow: 1;
 }
 
-#tbl_communities { width:100%; }
+#tbl_communities {
+	/* Browser defaults. */
+	--cell-padding-h: 1px;
+	--cell-padding-v: 1px;
+	width:100%;
+}
+
+#tbl_communities th {
+	white-space: nowrap;
+}
+
+#tbl_communities :is(th, td) {
+	padding: var(--cell-padding-v) var(--cell-padding-h);
+}
+
+#tbl_communities th.sortable {
+	position: relative;
+	padding-right: calc( 1.5em + var(--cell-padding-h) );
+}
+
+#tbl_communities th.sortable::after {
+	position: absolute;
+	right: 0.25em;
+	top: 50%;
+	transform: translateY(-50%);
+	/* content: "\25C7"; */ /* White diamond */
+	/* content: "\2195"; */ /* Up-down arrow */
+	/* content: "\25A1"; */ /* White square */
+	/* content: "\25B8"; */ /* Small right pointing triangle */
+	content: "\2B25"; /* Black medium diamond */
+	color: grey;
+}
+
+#tbl_communities[data-sort-asc=true] th[data-sort=true]::after {
+	content: "\25B2"; /* Black up pointing triangle */
+	color: initial;
+}
+
+#tbl_communities[data-sort-asc=false] th[data-sort=true]::after {
+	content: "\25BC"; /* Black up pointing triangle */
+	color: initial;
+}
 
 /* Hide the identifier column before removal. */
 #th_identifier { display: none; }
 .td_identifier { display: none; font-family: monospace; }
 
+.td_language {
+	text-align: center;
+	font-size: 1.25em;
+}
 .td_language:empty::after {
 	content: "\2753";
 }
@@ -70,7 +115,7 @@ header {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: space-around;
 }
 
 .copy_button     { font-size: inherit }
@@ -208,4 +253,5 @@ footer nav a {
 	from {bottom: 30px; opacity: 1;}
 	to {bottom: 0; opacity: 0;}
 }
+
 
