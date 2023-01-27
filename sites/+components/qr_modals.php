@@ -50,7 +50,7 @@
 		return base64_encode($png);
 	}
 	
-	// file_exists($QR_CODES) or mkdir($QR_CODES, 0700); // @Deprecated
+	file_exists($QR_CODES) or mkdir($QR_CODES, 0700); // @Deprecated
 ?>
 
 <div id="modal-container">
@@ -60,14 +60,13 @@
 			<span class="qr-code-modal-close" onclick='hideQRModal("<?=$id?>")'>
 				&times;
 			</span>
-			<!--
 			<img
 				src="data:image/png;base64,<?=base64_qr_code($id, $room->join_link)?>"
 				alt="Community join link encoded as QR code"
 				class="qr-code"
 				loading="lazy"
 			>
-			-->
+			<!--
 			<img
 				src="<?=room_qr_code_native($room->join_link)?>"
 				alt="Community join link encoded as QR code"
@@ -75,6 +74,7 @@
 				loading="lazy"
 				referrerpolicy="no-referrer"
 			>
+			-->
 		</div>
 	</div>
 <?php endforeach; ?>
