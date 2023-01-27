@@ -21,6 +21,7 @@
 			return base64_encode(file_get_contents($png_cached));
 		}
 //		fwrite(STDERR, "QR code NOT found for " . $room_id . PHP_EOL);
+		log_info("Fetching QR code for $room_id.");
 		$png = file_get_contents(room_invite_png($room_id, $room));
 		file_put_contents($png_cached, $png);
 		return base64_encode($png);

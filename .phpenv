@@ -7,6 +7,8 @@
 	$TEMPLATES_ROOT="$PROJECT_ROOT/sites";
 	$LANGUAGES_ROOT="$PROJECT_ROOT/languages";
 	
+	include_once "$PROJECT_ROOT/php/utils/logging.php";
+
 	// set timeout for file_get_contents()
 	ini_set('default_socket_timeout', 6); // in seconds, default is 60
 
@@ -16,6 +18,6 @@
 
 	// do not report warnings (timeouts, SSL/TLS errors)
 	error_reporting(E_ALL & ~E_WARNING);
-	
+
 	date_default_timezone_set('UTC');
 ?>

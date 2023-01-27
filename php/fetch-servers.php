@@ -80,7 +80,8 @@
 		// write output to disk
 		global $output;
 		file_put_contents($output, json_encode($info_arrays)); // overwrites existing file
-		echo("Done. " .  count($info_arrays) . " unique Session Communities on " . count_servers($info_arrays) . " servers have been found." . PHP_EOL);
+		log_info("Done. ");
+		log_info(Found . count($info_arrays) . " unique Session Communities on " . count_servers($info_arrays) . " servers." . PHP_EOL);
 	}
 
 	/*
@@ -96,13 +97,16 @@
 		$sd_pre = "https://session.directory/?all=groups" ; // this one has to be expanded first
 
 		// get awesome session group list html
+		log_info("Requesting Awesome Session Group list.");
 		$asgl_html = file_get_contents($asgl);
 
 		// get lokilocker.com html
+		log_info("Requesting Lokilocker Mods Open Group list.");
 		$ll_html   = file_get_contents($ll);
 
 		// get session.directory html
 		$sd_html = "";
+		log_info("Requesting session.directory list.");
 		$sd_pre_html = file_get_contents($sd_pre);
 		$sd_pattern    = "/view_session_group_user_lokinet\.php\?id=\d+/";
 		preg_match_all($sd_pattern, $sd_pre_html, $sd_links);
@@ -114,8 +118,10 @@
 			$sd_html = $sd_html . file_get_contents($link) . PHP_EOL;
 		}
 
+		log_info("Done fetching sources.");
+
 		// merge all html into a single string
-		return(
+		return (
 			$asgl_html . PHP_EOL .
 			$ll_html . PHP_EOL .
 			$sd_html . PHP_EOL
@@ -258,6 +264,7 @@
 		$endpoint = "/rooms";
 		$json_url = $server_url . $endpoint;
 //		$json = file_get_contents($json_url);
+		log_info("Polling $server_url for rooms.");
 		$json = curl_get_contents($json_url); // circumvents flaky routing
 //		echo("URL: " . $server_url . " - JSON URL: " . $json_url . PHP_EOL);
 //		echo("JSON: " . $json . PHP_EOL);
@@ -267,6 +274,7 @@
 			$json_rooms = array();
 			// if response was not empty
 			if($json_obj) {
+				log_info("Received response from $server_url.");
 				foreach($json_obj as $json_room) {
 					$token = $json_room->token; // room "name"
 					$users_per_second = $json_room->active_users / $json_room->active_users_cutoff;
@@ -307,6 +315,7 @@
 			if($legacy_rooms) {
 				$result = $legacy_rooms;
 			} else {
+				log_info("Failed to receive response from $server_url.");
 				$result = null;
 			}
 		}

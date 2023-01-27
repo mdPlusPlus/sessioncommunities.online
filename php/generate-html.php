@@ -19,8 +19,10 @@
 		// Do not render auxilliary PHP files.
 		if (str_contains("$phppath", "/+") || $phppath[0] == "+") 
 			continue;
-		
+
+
 		$docpath = str_replace($TEMPLATES_ROOT, $DOCUMENT_ROOT, $phppath);
+		$relpath = str_replace($TEMPLATES_ROOT, "", $phppath);
 		$docpath = str_replace(".php", ".html", $docpath);
 		
 		// This works? Yes, yes it does.
@@ -28,8 +30,11 @@
 		// otherwise we could include the documents in an ob_* wrapper.
 		
 		// Same as shell_exec, except we don't have to escape quotes.
+		log_info("Generating output for $relpath.");
 		$document = `cd "$TEMPLATES_ROOT"; php $phppath`;
 		
 		file_put_contents($docpath, $document);
 	}
+
+	log_info("Done generating HTML.");
 ?>
