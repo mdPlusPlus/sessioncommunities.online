@@ -87,11 +87,10 @@
 		// 3 + 2 * 150 = 5 * 120 = 600s = 10m
 
 		$contents = false;
-		$retcode = 404;
+		$retcode = -1;
 		$counter = 1;
 
-		while(!$contents && $counter <= $retries) {
-//			echo("Trial #" . $counter . " for " . $url .PHP_EOL);
+		while(!$contents && $counter <= $retries && $retcode != 404) {
 			$curl = curl_init($url);
 //			curl_setopt($curl, CURLOPT_VERBOSE, true);
 
@@ -107,6 +106,7 @@
 
 			curl_close($curl);
 
+//			echo("Trial #" . $counter . " for " . $url . " returned code " . $retcode . PHP_EOL);
 			$counter++;
 			sleep($sleep);
 		}
