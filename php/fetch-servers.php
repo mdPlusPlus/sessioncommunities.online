@@ -255,7 +255,7 @@
 	 */
 	function query_single_servers_for_rooms($server_url, &$failed_arr = null) {
 		$result = array();
-		$endpoint = "/rooms";
+		$endpoint = "/rooms?all=1";
 		$json_url = $server_url . $endpoint;
 //		$json = file_get_contents($json_url);
 		$json = curl_get_contents($json_url); // circumvents flaky routing
