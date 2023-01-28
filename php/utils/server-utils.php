@@ -38,9 +38,9 @@
 		curl_exec($ch);
 		$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		curl_close($ch);
-//		echo($url . " is " . $retcode . PHP_EOL);
 
 		if ($retcode != 0) {
+//			echo($url . " is " . $retcode . PHP_EOL);
 			return true;
 		}
 		else {
@@ -63,9 +63,9 @@
 		curl_exec($ch);
 		$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		curl_close($ch);
-//		echo($url . " is " . $retcode . PHP_EOL);
 
 		if ($retcode == 200) {
+//			echo($url . " is " . $retcode . PHP_EOL);
 			return true;
 		}
 		else {
@@ -83,6 +83,7 @@
 		$timeout = 3; // can't take longer than X seconds for the whole curl process
 		$sleep = 2; // sleep between tries in seconds
 		$retries = 120;
+//		$retries = 10; // debug
 		// takes at most ($timeout + $sleep) * retries seceonds
 		// 3 + 2 * 150 = 5 * 120 = 600s = 10m
 

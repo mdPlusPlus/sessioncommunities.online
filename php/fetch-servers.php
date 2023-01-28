@@ -26,7 +26,7 @@
 	 * Ideally this shouldn't be necessary, but it is for now
 	 */
 	$known_servers = array(
-		"http://13.233.251.36:8081",
+		// "http://13.233.251.36:8081", // found via shodan.io, but now offline
 		"https://open.getsession.org"
 	);
 
