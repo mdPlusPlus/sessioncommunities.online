@@ -4,6 +4,7 @@ Na mobilu:
 - Otevřete Session, klepněte na tlačítko plus a vyberte "Připojit se ke komunitě".
 - Klepněte na pole "Zadejte adresu komunity", vložte adresu zkopírovanou v prvním kroku a klepněte na "Připojit se".
 
+
 Na mobilu při prohlížení této stránky na stolním PC:
 
 - Na PC Klikněte na tlačítko QR kódu u vámi vybrané komunity.

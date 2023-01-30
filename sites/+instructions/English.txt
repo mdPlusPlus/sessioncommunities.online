@@ -1,6 +1,5 @@
 On mobile:
 
-
 - Click the Copy button to copy the Join URL.
 - Open Session, tap the plus button and choose "Join Community".
 - Tap the "Enter Community URL" field, paste your URL and tap "Join".
