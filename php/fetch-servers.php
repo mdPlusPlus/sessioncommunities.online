@@ -81,7 +81,7 @@
 		global $output;
 		file_put_contents($output, json_encode($info_arrays)); // overwrites existing file
 		log_info("Done. ");
-		log_info(Found . count($info_arrays) . " unique Session Communities on " . count_servers($info_arrays) . " servers." . PHP_EOL);
+		log_info("Found " . count($info_arrays) . " unique Session Communities on " . count_servers($info_arrays) . " servers." . PHP_EOL);
 	}
 
 	/*
