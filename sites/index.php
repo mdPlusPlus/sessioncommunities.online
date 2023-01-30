@@ -48,7 +48,7 @@
 			</p>
 			<p id="disclaimer">
 					This site is not affiliated with
-					<a href="https://optf.ngo">Oxen Tech Privacy Foundation</a>.
+					<a href="https://optf.ngo">Oxen Privacy Tech Foundation</a>.
 					<br>
 					Communities shown are fetched automatically from
 					various sources.
