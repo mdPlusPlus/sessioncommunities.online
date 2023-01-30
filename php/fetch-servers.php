@@ -26,12 +26,14 @@
 	 * Ideally this shouldn't be necessary, but it is for now
 	 */
 	$known_servers = array(
+//		"http://116.203.51.179",
 		// "http://13.233.251.36:8081", // found via shodan.io, but now offline
 		"https://open.getsession.org"
 	);
 
 	$known_pubkeys = array(
 		// "server_without_proto" => "64 char hex public key"
+		"116.203.51.179"      => "39016f991400c35a46e11e06cb2a64d6d8ab6652e484a556b14f7cf57ed7e73a",
 		"13.233.251.36:8081"  => "efcaecf00aebf5b75e62cf1fd550c6052842e1415a9339406e256c8b27cd2039",
 		"open.getsession.org" => "a03c383cf63c3c4efe67acc52112a6dd734b3a946b9545f488aaa93da7991238"
 	);
