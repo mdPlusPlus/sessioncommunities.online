@@ -40,11 +40,11 @@
 		curl_close($ch);
 
 		if ($retcode != 0) {
-//			echo($url . " is " . $retcode . PHP_EOL);
+//			log_debug($url . " is " . $retcode . ".");
 			return true;
 		}
 		else {
-//			echo($url . " is " . $retcode . PHP_EOL);
+//			log_debug($url . " is " . $retcode . ".");
 			return false;
 		}
 	}
@@ -65,11 +65,11 @@
 		curl_close($ch);
 
 		if ($retcode == 200) {
-//			echo($url . " is " . $retcode . PHP_EOL);
+//			log_debug($url . " is " . $retcode . ".");
 			return true;
 		}
 		else {
-//			echo($url . " is " . $retcode . PHP_EOL);
+//			log_debug($url . " is " . $retcode . ".");
 			return false;
 		}
 	}
@@ -107,7 +107,7 @@
 
 			curl_close($curl);
 
-//			echo("Trial #" . $counter . " for " . $url . " returned code " . $retcode . PHP_EOL);
+//			log_debug("Trial #" . $counter . " for " . $url . " returned code " . $retcode . ".");
 			$counter++;
 			sleep($sleep);
 		}

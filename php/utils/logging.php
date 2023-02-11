@@ -24,4 +24,8 @@
 	function log_info($msg) {
 		fwrite(STDERR, "[" . runtime_str() . "] [i] $msg" . PHP_EOL);
 	}
+
+	function log_debug($msg) {
+		fwrite(STDERR, "[" . runtime_str() . "] [d] $msg" . PHP_EOL);
+	}
 ?>

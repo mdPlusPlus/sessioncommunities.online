@@ -101,15 +101,19 @@
 		// get awesome session group list html
 		log_info("Requesting Awesome Session Group list.");
 		$asgl_html = file_get_contents($asgl);
+//		log_debug($http_response_header[0]); // Supposed to be "HTTP/1.1 200 OK"
 
 		// get lokilocker.com html
 		log_info("Requesting Lokilocker Mods Open Group list.");
 		$ll_html   = file_get_contents($ll);
+//		log_debug($http_response_header[0]); // Supposed to be "HTTP/1.1 200 OK"
 
 		// get session.directory html
 		$sd_html = "";
 		log_info("Requesting session.directory list.");
 		$sd_pre_html = file_get_contents($sd_pre);
+//		log_debug($http_response_header[0]); // Supposed to be "HTTP/1.1 200 OK"
+
 		$sd_pattern    = "/view_session_group_user_lokinet\.php\?id=\d+/";
 		preg_match_all($sd_pattern, $sd_pre_html, $sd_links);
 		$sd_links = $sd_links[0];
@@ -117,7 +121,9 @@
 			// add prefix "https://session.directory to the sd_links
 			$link = str_replace('view_session_group_user_lokinet.php?id=', 'https://session.directory/view_session_group_user_lokinet.php?id=', $link);
 			// add html to sd_html
+//			log_debug("Requesting " . $link);
 			$sd_html = $sd_html . file_get_contents($link) . PHP_EOL;
+//			log_debug($http_response_header[0]); // Supposed to be "HTTP/1.1 200 OK"
 		}
 
 		log_info("Done fetching sources.");
@@ -180,6 +186,7 @@
 	 * Result is unique and sorted
 	 */
 	function reduce_servers($servers_arr) {
+		log_info("Checking found servers for availability.");
 		$reduced_servers = array();
 		$offline_servers = array(); // debug
 		foreach($servers_arr as $server) {
@@ -237,6 +244,7 @@
 	 * $room_array arrays contain token, name, users and description
 	 */
 	function query_servers_for_rooms($url_arr) {
+		log_info("Querying available servers for rooms.");
 		$rooms = array();
 		$failed_arr = array(); // debug
 
@@ -265,9 +273,8 @@
 		$result = array();
 		$endpoint = "/rooms?all=1";
 		$json_url = $server_url . $endpoint;
-//		$json = file_get_contents($json_url);
 		log_info("Polling $server_url for rooms.");
-		$json = curl_get_contents($json_url); // circumvents flaky routing
+		$json = curl_get_contents($json_url); // circumvents flaky routing, don't use file_get_contents
 //		echo("URL: " . $server_url . " - JSON URL: " . $json_url . PHP_EOL);
 //		echo("JSON: " . $json . PHP_EOL);
 		$failed = false;
