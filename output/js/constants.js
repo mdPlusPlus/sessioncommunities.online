@@ -1,5 +1,5 @@
 // This file contains definitions which help to reduce the amount
-// of redunant values in the main file, especially those that could
+// of redundant values in the main file, especially those that could
 // change in the foreseeable future.
 
 export const dom = {

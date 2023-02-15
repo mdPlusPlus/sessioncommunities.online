@@ -371,7 +371,7 @@
 					$room_array = array(
 						"token"        => $token,
 						"name"         => $names[$i], // take same index in $names array
-						"active_users" => -1, // without API we can't query the acutal number
+						"active_users" => -1, // without API we can't query the actual number
 						"description"  => null // same goes for the description
 					);
 

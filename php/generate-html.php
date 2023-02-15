@@ -16,7 +16,7 @@
 	}
 
 	foreach (rglob("$TEMPLATES_ROOT/*.php") as $phppath) {
-		// Do not render auxilliary PHP files.
+		// Do not render auxiliary PHP files.
 		if (str_contains("$phppath", "/+") || $phppath[0] == "+") 
 			continue;
 
