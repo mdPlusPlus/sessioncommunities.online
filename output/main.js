@@ -25,6 +25,7 @@ const filteredCommunities = {
 	tests: [
 		"2e9345+c7fb",  // TestRoom
 		"762ba9+c7fb",  // TesterRoom
+		"appletonv2+4264", // -
 		"b4d829+c7fb",  // Test
 		"e5853a+c7fb",  // testtest
 		"fishing+8e2e", // Example group from PySOGS documentation
@@ -32,13 +33,16 @@ const filteredCommunities = {
 		"test+13f6",    // Testing room
 		"test+c01b",    // Testing room
 		"test+fe93",    // 测试（Test)
+		"xyz+7908",     // XYZ Room
 		"xyz+efca",     // XYZ Room
 	],
 
 	offensive: [
-		"60fa60+c7fb",  // "N-word" Community
-		"ab1a4d+c7fb",  // zUnsensored Group (CSAM)
-		"gore+e5e0"     // gore
+		"60fa60+c7fb",    // "N-word" Community
+		"ab1a4d+c7fb",    // zUnsensored Group (CSAM)
+		"AlexMed+e093",   //
+		"gore+e5e0",      // gore
+		"RU-STEROID+e093" //
 	],
 
 	// These communities should be checked regularly

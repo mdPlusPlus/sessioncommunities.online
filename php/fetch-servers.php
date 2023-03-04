@@ -26,16 +26,36 @@
 	 * Ideally this shouldn't be necessary, but it is for now
 	 */
 	$known_servers = array(
-//		"http://116.203.51.179",
+		"http://116.203.51.179", // (?) KeeJef
 		// "http://13.233.251.36:8081", // found via shodan.io, but now offline
-		"https://open.getsession.org"
+		"http://164.92.176.135", // found via shodan.io
+		"http://176.119.147.102", // found via shodan.io
+		"http://192.227.193.159", // found via shodan.io
+		"http://60a9fc9.online-server.cloud", // found via shodan.io
+		"http://93.95.230.10", // found via shodan.io
+		"http://94.176.239.60", // found via shodan.io
+		"http://bitcoincash.tokyo", // found via shodan.io
+		"http://captain.geekgalaxy.com", // found via shodan.io
+		"http://session.hwreload.it", // found via shodan.io
+		"http://sogs.k9net.org", // found via shodan.io
+		"https://open.getsession.org", // found via shodan.io
 	);
 
 	$known_pubkeys = array(
 		// "server_without_proto" => "64 char hex public key"
-		"116.203.51.179"      => "39016f991400c35a46e11e06cb2a64d6d8ab6652e484a556b14f7cf57ed7e73a",
-		"13.233.251.36:8081"  => "efcaecf00aebf5b75e62cf1fd550c6052842e1415a9339406e256c8b27cd2039",
-		"open.getsession.org" => "a03c383cf63c3c4efe67acc52112a6dd734b3a946b9545f488aaa93da7991238"
+		"116.203.51.179"              => "39016f991400c35a46e11e06cb2a64d6d8ab6652e484a556b14f7cf57ed7e73a",
+		"13.233.251.36:8081"          => "efcaecf00aebf5b75e62cf1fd550c6052842e1415a9339406e256c8b27cd2039",
+		"164.92.176.135"              => "e529311ec8fb6fdb950aaa4fb71fc4da3ea59c6c9ba2886708b9538eea6aa213",
+		"176.119.147.102"             => "e093994156ec92e4c13d0387208bfa48ae56dd88b8f60a03980d9ef048af1e3f",
+		"192.227.193.159"             => "426453e0e991235b62bc5f35f36d5a204e64b2d8b44e971609add6a10aac6674",
+		"60a9fc9.online-server.cloud" => "7908bcd748313355f99e62f9c1f11c395d04019410edb7ee1618dbe26a423c4f",
+		"93.95.230.10"                => "b501f2dc7dc912aa0981b0ba10f2ba739d2f729a7d9b37022aee505aaf72807c",
+		"94.176.239.60"               => "2cbde327e9da216af9a69876bc57e16cc0c540b0aa2dfecdd1c115e67993b040",
+		"bitcoincash.tokyo"           => "c9a30da579d8fdaeded009d1afa3de573dd783e3081b7504c4cbfa470e5db378",
+		"captain.geekgalaxy.com"      => "7242ad657dc2dd20e902a6fa82c34465907b67e80daf50173f38d5745abbaa24",
+		"open.getsession.org"         => "a03c383cf63c3c4efe67acc52112a6dd734b3a946b9545f488aaa93da7991238",
+		"session.hwreload.it"         => "4b3e75eedd2116b4dab0bcb6443b0e9fbfce7bcf1d35970bdad8a57a0113fb20",
+		"sogs.k9net.org"              => "fdcb047eb78520e925fda512a45ae74c6e2de9e0df206b3c0471bf1509919559"
 	);
 
 	// path for HTML output
