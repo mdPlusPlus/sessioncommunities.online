@@ -14,7 +14,7 @@ export const dom = {
 export const COLUMN = {
 	IDENTIFIER:   0,  LANGUAGE:     1,  NAME:         2,
 	DESCRIPTION:  3,  USERS:        4,  PREVIEW:      5,
-	QR_CODE:      6,  JOIN_URL:     7
+	QR_CODE:      6,  SERVER_ICON:  7,  JOIN_URL:     8
 };
 
 // Reverse enum.
@@ -43,18 +43,24 @@ export function columnAscendingByDefault(column) {
 
 export function columnIsSortable(column) { return column != COLUMN.QR_CODE; }
 
-export function columnNeedsCasefold(column) {
-	return [
-		COLUMN.IDENTIFIER,
-		COLUMN.NAME,
-		COLUMN.DESCRIPTION
-	].includes(column);
+/**
+ * @type {Record<string, (el: HTMLTableCellElement) => any>}
+ */
+const TRANSFORMATION = {
+	numeric: (el) => parseInt(el.innerText),
+	casefold: (el) => el.innerText.toLowerCase().trim(),
+	tokenData: (el) => el.getAttribute("data-token")
 }
 
-export function columnIsNumeric(column) {
-	return [
-		COLUMN.USERS
-	].includes(column);
+/**
+ * @type {Dictionary<number, (el: HTMLTableCellElement) => any>}
+ */
+export const COLUMN_TRANSFORMATION = {
+	[COLUMN.USERS]: TRANSFORMATION.numeric,
+	[COLUMN.IDENTIFIER]: TRANSFORMATION.casefold,
+	[COLUMN.NAME]: TRANSFORMATION.casefold,
+	[COLUMN.DESCRIPTION]: TRANSFORMATION.casefold,
+	[COLUMN.SERVER_ICON]: TRANSFORMATION.tokenData
 }
 
 /**

@@ -16,8 +16,7 @@
 // Import magic numbers and data
 import {
 	dom, COLUMN, COLUMN_LITERAL, COMPARISON, ATTRIBUTES,
-	columnAscendingByDefault, columnIsSortable, columnNeedsCasefold,
-	columnIsNumeric, element
+	columnAscendingByDefault, columnIsSortable, COLUMN_TRANSFORMATION, element
 } from './js/constants.js';
 
 // Hidden communities for transparency.
@@ -193,21 +192,12 @@ function makeRowComparer(column, ascending) {
 	}
 
 	// Callback to obtain sortable content from cell text.
-	let contentToSortable = (text) => text.trim();
-
-	if (columnNeedsCasefold(column)) {
-		// Make certain columns sort regardless of casing.
-		contentToSortable = (text) => text.toLowerCase().trim();
-	}
-	else if (columnIsNumeric(column)) {
-		// Make certain columns sort on parsed numeric value instead of text.
-		contentToSortable = (text) => parseInt(text);
-	}
+	const columnToSortable = COLUMN_TRANSFORMATION[column] ?? ((el) => el.innerText.trim());
 
 	// Construct comparer using derived property to determine sort order.
 	const rowComparer = compareProp(
 		ascending ? compareAscending : compareDescending,
-		row => contentToSortable(row.children[column].innerText)
+		row => columnToSortable(row.children[column])
 	);
 
 	return rowComparer;
