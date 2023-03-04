@@ -25,7 +25,6 @@ const filteredCommunities = {
 	tests: [
 		"2e9345+c7fb",  // TestRoom
 		"762ba9+c7fb",  // TesterRoom
-		"appletonv2+4264", // -
 		"b4d829+c7fb",  // Test
 		"e5853a+c7fb",  // testtest
 		"fishing+8e2e", // Example group from PySOGS documentation

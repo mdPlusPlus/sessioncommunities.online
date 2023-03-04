@@ -30,11 +30,11 @@
 		// "http://13.233.251.36:8081", // found via shodan.io, but now offline
 		"http://164.92.176.135", // found via shodan.io
 		"http://176.119.147.102", // found via shodan.io
-		"http://192.227.193.159", // found via shodan.io
+		// "http://192.227.193.159", // found via shodan.io, removed out of decency
 		"http://60a9fc9.online-server.cloud", // found via shodan.io
 		"http://93.95.230.10", // found via shodan.io
 		"http://94.176.239.60", // found via shodan.io
-		"http://bitcoincash.tokyo", // found via shodan.io
+		// "http://bitcoincash.tokyo", // found via shodan.io, removed by request
 		"http://captain.geekgalaxy.com", // found via shodan.io
 		"http://session.hwreload.it", // found via shodan.io
 		"http://sogs.k9net.org", // found via shodan.io
