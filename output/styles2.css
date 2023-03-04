@@ -2,8 +2,17 @@ html {
 	font-size: clamp(10px, 2vw, 18px);
 }
 
-html.js .noscript {
+html.js .noscript, .hidden {
 	display: none;
+}
+
+.clickable {
+	cursor: pointer;
+}
+
+.anchorstyle {
+	color: rgb(0, 102, 204);
+	text-decoration: underline;
 }
 
 /* Dead style */
@@ -25,9 +34,14 @@ header {
 
 #tbl_communities { width:100%; }
 
-/* Hide the identifier column before removal. */
-#th_identifier { display: none; }
-.td_identifier { display: none; font-family: monospace; }
+#toggle-show-room-ids:not(:checked) 
+~ #tbl_communities :is(#th_identifier, .td_identifier) { 
+	display: none;
+}
+
+.td_identifier {
+	font-family: monospace;
+}
 
 .td_language:empty::after {
 	content: "\2753";
@@ -93,6 +107,15 @@ footer nav a {
 	display: inline-block;
 	margin: .25em;
 	white-space: nowrap;
+}
+
+label[for=toggle-show-room-ids]::after {
+	content: " (Off)"
+}
+
+#toggle-show-room-ids:checked
+~ footer label[for=toggle-show-room-ids]::after {
+	content: " (On)"
 }
 
 /* <Colors> */
