@@ -26,7 +26,7 @@
 	 * Ideally this shouldn't be necessary, but it is for now
 	 */
 	$known_servers = array(
-		"http://116.203.51.179", // (?) KeeJef
+		// "http://116.203.51.179", // removed by request
 		// "http://13.233.251.36:8081", // found via shodan.io, but now offline
 		"http://164.92.176.135", // found via shodan.io
 		"http://176.119.147.102", // found via shodan.io
