@@ -21,7 +21,7 @@
 	function truncate($url, $len) {
 		return (strlen($url) > $len + 3)
 			? substr($url, 0, $len).'...'
-			: $string;
+			: $url;
 	}
 	
 	/*
