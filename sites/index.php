@@ -31,6 +31,8 @@
 			<h1 id="headline">Session Communities</h1>
 		<?php include "+components/qr_modals.php" ?>
 
+		<input type="checkbox" id="toggle-show-room-ids" class="hidden">
+
 		<?php include "+components/tbl_communities.php" ?>
 
 		<hr>
@@ -62,6 +64,11 @@
 				However, some interactive features are
 				only available with JS enabled.
 			</p>
+			<p>
+				<label for="toggle-show-room-ids" class="clickable anchorstyle">
+					Toggle room identifier display
+				</label>
+			</p>
 			<nav>
 				<a
 					href="https://lokilocker.com/Mods/Session-Groups/wiki/Session-Closed-Groups"
@@ -89,7 +96,6 @@
 				>Source Code & Contact</a>
 			</nav>
 		</footer>
-
 		<div id="copy-snackbar">
 			Copied URL to clipboard. Paste into Session app to join
 		</div>
