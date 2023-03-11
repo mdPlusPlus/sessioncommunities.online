@@ -104,6 +104,27 @@ header {
 
 .td_users        { text-align: right; }
 .td_preview      { text-align: center; }
+.td_server_icon { text-align: center; }
+
+.td_server_icon-circle {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 2em;
+	height: 2em;
+	border-radius: 2em;
+	font-family: sans-serif;
+	margin: 0 auto;
+	color: white;
+	text-shadow: 0 0 0.5em #000;
+	box-shadow: 0 0 0.05em #777;
+}
+
+.td_server_icon-circle span {
+	position: relative;
+	top: 0.05em;
+}
+
 .td_join_url     {
 	font-family: monospace;
 	white-space: nowrap;

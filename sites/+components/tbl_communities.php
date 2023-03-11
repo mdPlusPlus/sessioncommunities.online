@@ -22,6 +22,7 @@
 		['id' => "users", 'name' => "Users"],
 		['id' => "preview", 'name' => "Preview"],
 		['id' => "qr", 'name' => "QR"],
+		['id' => "server_icon", 'name' => "Server"],
 		['id' => "join_url", 'name' => "Join URL"],
 	];
 ?>
@@ -36,6 +37,22 @@
 <?php endforeach; ?>
 	</tr>
 <?php foreach ($rooms as $id => $room): ?>
+	<?php
+		// Get the server public key.
+
+		// FIXME:
+		// ! This is bad practice.
+		// However, the fetching code hides component data
+		// and this is a low risk use case.
+
+		$token = explode("=", $room->join_link)[1];
+		$icon_hue = hexdec($token[2] . $token[2]);
+		$icon_color = "hsl($icon_hue, 80%, 50%)";
+
+		$hostname = explode("//", $room->join_link)[1];
+		$hostname = explode("/", $hostname)[0];
+	?>
+
 	<tr id="<?=$id?>">
 		<td class="td_identifier"><?=$id?></td>
 		<td class="td_language"><?=$room->language?></td>
@@ -60,6 +77,14 @@
 				onclick='displayQRModal("<?=$id?>")'
 				alt="Pictogram of a QR code"
 			>
+		</td>
+		<td class="td_server_icon" 
+			data-token="<?=$token?>"
+			title="<?=$hostname?> (<?=$token?>)"
+		>
+			<div class="td_server_icon-circle" style="background-color: <?=$icon_color?>">
+				<span><?=strtoupper($token[0] . $token[1])?></span>
+			</div>
 		</td>
 		<td class="td_join_url">
 			<div class="join_url_container" data-url="<?=$room->join_link?>">
