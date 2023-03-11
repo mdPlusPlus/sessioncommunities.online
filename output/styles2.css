@@ -32,7 +32,48 @@ header {
 	flex-grow: 1;
 }
 
-#tbl_communities { width:100%; }
+#tbl_communities {
+	/* Browser defaults. */
+	--cell-padding-h: 1px;
+	--cell-padding-v: 1px;
+	width:100%;
+}
+
+#tbl_communities th {
+	white-space: nowrap;
+}
+
+#tbl_communities :is(th, td) {
+	padding: var(--cell-padding-v) var(--cell-padding-h);
+}
+
+#tbl_communities th.sortable {
+	position: relative;
+	padding-right: calc( 1.5em + var(--cell-padding-h) );
+}
+
+#tbl_communities th.sortable::after {
+	position: absolute;
+	right: 0.25em;
+	top: 50%;
+	transform: translateY(-50%);
+	/* content: "\25C7"; */ /* White diamond */
+	/* content: "\2195"; */ /* Up-down arrow */
+	/* content: "\25A1"; */ /* White square */
+	/* content: "\25B8"; */ /* Small right pointing triangle */
+	content: "\2B25"; /* Black medium diamond */
+	color: grey;
+}
+
+#tbl_communities[data-sort-asc=true] th[data-sort=true]::after {
+	content: "\25B2"; /* Black up pointing triangle */
+	color: initial;
+}
+
+#tbl_communities[data-sort-asc=false] th[data-sort=true]::after {
+	content: "\25BC"; /* Black up pointing triangle */
+	color: initial;
+}
 
 #toggle-show-room-ids:not(:checked) 
 ~ #tbl_communities :is(#th_identifier, .td_identifier) { 
@@ -43,6 +84,10 @@ header {
 	font-family: monospace;
 }
 
+.td_language {
+	text-align: center;
+	font-size: 1.25em;
+}
 .td_language:empty::after {
 	content: "\2753";
 }
@@ -59,6 +104,27 @@ header {
 
 .td_users        { text-align: right; }
 .td_preview      { text-align: center; }
+.td_server_icon { text-align: center; }
+
+.td_server_icon-circle {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 2em;
+	height: 2em;
+	border-radius: 2em;
+	font-family: sans-serif;
+	margin: 0 auto;
+	color: white;
+	text-shadow: 0 0 0.5em #000;
+	box-shadow: 0 0 0.05em #777;
+}
+
+.td_server_icon-circle span {
+	position: relative;
+	top: 0.05em;
+}
+
 .td_join_url     {
 	font-family: monospace;
 	white-space: nowrap;
@@ -84,7 +150,7 @@ header {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: space-around;
 }
 
 .copy_button     { font-size: inherit }
@@ -231,4 +297,5 @@ label[for=toggle-show-room-ids]::after {
 	from {bottom: 30px; opacity: 1;}
 	to {bottom: 0; opacity: 0;}
 }
+
 

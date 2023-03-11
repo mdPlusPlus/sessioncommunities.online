@@ -14,7 +14,7 @@ export const dom = {
 export const COLUMN = {
 	IDENTIFIER:   0,  LANGUAGE:     1,  NAME:         2,
 	DESCRIPTION:  3,  USERS:        4,  PREVIEW:      5,
-	QR_CODE:      6,  JOIN_URL:     7
+	QR_CODE:      6,  SERVER_ICON:  7,  JOIN_URL:     8
 };
 
 // Reverse enum.
@@ -33,7 +33,7 @@ export const ATTRIBUTES = {
 		ACTIVE: 'data-sort',
 		ASCENDING: 'data-sort-asc',
 		COLUMN: 'data-sorted-by',
-		COLUMN_LITERAL: 'sorted-by'
+		// COLUMN_LITERAL: 'sorted-by'
 	}
 };
 
@@ -41,20 +41,33 @@ export function columnAscendingByDefault(column) {
 	return column != COLUMN.USERS;
 }
 
-export function columnIsSortable(column) { return column != COLUMN.QR_CODE; }
-
-export function columnNeedsCasefold(column) {
-	return [
-		COLUMN.IDENTIFIER,
-		COLUMN.NAME,
-		COLUMN.DESCRIPTION
+export function columnIsSortable(column) {
+	return ![
+		COLUMN.QR_CODE,
+		COLUMN.PREVIEW,
+		// Join URL contents are not guaranteed to have visible text.
+		COLUMN.JOIN_URL
 	].includes(column);
 }
 
-export function columnIsNumeric(column) {
-	return [
-		COLUMN.USERS
-	].includes(column);
+/**
+ * @type {Record<string, (el: HTMLTableCellElement) => any>}
+ */
+const TRANSFORMATION = {
+	numeric: (el) => parseInt(el.innerText),
+	casefold: (el) => el.innerText.toLowerCase().trim(),
+	tokenData: (el) => el.getAttribute("data-token")
+}
+
+/**
+ * @type {Dictionary<number, (el: HTMLTableCellElement) => any>}
+ */
+export const COLUMN_TRANSFORMATION = {
+	[COLUMN.USERS]: TRANSFORMATION.numeric,
+	[COLUMN.IDENTIFIER]: TRANSFORMATION.casefold,
+	[COLUMN.NAME]: TRANSFORMATION.casefold,
+	[COLUMN.DESCRIPTION]: TRANSFORMATION.casefold,
+	[COLUMN.SERVER_ICON]: TRANSFORMATION.tokenData
 }
 
 /**
@@ -64,22 +77,22 @@ export function columnIsNumeric(column) {
  * @returns {HTMLElement}
  */
 function createElement(tag, ...args) {
-  const element = document.createElement(tag);
-  if (args.length === 0) return element;
-  const propsCandidate = args[0];
-  if (typeof propsCandidate !== "string" && !(propsCandidate instanceof Element)) {
-    // args[0] is not child element or text node
-    // must be props object
-    Object.assign(element, propsCandidate);
-    args.shift();
-  }
-  element.append(...args);
-  return element;
+	const element = document.createElement(tag);
+	if (args.length === 0) return element;
+	const propsCandidate = args[0];
+	if (typeof propsCandidate !== "string" && !(propsCandidate instanceof Element)) {
+		// args[0] is not child element or text node
+		// must be props object
+		Object.assign(element, propsCandidate);
+		args.shift();
+	}
+	element.append(...args);
+	return element;
 }
 
 export const element = new Proxy({}, {
-  get(_, key) {
-    return (...args) => createElement(key, ...args)
-  }
+	get(_, key) {
+		return (...args) => createElement(key, ...args)
+	}
 });
 
