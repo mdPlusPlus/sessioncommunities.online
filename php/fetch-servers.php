@@ -31,6 +31,7 @@
 		"http://164.92.176.135", // found via shodan.io
 		"http://176.119.147.102", // found via shodan.io
 		// "http://192.227.193.159", // found via shodan.io, removed out of decency
+		"http://5.39.117.98", // found via reddit
 		"http://60a9fc9.online-server.cloud", // found via shodan.io
 		"http://93.95.230.10", // found via shodan.io
 		"http://94.176.239.60", // found via shodan.io
@@ -48,6 +49,7 @@
 		"164.92.176.135"              => "e529311ec8fb6fdb950aaa4fb71fc4da3ea59c6c9ba2886708b9538eea6aa213",
 		"176.119.147.102"             => "e093994156ec92e4c13d0387208bfa48ae56dd88b8f60a03980d9ef048af1e3f",
 		"192.227.193.159"             => "426453e0e991235b62bc5f35f36d5a204e64b2d8b44e971609add6a10aac6674",
+		"5.39.117.98"                 => "4bec6d6c7b502a819b47b3af75272c0774ab1214fba33fb5ec29949f864eb028",
 		"60a9fc9.online-server.cloud" => "7908bcd748313355f99e62f9c1f11c395d04019410edb7ee1618dbe26a423c4f",
 		"93.95.230.10"                => "b501f2dc7dc912aa0981b0ba10f2ba739d2f729a7d9b37022aee505aaf72807c",
 		"94.176.239.60"               => "2cbde327e9da216af9a69876bc57e16cc0c540b0aa2dfecdd1c115e67993b040",
