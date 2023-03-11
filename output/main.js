@@ -248,17 +248,22 @@ function setSortState(table, { ascending, column }) {
 	}
 	table.setAttribute(ATTRIBUTES.SORTING.ASCENDING, ascending);
 	table.setAttribute(ATTRIBUTES.SORTING.COLUMN, column);
-	// This can be used to style column headers in a consistent way, i.e.
-	// #tbl_communities[data-sort-asc=true][sorted-by=name]::after #th_name, ...
-	table.setAttribute(ATTRIBUTES.SORTING.COLUMN_LITERAL, COLUMN_LITERAL[column]);
+	
+	// No way around this for brief CSS.
+	const headers = table.querySelectorAll("th");
+	headers.forEach((th, colno) => {
+		th.removeAttribute(ATTRIBUTES.SORTING.ACTIVE);
+	});
+	headers[column].setAttribute(ATTRIBUTES.SORTING.ACTIVE, true);
 }
 
 // This is best done in JS, as it would require <noscript> styles otherwise.
 function markSortableColumns() {
 	const table = dom.tbl_communities();
-	for (const th of table.querySelectorAll('th')) {
-		if (th.id.includes("qr_code")) continue;
-		th.classList.add('sortable');
+	const header_cells = table.querySelectorAll('th');
+	for (let colno = 0; colno < header_cells.length; colno++) {
+	  if (!columnIsSortable(colno)) continue;
+		header_cells[colno].classList.add('sortable');
 	}
 }
 

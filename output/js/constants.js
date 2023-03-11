@@ -33,7 +33,7 @@ export const ATTRIBUTES = {
 		ACTIVE: 'data-sort',
 		ASCENDING: 'data-sort-asc',
 		COLUMN: 'data-sorted-by',
-		COLUMN_LITERAL: 'sorted-by'
+		// COLUMN_LITERAL: 'sorted-by'
 	}
 };
 
@@ -41,7 +41,14 @@ export function columnAscendingByDefault(column) {
 	return column != COLUMN.USERS;
 }
 
-export function columnIsSortable(column) { return column != COLUMN.QR_CODE; }
+export function columnIsSortable(column) {
+	return ![
+		COLUMN.QR_CODE,
+		COLUMN.PREVIEW,
+		// Join URL contents are not guaranteed to have visible text.
+		COLUMN.JOIN_URL
+	].includes(column);
+}
 
 export function columnNeedsCasefold(column) {
 	return [
@@ -64,22 +71,22 @@ export function columnIsNumeric(column) {
  * @returns {HTMLElement}
  */
 function createElement(tag, ...args) {
-  const element = document.createElement(tag);
-  if (args.length === 0) return element;
-  const propsCandidate = args[0];
-  if (typeof propsCandidate !== "string" && !(propsCandidate instanceof Element)) {
-    // args[0] is not child element or text node
-    // must be props object
-    Object.assign(element, propsCandidate);
-    args.shift();
-  }
-  element.append(...args);
-  return element;
+	const element = document.createElement(tag);
+	if (args.length === 0) return element;
+	const propsCandidate = args[0];
+	if (typeof propsCandidate !== "string" && !(propsCandidate instanceof Element)) {
+		// args[0] is not child element or text node
+		// must be props object
+		Object.assign(element, propsCandidate);
+		args.shift();
+	}
+	element.append(...args);
+	return element;
 }
 
 export const element = new Proxy({}, {
-  get(_, key) {
-    return (...args) => createElement(key, ...args)
-  }
+	get(_, key) {
+		return (...args) => createElement(key, ...args)
+	}
 });
 

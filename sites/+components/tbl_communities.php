@@ -3,14 +3,15 @@
 
 	// Once handlers are attached in JS, this check ceases to be useful.
 	function column_sortable($id) {
-		return $id != "qr";
+		// Join URL contents are not guaranteed to have visible text.
+		return $id != "qr" && $id != "preview" && $id != "join_url";
 	}
 	
 	function sort_onclick($colno) {
 		global $TABLE_COLUMNS;
 		$column = $TABLE_COLUMNS[$colno];
 		if (!column_sortable($column['id'])) return "";
-		return " onclick='sortTable($colno)'";
+		return " onclick='sortTable($colno)' title='Click to sort this column'";
 	}
 	
 	$TABLE_COLUMNS = [
